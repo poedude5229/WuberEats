@@ -11,11 +11,17 @@
 nav {
   display: flex;
   margin-bottom: 90px;
-  margin-top: 30px;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#menucontainer {
+  display: flex;
   align-items: center;
 }
 
-#homelogonavlink {
+/* #homelogonavlink {
   width: 250px;
   height: 100px;
   display: flex;
@@ -26,12 +32,29 @@ nav {
   position: absolute;
   left: 60px;
   margin-top: 25px;
-}
+} */
 
+#WuberEatsLogoLink {
+  position: relative;
+  width: 250px;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  align-items: center;
+  font-family: Itim;
+  font-size: 24px;
+  text-decoration: none;
+  color: black;
+  left: 30px;
+}
+/*
 #sitelogo {
   width: 100px;
   height: 100px;
 }
+
 
 #WuberEatsLogoLink {
   display: flex;
@@ -79,13 +102,13 @@ nav {
   border-radius: 500px;
   cursor: pointer;
 }
-
+*/
 #ham-menu {
   height: 50px;
   width: 50px;
   left: 20px;
-  top: 25px;
-  position: absolute;
+  margin-top: 15px;
+  position: relative;
   cursor: pointer;
 }
 
@@ -103,4 +126,27 @@ nav {
 
 #ham-menu span:nth-child(3) {
   top: 50%;
+}
+
+#searchbox {
+  /* border: 1px solid rgb(100, 100, 100); */
+  border-radius: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 2px;
+  background-color: rgb(217, 217, 217);
+  width: 400px;
+  height: 36px;
+  margin-right: 84px;
+}
+
+#searchinput {
+  background-color: rgba(0, 0, 0, 0);
+  font-size: 16px;
+  font-family: Inter;
+  margin-left: 10px;
+  border: none;
+  width: 300px;
 }
