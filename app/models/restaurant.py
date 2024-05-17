@@ -16,3 +16,4 @@ class Restaurant(db.Model):
     description = db.Column(db.String(255), nullable=False)
     hours_of_operation = db.Column(db.String(255), nullable=False)
     delivery_radius = db.Column(db.Integer)
+    cover_image = db.Column(db.String, nullable=False)
