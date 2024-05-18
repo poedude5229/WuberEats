@@ -18,6 +18,10 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    cart = db.Relationship('Cart', back_populates='user_id')
+    review = db.Relationship('Review', back_populates='user_id')
+    restaurant = db.Relationship('Restaurant', back_populates='owner_id')
+
     @property
     def password(self):
         return self.hashed_password

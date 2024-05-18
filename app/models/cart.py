@@ -12,3 +12,6 @@ class Cart(db.Model):
     total_price = db.Column(db.Integer)
     quantity = db.Column(db.Integer)
     status = db.Column(db.String)
+
+    user = db.Relationship('User', back_populates='id')
+    menu = db.Relationship('Menu', back_populates='id')

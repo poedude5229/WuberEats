@@ -17,3 +17,7 @@ class Restaurant(db.Model):
     hours_of_operation = db.Column(db.String(255), nullable=False)
     delivery_radius = db.Column(db.Integer)
     cover_image = db.Column(db.String, nullable=False)
+
+    review = db.Relationship('Review', back_populates='restaurant_id')
+    menu = db.Relationship('Menu', back_populates='restaurant_id')
+    user = db.Relationship('User', back_populates='owner_id')

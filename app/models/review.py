@@ -11,3 +11,7 @@ class Reviews(db.Model):
   restaurant_id = db.Column(db.Integer, nullable = False)
   review = db.Column(db.String(255), nullable = False)
   rating = db.Column(db.Integer, nullable = False)
+
+
+  user = db.Relationship('User', back_populates='id')
+  restaurant = db.Relationship('Restaurant', back_populates='id')
