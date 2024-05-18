@@ -1,5 +1,5 @@
 from .db import db, environment,SCHEMA,add_prefix_for_prod
-
+from datetime import datetime
 
 class Restaurant(db.Model):
     __tablename__ = 'restaurants'
@@ -8,7 +8,7 @@ class Restaurant(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer,primary_key=True)
-    owner_id = db.Column(db.Integer, nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     name = db.Column(db.String(50), nullable=False)
     address = db.Column(db.String(100), nullable=False)
     phone_number = db.Column(db.Integer, nullable=False)
@@ -17,7 +17,33 @@ class Restaurant(db.Model):
     hours_of_operation = db.Column(db.String(255), nullable=False)
     delivery_radius = db.Column(db.Integer)
     cover_image = db.Column(db.String, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now)
+    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    review = db.Relationship('Review', back_populates='restaurant_id')
-    menu = db.Relationship('Menu', back_populates='restaurant_id')
-    user = db.Relationship('User', back_populates='owner_id')
+    review = db.Relationship('Reviews', back_populates='restaurant')
+    menu = db.Relationship('Menu', back_populates='restaurant')
+    user = db.Relationship('User', back_populates='restaurant', cascade='all, delete-orphan')
+
+
+    def to_dict(self):
+
+        reviews = [
+        {**review.to_dict(), "restaurant": review.user.to_dict()} 
+        for review in self.reviews
+        ]
+
+        return {
+                'id': self.id,
+                'owner_id': self.owner_id,
+                'name': self.name,
+                'address': self.address,
+                'phone_number': self.phone_number,
+                'cuisine': self.cuisine,
+                "description": self.description,
+                "hours_of_operation": self.hours_of_operation,
+                "delivery_radius": self.delivery_radius,
+                "cover_image": self.cover_image,
+                'reviews': self.reviews,
+                'created_at': self.created_at,
+                'updated_at': self.updated_at
+            }

@@ -18,9 +18,9 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    cart = db.Relationship('Cart', back_populates='user_id')
-    review = db.Relationship('Review', back_populates='user_id')
-    restaurant = db.Relationship('Restaurant', back_populates='owner_id')
+    cart = db.Relationship('Cart', back_populates='user')
+    review = db.Relationship('Reviews', back_populates='user')
+    restaurant = db.Relationship('Restaurant', back_populates='user')
 
     @property
     def password(self):
@@ -36,6 +36,9 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
+            'firstname': self.firstname,
+            'lastname': self.lastname,
+            'role': self.role,
             'username': self.username,
             'email': self.email
         }
