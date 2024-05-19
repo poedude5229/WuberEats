@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 
 
 def seed_reviews():
-  
+
   review1 = Review(
     user_id = 1,
     restaurant_id = 1,
@@ -202,8 +202,8 @@ def seed_reviews():
 
 def undo_reviews():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.reviews RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.review RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM reviews"))
+        db.session.execute(text("DELETE FROM review"))
 
     db.session.commit()
