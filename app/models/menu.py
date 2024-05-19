@@ -18,7 +18,7 @@ class Menu(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     
-    restaurants = db.relationship('Restaurant', back_populates='menus', cascade='all, delete-orphan')
+    restaurants = db.relationship('Restaurant', back_populates='menus')
     carts = db.relationship('Cart', back_populates='menus')
     
     

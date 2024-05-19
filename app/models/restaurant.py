@@ -21,7 +21,7 @@ class Restaurant(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     reviews = db.relationship('Review', back_populates='restaurants', cascade='all, delete-orphan')
-    menus = db.relationship('Menu', back_populates='restaurants',)
+    menus = db.relationship('Menu', back_populates='restaurants', cascade='all, delete-orphan', single_parent=True)
     # user = db.Relationship('User', back_populates='restaurant', cascade='all, delete-orphan')
 
 

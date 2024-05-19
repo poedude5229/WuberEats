@@ -5,16 +5,16 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Joe', firstname="Joe", lastname="Mama", email='Joe@aa.io', role="owner", password='password')
+        username='Joe', firstname="Joe", lastname="Mama", email='Joe@gmail.com', address='123 Maple Avenue', role="owner", password='password')
     veronica = User(
-        username='Veronica', firstname="Veronica", lastname="Flatto", email='veronica@aa.io', role="owner", password='password')
+        username='Veronica', firstname="Veronica", lastname="Flatto", email='veronica@gmail.com', address='456 Elm Street',  role="owner", password='password')
     andres = User(
-        username='andres', firstname="Andres", lastname="Mercado", email='andres@aa.io',  role="owner",   password='password')
+        username='andres', firstname="Andres", lastname="Mercado", email='andres@gmail.com', address='789 Oak Lane',  role="owner",   password='password')
     sleepyzach = User(
-        username='zach', firstname="Sick", lastname="Lad", email='sleepboy@aa.io', role="owner", password='takesomevitamins'
+        username='zach', firstname="Sick", lastname="Lad", email='sleepboy@gmail.com', address='101 Pine Road', role="owner", password='takesomevitamins'
     )
     demo_user = User(
-        username='bot', firstname="botfirst", lastname="botsecond", email='bot@aa.io', role="user", password='password1'
+        username='bot', firstname="botfirst", lastname="botsecond", email='bot@gmail.com', address='202 Birch Boulevard', role="user", password='password1'
     )
     db.session.add(demo)
     db.session.add(veronica)

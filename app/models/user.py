@@ -1,12 +1,10 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from enum import Enum
+
 from sqlalchemy import Enum as SQLAEnum
 
-class UserRole(Enum):
-    USER = "user"
-    OWNER = "owner"
+
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
 
@@ -15,12 +13,12 @@ class User(db.Model, UserMixin):
 
 
     id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(40), nullable=False, unique=True)
     firstname = db.Column(db.String(25), nullable=False)
     lastname = db.Column(db.String(25), nullable=False)
-    username = db.Column(db.String(40), nullable=False, unique=True)
-    email = db.Column(db.String(255), nullable=False, unique=True),
+    email = db.Column(db.String(255), nullable=False, unique=True)
     address = db.Column(db.String(100), nullable=False)
-    role = db.Column(SQLAEnum(UserRole), nullable=False)
+    role = db.Column(db.String(25), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
     
     
@@ -43,9 +41,10 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
+            'username': self.username,
             'firstname': self.firstname,
             'lastname': self.lastname,
+            'email': self.email,
+            'address': self.address,
             'role': self.role,
-            'username': self.username,
-            'email': self.email
         }

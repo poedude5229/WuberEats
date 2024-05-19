@@ -16,7 +16,7 @@ class Cart(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     # user = db.Relationship('User', back_populates='cart', cascade='all, delete-orphan')
-    menus = db.relationship('Menu', back_populates='carts', cascade='all, delete-orphan')
+    menus = db.relationship('Menu', back_populates='carts', cascade='all, delete-orphan',single_parent=True)
 
     def to_dict(self):
         return {
