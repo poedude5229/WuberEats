@@ -49,7 +49,7 @@ def seed_restaurants():
     )
 
     taco_bell = Restaurant(
-    owner_id=3,
+    owner_id=1,
     name="Taco Bell",
     address="2430 Carson St",
     phone_number=3239071358,
