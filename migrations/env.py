@@ -1,11 +1,18 @@
 from __future__ import with_statement
 
+import os
+from dotenv import load_dotenv
 import logging
 from logging.config import fileConfig
-
 from flask import current_app
-
 from alembic import context
+from sqlalchemy import engine_from_config, pool
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get the schema name from the environment
+SCHEMA = os.getenv("SCHEMA")
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -31,7 +38,8 @@ def get_engine():
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 config.set_main_option(
-    'sqlalchemy.url', str(get_engine().url).replace('%', '%%'))
+    'sqlalchemy.url', str(get_engine().url).replace('%', '%%') + f'?currentSchema={SCHEMA}'
+)
 target_db = current_app.extensions['migrate'].db
 
 # other values from the config, defined by the needs of env.py,
