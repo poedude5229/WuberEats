@@ -1,13 +1,18 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from enum import Enum
+from sqlalchemy import Enum as SQLAEnum
 
-
+class UserRole(Enum):
+    USER = "user"
+    OWNER = "owner"
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
+
 
     id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(25), nullable=False)
@@ -15,12 +20,14 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True),
     address = db.Column(db.String(100), nullable=False)
-    role = db.Column(db.String)
+    role = db.Column(SQLAEnum(UserRole), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
-
-    cart = db.Relationship('Cart', back_populates='user')
-    review = db.Relationship('Reviews', back_populates='user')
-    restaurant = db.Relationship('Restaurant', back_populates='user')
+    
+    
+    
+    # cart = db.Relationship('Cart', back_populates='user')
+    # review = db.Relationship('Reviews', back_populates='user')
+    # restaurant = db.Relationship('Restaurant', back_populates='user')
 
     @property
     def password(self):

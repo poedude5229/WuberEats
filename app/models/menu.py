@@ -7,7 +7,7 @@ class Menu(db.Model):
         __table_args__ = {"schema":SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    restaurant_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('restaurants.id')), nullable=False)
+    restaurant_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('restaurant.id')), nullable=False)
     name = db.Column(db.String(55), nullable=False)
     description = db.Column(db.String(255), nullable=False)
     price = db.Column(db.Integer, nullable=False)
@@ -18,9 +18,8 @@ class Menu(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     
-    restaurant = db.Relationship('Restaurant', back_populates='menu', cascade='all, delete-orphan')
-    menu = db.Relationship('Menu', back_populates='menu')
-    cart = db.Relationship('Cart', back_populates='menu')
+    restaurants = db.relationship('Restaurant', back_populates='menus', cascade='all, delete-orphan')
+    carts = db.relationship('Cart', back_populates='menus')
     
     
     def to_dict(self):

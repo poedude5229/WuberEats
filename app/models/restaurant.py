@@ -2,13 +2,13 @@ from .db import db, environment,SCHEMA,add_prefix_for_prod
 from datetime import datetime
 
 class Restaurant(db.Model):
-    __tablename__ = 'restaurants'
+    __tablename__ = 'restaurant'
 
     if environment == 'production':
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer,primary_key=True)
-    owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('user.id')), nullable=False)
     name = db.Column(db.String(50), nullable=False)
     address = db.Column(db.String(100), nullable=False)
     phone_number = db.Column(db.Integer, nullable=False)
@@ -20,9 +20,9 @@ class Restaurant(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    review = db.Relationship('Reviews', back_populates='restaurant')
-    menu = db.Relationship('Menu', back_populates='restaurant')
-    user = db.Relationship('User', back_populates='restaurant', cascade='all, delete-orphan')
+    reviews = db.relationship('Review', back_populates='restaurants', cascade='all, delete-orphan')
+    menus = db.relationship('Menu', back_populates='restaurants',)
+    # user = db.Relationship('User', back_populates='restaurant', cascade='all, delete-orphan')
 
 
     def to_dict(self):
