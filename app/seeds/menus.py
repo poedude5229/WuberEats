@@ -351,7 +351,7 @@ def seed_menus():
 
 def undo_menus():
     if environment == "production":
-        db.session.execute(f"TRUCATE table {SCHEMA}.menu RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.menu RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM menu"))
 
