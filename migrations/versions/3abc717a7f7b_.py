@@ -46,7 +46,7 @@ def upgrade():
     sa.Column('cover_image', sa.String(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['owner_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['owner_id'], [f'{SCHEMA}.user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table(f'{SCHEMA}.menu',
@@ -60,7 +60,7 @@ def upgrade():
     sa.Column('image_url', sa.String(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['restaurant_id'], ['restaurant.id'], ),
+    sa.ForeignKeyConstraint(['restaurant_id'], [f'{SCHEMA}.restaurant.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table(f'{SCHEMA}.review',
@@ -71,8 +71,8 @@ def upgrade():
     sa.Column('rating', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['restaurant_id'], ['restaurant.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['restaurant_id'], [f'{SCHEMA}.restaurant.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], [f'{SCHEMA}.user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table(f'{SCHEMA}.carts',
@@ -84,8 +84,8 @@ def upgrade():
     sa.Column('status', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['menu_item_id'], ['menu.id'], ),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.ForeignKeyConstraint(['menu_item_id'], [f'{SCHEMA}.menu.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], [f'{SCHEMA}.user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

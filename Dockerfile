@@ -18,6 +18,8 @@ RUN pip install -r requirements.txt
 RUN pip install psycopg2
 
 COPY . .
+RUN flask db init
+RUN flask db migrate
 RUN flask db upgrade
 RUN flask seed all
 CMD gunicorn app:app
