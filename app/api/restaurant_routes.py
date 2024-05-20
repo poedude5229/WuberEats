@@ -142,7 +142,7 @@ def update_review(reviewId):
 
 
 # Delete Review
-@restaurant_routes.route("/<int:id>/reviews/<int:reviewId>")
+@restaurant_routes.route("/<int:id>/reviews/<int:reviewId>", methods=["DELETE"])
 @login_required
 def delete_review(reviewId):
   individual_review = Review.query.get(reviewId)
