@@ -180,7 +180,7 @@ def menu_poster(id):
     db.session.commit()
 
     return redirect(f"/{id}"), 201
-  
+
 @restaurant_routes.route("/<int:id>/menu/<int:menu_id>", methods =["PUT"])
 @login_required
 def menu_updated(menu_id, id):
@@ -200,7 +200,7 @@ def menu_updated(menu_id, id):
       menu_to_update["is_available"] = form.data["is_available"],
       menu_to_update["image_url"] = form.data["image_url"]
 
-  
+
       db.session.commit()
 
   return redirect(f"/{id}"), 200
@@ -209,7 +209,7 @@ def menu_updated(menu_id, id):
 @restaurant_routes.route("/<int:id>/menu/<int:menu_id>", methods=["DELETE"])
 @login_required
 def delete_menu_by_id(id,menu_id):
-   get_menu = Menu.query.get(id)
+   get_menu = Menu.query.get(menu_id)
    if not get_menu:
       return {"message":"Can't find the menu to delete"}, 404
    else:
