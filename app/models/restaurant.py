@@ -27,10 +27,10 @@ class Restaurant(db.Model):
 
     def to_dict(self):
 
-        reviews = [
-        {**review.to_dict(), "restaurant": review.user.to_dict()}
-        for review in self.reviews
-        ]
+        # reviews = [
+        # {**review.to_dict(), "restaurant": review.user.to_dict()}
+        # for review in self.reviews
+        # ]
 
         return {
                 'id': self.id,
@@ -43,7 +43,7 @@ class Restaurant(db.Model):
                 "hours_of_operation": self.hours_of_operation,
                 "delivery_radius": self.delivery_radius,
                 "cover_image": self.cover_image,
-                'reviews': self.reviews,
+                # 'reviews': self.reviews,
                 'created_at': self.created_at,
                 'updated_at': self.updated_at
             }
