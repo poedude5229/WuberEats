@@ -77,7 +77,7 @@ def seed_restaurants():
     address="6440 Pacific Coast Hwy",
     phone_number="3234561234",
     cuisine="American",
-    description="Treat yourself to premium burgers, crinkle-cut fries, and hand-spun shakes. Shake Shack is known for its high-quality ingredients, mouthwatering flavors, and a menu that features both classic favorites and unique creations. Enjoy a delicious, upscale fast-food experience.",
+    description="Treat yourself to premium burgers, crinkle-cut fries, and hand-spun shakes. Shake Shack is known for its high-quality ingredients, mouthwatering flavors, and a menu that features both classic favorites and unique creations.",
     hours_of_operation="Sunday-Saturday: 11AM-2AM",
     delivery_radius=1,
     cover_image="https://res.cloudinary.com/djqcfdrbm/image/upload/v1715960974/WuberEats/Shake%20Shack/cover-image_b4hnug.jpg"
@@ -89,7 +89,7 @@ def seed_restaurants():
     address="2018 Carson St",
     phone_number="3231564398",
     cuisine="American",
-    description="Enjoy flavorful, freshly made chicken wings in a variety of mouthwatering sauces and seasonings. Wingstop offers classic wings, boneless wings, and tenders, along with tasty sides like seasoned fries and veggie sticks. Perfect for satisfying your wing cravings.",
+    description="Enjoy flavorful, freshly made chicken wings in a variety of mouthwatering sauces and seasonings. Perfect for satisfying your wing cravings.",
     hours_of_operation="Sunday-Saturday: 10AM-1AM",
     delivery_radius=3,
     cover_image="https://res.cloudinary.com/djqcfdrbm/image/upload/v1715979741/WuberEats/Wing%20Stop/cover-image_oeg0k5.jpg"
@@ -101,7 +101,7 @@ def seed_restaurants():
     address="16250 14th St",
     phone_number="3234561234",
     cuisine="Japanese",
-    description="Experience fresh, high-quality sushi and sashimi with a creative twist. Angry Fish Sushi offers an array of delicious rolls, nigiri, and Japanese-inspired dishes, crafted with the finest ingredients. Perfect for sushi lovers seeking an exceptional dining experience.",
+    description="Experience fresh, high-quality sushi and sashimi with a creative twist.",
     hours_of_operation="Sunday-Saturday: 1PM-11PM",
     delivery_radius=2,
     cover_image="https://res.cloudinary.com/djqcfdrbm/image/upload/v1715979707/WuberEats/Angry%20Fish/cover-image_hjx91u.jpg"
