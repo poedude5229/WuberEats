@@ -44,36 +44,45 @@ function ProfileButton() {
       {/* <button onClick={toggleMenu}>
         <FaUserCircle />
       </button> */}
-      <div id="ham-menu" onClick={toggleMenu}>
+      <div className="ham-menu" id="firsthammenu" onClick={toggleMenu}>
         <span></span>
         <span></span>
         <span></span>
       </div>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
-          {user ? (
-            <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li>
-                <button onClick={logout}>Log Out</button>
-              </li>
-            </>
-          ) : (
-            <>
-              <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </>
-          )}
-        </ul>
+        <>
+          <div className={"profile-dropdown"} ref={ulRef}>
+            <div id="top-profile-dropdown-banner">
+              <div id="sidebar-ham" className="ham-menu" onClick={toggleMenu}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            {user ? (
+              <>
+                <li>{user.username}</li>
+                <li>{user.email}</li>
+                <li>
+                  <button onClick={logout}>Log Out</button>
+                </li>
+              </>
+            ) : (
+              <>
+                <OpenModalMenuItem
+                  itemText="Log In"
+                  onItemClick={closeMenu}
+                  modalComponent={<LoginFormModal />}
+                />
+                <OpenModalMenuItem
+                  itemText="Sign Up"
+                  onItemClick={closeMenu}
+                  modalComponent={<SignupFormModal />}
+                />
+              </>
+            )}
+          </div>
+        </>
       )}
     </>
   );
