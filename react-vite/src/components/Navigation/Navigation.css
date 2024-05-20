@@ -1,3 +1,9 @@
+@font-face {
+  font-family: Itim;
+  src: url('../');
+}
+
+
 .profile-dropdown {
   position: absolute;
 }

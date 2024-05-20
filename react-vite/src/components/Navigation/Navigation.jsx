@@ -6,7 +6,7 @@ function Navigation() {
   return (
     <ul>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/">Wuber Eats</NavLink>
       </li>
 
       <li>
