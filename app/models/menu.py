@@ -17,11 +17,11 @@ class Menu(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    
+
     restaurants = db.relationship('Restaurant', back_populates='menus')
     carts = db.relationship('Cart', back_populates='menus')
-    
-    
+
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -34,6 +34,6 @@ class Menu(db.Model):
             'image_url': self.image_url,
             'created_at': self.created_at,
             'updated_at': self.updated_at
-            
-            
+
+
         }
