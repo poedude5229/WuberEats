@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, json, request, redirect
-from app.models import Restaurant, Review, db
+from app.models import Restaurant, Review, Menu, db
 from flask_login import login_required, current_user
-from ..forms import ReviewForm
+from app.forms.reviews_form import ReviewForm
 restaurant_routes = Blueprint('restaurants', __name__)
 
 
@@ -10,7 +10,20 @@ restaurant_routes = Blueprint('restaurants', __name__)
 def restaurants():
 
     fetched_restaurants = Restaurant.query.all()
-    return {'restaurants': [restaurant.to_dict() for restaurant in fetched_restaurants]}
+    restaurant_menus = []
+    for restaurant in fetched_restaurants:
+       restaurant_dict = restaurant.to_dict()
+       print(len(restaurant_dict['reviews']))
+       menu_items = Menu.query.filter(Menu.restaurant_id == restaurant.id).all()
+       restaurant_dict['menu_items'] = [item.to_dict() for item in menu_items]
+       total_rating = 0
+       if len(restaurant_dict['reviews']) > 0:
+          total_rating = (sum(review['rating'] for review in restaurant_dict['reviews']) / len(restaurant_dict['reviews'])) or 0
+       restaurant_dict['avgrating'] = total_rating
+       restaurant_menus.append(restaurant_dict)
+    return {'restaurants':restaurant_menus}
+
+    # return {'restaurants': [restaurant.to_dict() for restaurant in fetched_restaurants]}
 
 
 # @restaurant_routes.route("/new")
@@ -43,13 +56,32 @@ def restaurant_post():
 
 
 # Get Individual Restaurant
-@restaurant_routes.route("/<int:id>")
+@restaurant_routes.route("/<int:id>", methods=["GET"])
 def get_restaurant_by_id(id):
     fetched = Restaurant.query.get(id)
+    restmenu = []
     if fetched:
-        return jsonify(fetched.to_dict())
+        restaurant_dict = fetched.to_dict()
+        total_rating = (sum(review['rating'] for review in restaurant_dict['reviews']) / len(restaurant_dict['reviews']))
+        # print(total_rating)
+        menu_items = Menu.query.filter(Menu.restaurant_id == fetched.id).all()
+        restaurant_dict['menu_items'] = [item.to_dict() for item in menu_items]
+        restaurant_dict['avgrating'] = total_rating
+        restmenu.append(restaurant_dict)
+        return jsonify(restmenu)
     else: return {  "message": "Restaurant couldn't be found" }, 404
 
+
+@restaurant_routes.route("/<int:id>", methods=["DELETE"])
+@login_required
+def delete_restaurant_by_id(id):
+   got_restaurant = Restaurant.query.get(id)
+   if not got_restaurant:
+      return {"message":"Can't find the restaurant to delete"}, 404
+   else:
+      db.session.delete(got_restaurant)
+      db.session.commit()
+      return redirect("/api/restaurants/<int:id>")
 
 
 # Get Individual Restaurant's Reviews
@@ -65,7 +97,7 @@ def get_restaurant_reviews(id):
 
 
 # Create Review for Restaurant
-@restaurant_routes.route("<int:id>/reviews", methods=["POST"])
+@restaurant_routes.route("/<int:id>/reviews", methods=["POST"])
 @login_required
 def create_review(id):
 
@@ -86,7 +118,7 @@ def create_review(id):
 
 
 # Update Review
-@restaurant_routes.route("<int:id>/reviews/<int:reviewId>", methods=["PUT"])
+@restaurant_routes.route("/<int:id>/reviews/<int:reviewId>", methods=["PUT"])
 @login_required
 def update_review(reviewId):
 
@@ -110,7 +142,7 @@ def update_review(reviewId):
 
 
 # Delete Review
-@restaurant_post.route("<int:id>/reviews/<int:reviewId>")
+@restaurant_routes.route("/<int:id>/reviews/<int:reviewId>")
 @login_required
 def delete_review(reviewId):
   individual_review = Review.query.get(reviewId)
@@ -121,4 +153,4 @@ def delete_review(reviewId):
     db.session.delete(individual_review)
     db.session.commit()
 
-  return redirect("/restaurants"), 200
+  return redirect("/api/restaurants/<int:id>"), 200
