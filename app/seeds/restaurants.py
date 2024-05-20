@@ -6,7 +6,7 @@ def seed_restaurants():
       owner_id=1,
       name="Nikita Burger",
       address="19 Dollar Fornite Card Ave",
-      phone_number=1111169420,
+      phone_number=4206912,
       cuisine="Bad",
       description="a noble belarussian man and a dream to make the finest chicken burger: the story about how this sigma with an entrepreneurial grindset deep fried a cream burger",
       hours_of_operation="Monday-Friday: 12AM-11:59PM",
