@@ -1,18 +1,35 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
-
+import DarkSiteLogo from "../../../public/hamberderDarkLogo.png";
 function Navigation() {
+  let navigate = useNavigate();
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Wuber Eats</NavLink>
-      </li>
+    <nav id="sitenav">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignItems: "center",
+        }}
+      >
+        <img
+          onClick={() => navigate("/")}
+          src={DarkSiteLogo}
+          alt="Site Dark Logo"
+          id="sitelogo"
+        />
+        <NavLink id="home-navlink" to="/">
+          {" "}
+          WuberEats
+        </NavLink>
+      </div>
 
-      <li>
+      <div>
         <ProfileButton />
-      </li>
-    </ul>
+      </div>
+    </nav>
   );
 }
 

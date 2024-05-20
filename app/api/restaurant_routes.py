@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, json, request, redirect
 from app.models import Restaurant, Review, Menu, db
 from flask_login import login_required, current_user
 from app.forms.reviews_form import ReviewForm
+from app.forms.menu_form import MenuForm
 restaurant_routes = Blueprint('restaurants', __name__)
 
 
@@ -153,4 +154,65 @@ def delete_review(reviewId):
     db.session.delete(individual_review)
     db.session.commit()
 
-  return redirect("/api/restaurants/<int:id>"), 200
+  return redirect(f"/{id}"), 200
+
+
+@restaurant_routes.route("/<int:id>/menu/new", methods =["POST"])
+@login_required
+def menu_poster(id):
+  selected = Restaurant.query.get(id)
+  if not selected:
+      return {"message": "Restaurant to post menu couldnt be found"}, 404
+  form = MenuForm()
+  form["csrf_token"].data = request.cookies["csrf_token"]
+
+  if form.validate_on_submit():
+    new_menu = Menu(
+      restaurant_id = id,
+      name = form.data["name"],
+      description = form.data["description"],
+      price = form.data["price"],
+      category = form.data["category"],
+      is_available = form.data["is_available"],
+      image_url = form.data["image_url"]
+    )
+    db.session.add(new_menu)
+    db.session.commit()
+
+    return redirect(f"/{id}"), 201
+
+@restaurant_routes.route("/<int:id>/menu/<int:menu_id>", methods =["PUT"])
+@login_required
+def menu_updated(menu_id, id):
+  selected = Restaurant.query.get(id)
+  if not selected:
+      return {"message": "Restaurant to post menu couldnt be found"}, 404
+  menu_to_update = Menu.query.get(menu_id)
+  form = MenuForm()
+  form["csrf_token"].data = request.cookies["csrf_token"]
+
+  if form.validate_on_submit():
+
+      menu_to_update["name"] = form.data['name']
+      menu_to_update["description"] = form.data["description"],
+      menu_to_update["price"] = form.data["price"],
+      menu_to_update["category"] = form.data["category"],
+      menu_to_update["is_available"] = form.data["is_available"],
+      menu_to_update["image_url"] = form.data["image_url"]
+
+
+      db.session.commit()
+
+  return redirect(f"/{id}"), 200
+
+
+@restaurant_routes.route("/<int:id>/menu/<int:menu_id>", methods=["DELETE"])
+@login_required
+def delete_menu_by_id(id,menu_id):
+   get_menu = Menu.query.get(menu_id)
+   if not get_menu:
+      return {"message":"Can't find the menu to delete"}, 404
+   else:
+      db.session.delete(get_menu)
+      db.session.commit()
+      return redirect("/api/restaurants/<int:id>")
