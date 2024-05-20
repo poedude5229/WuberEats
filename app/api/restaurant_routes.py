@@ -9,6 +9,11 @@ def restaurants():
     fetched_restaurants = Restaurant.query.all()
     return {'restaurants': [restaurant.to_dict() for restaurant in fetched_restaurants]}
 
+
+# @restaurant_routes.route("/new")
+# def newrestaurant():
+
+
 @restaurant_routes.route("/", methods=["POST"])
 @login_required
 def restaurant_post():
