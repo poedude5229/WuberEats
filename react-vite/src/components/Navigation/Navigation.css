@@ -18,7 +18,7 @@
   width: 250px;
   border-color: #fff;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-
+  background-color: #fff;
   z-index: 10001;
   overflow: hidden;
 }

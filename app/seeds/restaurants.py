@@ -11,7 +11,7 @@ def seed_restaurants():
       description="a noble belarussian man and a dream to make the finest chicken burger: the story about how this sigma with an entrepreneurial grindset deep fried a cream burger",
       hours_of_operation="Monday-Friday: 12AM-11:59PM",
       delivery_radius=6,
-      cover_image="https://media.discordapp.net/attachments/1235652456608694273/1235973998555431013/IMG_7683.jpg?ex=6648c6fc&is=6647757c&hm=cd0d3514e76d1ccb914c943b75573d14c863867880d5910abd47d1efcf9e1c8d&=&format=webp&width=502&height=670")
+      cover_image="https://res.cloudinary.com/dyr9v2ynr/image/upload/v1716311694/IMG_8321_ycn9zn.jpg")
 
     menards = Restaurant(
     owner_id=1,
