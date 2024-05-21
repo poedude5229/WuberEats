@@ -70,7 +70,9 @@ useEffect(() => {
 
 
   return (
-    <div>RestaurantCreation</div>
+    <div>
+      
+    </div>
   )
 }
 
