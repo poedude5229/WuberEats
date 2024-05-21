@@ -53,6 +53,15 @@ function LoginFormModal() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
+        <button
+          type="submit"
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            setEmail("bot@gmail.com"), setPassword("password1");
+          }}
+        >
+          Login as Demo User
+        </button>
       </form>
     </>
   );

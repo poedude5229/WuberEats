@@ -139,7 +139,7 @@ export const restaurantByIdThunk = (restaurantId) => async (dispatch) => {
   try {
     const res = await fetch(`/api/restaurants/${restaurantId}`);
     const data = await res.json();
-    console.log(`res ${data}`);
+    // console.log(`res ${data}`);
 
     if (!res.ok) {
       return { errors: data };

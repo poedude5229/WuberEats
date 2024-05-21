@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadRestaurantsThunk } from "../../redux/restaurant";
 import { MdOutlineStar } from "react-icons/md";
 import "./Landing.css";
+import { NavLink } from "react-router-dom";
 function Landing() {
   let restaurants = useSelector((state) => state.restaurantReducer);
   restaurants = Object.values(restaurants);
@@ -25,31 +26,37 @@ function Landing() {
       <div className="wube-cards"></div>
       <section>
         {restaurants?.map((restaurant) => (
-          <div className="restaurant-card">
-            <img
-              className="cover-image"
-              src={restaurant.cover_image}
-              alt={restaurant.name + " cover image"}
-            />
-            <div className="name-review-holder">
-              <p className="restaurant-title">{restaurant.name}</p>
-              <span className="dot">
-                {restaurant?.reviews?.length !== 0
-                  ? restaurant?.avgrating
-                  : "New"}
-                {restaurant?.reviews?.length !== 0 && <MdOutlineStar />}
-              </span>
+          <NavLink
+            className="restaurant-card-container"
+            key={restaurant.id}
+            to={`restaurants/${restaurant.id}`}
+          >
+            <div className="restaurant-card">
+              <img
+                className="cover-image"
+                src={restaurant.cover_image}
+                alt={restaurant.name + " cover image"}
+              />
+              <div className="name-review-holder">
+                <p className="restaurant-title">{restaurant.name}</p>
+                <span className="dot">
+                  {restaurant?.reviews?.length !== 0
+                    ? restaurant?.avgrating
+                    : "New"}
+                  {restaurant?.reviews?.length !== 0 && <MdOutlineStar />}
+                </span>
+              </div>
+              <p>
+                {restaurant.delivery_radius * 10 >= 60
+                  ? (restaurant.delivery_radius * 10) / 60 !== 1.0
+                    ? `${((restaurant.delivery_radius * 10) / 60).toFixed(
+                        1
+                      )} hours`
+                    : "1 hour"
+                  : `${restaurant.delivery_radius * 10} minutes`}
+              </p>
             </div>
-            <p>
-              {restaurant.delivery_radius * 10 >= 60
-                ? (restaurant.delivery_radius * 10) / 60 !== 1.0
-                  ? `${((restaurant.delivery_radius * 10) / 60).toFixed(
-                      1
-                    )} hours`
-                  : "1 hour"
-                : `${restaurant.delivery_radius * 10} minutes`}
-            </p>
-          </div>
+          </NavLink>
         ))}
       </section>
     </>

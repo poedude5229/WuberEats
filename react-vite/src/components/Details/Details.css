@@ -1,0 +1,33 @@
+.details-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  flex-direction: column;
+}
+
+.detailspage-main-img {
+  width: 1000px;
+  height: 500px;
+  border-radius: 20px;
+}
+
+.title-address {
+  margin-left: 24px;
+}
+
+.description {
+  width: 720px;
+  font-size: 20px;
+  margin-left: 24px;
+}
+
+.starRating {
+  margin-left: 24px;
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}

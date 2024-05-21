@@ -29,11 +29,11 @@ function Navigation() {
           {" "}
           WuberEats
         </NavLink>
-      </div>
+      </div>{ user &&
       <div id="address-box">
         {user?.address} • Now
         <RiArrowDropDownLine />
-      </div>
+      </div>}
       <div id="searchbox">
         <input
           id="wubesearch"
