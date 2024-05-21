@@ -64,7 +64,7 @@ const deleteMenuByRestaurantId = (menuId) => ({
     payload: menuId
 })
 
-// action creator for MENU
+// action creator for REVIEW
 
 const createReviewByRestaurantId = (review) => ({
     type: CREATE_REVIEW_BY_RESTAURANT_ID,
@@ -101,8 +101,8 @@ export const loadRestaurantsThunk = () => async (dispatch) => {
             return {"errors": data};
         }
 
-        const { Restaurants } = data;
-        await dispatch(loadRestaurants(Restaurants));
+        // const { Restaurants } = data;
+        await dispatch(loadRestaurants(data.restaurants));
 
         return data;
     } catch (error) {
@@ -177,7 +177,7 @@ export const editRestaurantThunk = (restaurant, restaurantId) => async (dispatch
 
 }
 
-export const deleteRestaurantThunk = (restaurantId) => async (disaptch) => {
+export const deleteRestaurantThunk = (restaurantId) => async (dispatch) => {
     try {
 
         const res = await fetch(`/api/restaurants/${restaurantId}`, {
@@ -201,6 +201,103 @@ export const deleteRestaurantThunk = (restaurantId) => async (disaptch) => {
     }
 }
 
+export const getMenusByRestaurantIdThunk = (restaurantId) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/restaurants/${restaurantId}/menus`)
+
+        const data = await res.json()
+
+        console.log(`res ${data}`)
+
+        if (!res.ok){ 
+            return {"errors": data};
+        }
+
+        await dispatch(loadMenuByRestaurantId(data.menus))
+
+        return data
+    } catch (error) {
+        console.error('Failed to load menus for restaurants:', error);
+        return { "errors": error.message };
+    }
+
+    
+}
+
+
+export const postANewMenuForRestaurantThunk = (restaurantId, menu) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/restaurants/${restaurantId}/menus/new`, {
+            method: "POST",
+            body: menu
+        })
+        const data = await res.json()
+        console.log(`res ${data}`)
+
+        if (!res.ok) return {"errors": data}
+
+        await dispatch(createMenuByRestaurantId(data))
+        return data
+    } catch (error) {
+        console.error('Failed to create a menu for a restaurant :', error);
+        return { "errors": error.message };
+    }
+}
+
+
+export const updateAMenuForARestaurantThunk = (restaurantId, menu, menuId) => async (dispatch) => {
+    try {
+        
+        const res = await fetch(`/api/restaurants/${restaurantId}/menu/${menuId}`, {
+            method: "PUT",
+            body:menu
+        })
+
+        const data = await res.json()
+        console.log(`res ${data}`)
+
+        if(!res.ok) {
+            return {"errors": data}
+        }
+
+        await dispatch(editMenuByRestaurantId(data))
+        return data;
+
+    } catch (error) {
+        console.error('Failed to update the menu by restaurant id:', error);
+        return { "errors": error.message };
+    }
+
+
+
+}
+
+export const deleteAMenuBasedOffARestaurantThunk = (restaurantId, menuId) => async (dispatch) => {
+    try {
+
+        const res = await fetch(`/api/restaurants/${restaurantId}/menu/${menuId}`, {
+            method: "DELETE"
+        })
+        const data = await res.json()
+        console.log(`res ${data}`)
+
+        if(!res.ok) {
+            return {"errors": data}
+        }
+        
+        await dispatch(deleteMenuByRestaurantId(menuId))
+        
+    } catch (error) {
+
+        console.error('Failed to delete menu based of restaurant id:', error);
+        return { "errors": error.message };
+
+        
+    }
+}
+
+
+
 
 
 
@@ -211,7 +308,7 @@ function restaurantReducer(state = {}, action) {
     switch (action.type) {
         case LOAD_RESTAURANTS: {
             const newState = {}
-            action.restaurants.forEach(eachRestaurant => {
+            action.payload.forEach(eachRestaurant => {
                 newState[eachRestaurant.id] = eachRestaurant
             });
             return newState
@@ -235,7 +332,32 @@ function restaurantReducer(state = {}, action) {
             delete newState[action.payload]
             return newState
         }
-    
+
+        case LOAD_MENU_BY_RESTAURANT_ID: {
+            const newState = {}
+            action.payload.forEach(menuItem => {
+                newState[menuItem.id] = menuItem
+            })
+            return newState
+        }
+
+        case CREATE_MENU_BY_RESTAURANT_ID: {
+            const newState = {...state}
+            newState[action.payload.id] = action.payload
+            return newState
+        }
+
+        case EDIT_MENU_BY_RESTAURANT_ID: {
+            const newState = {...state}
+            newState[action.payload.id] = action.payload
+            return newState
+        }
+        case DELETE_MENU_BY_RESTURANT_ID: {
+            const newState = {...state}
+            delete newState[action.payload]
+            return newState
+        }
+
     
     default:
         return state
