@@ -1,12 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserCircle } from "react-icons/fa";
+// import { FaUserCircle } from "react-icons/fa";
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-
+import "./Navigation.css";
+import { useNavigate } from "react-router-dom";
+// import bblDrizzy from "../../../public/bb2ca70dc88b4fd38ed9355c07521f30.png";
+import crappstore from "../../../public/appstorebadge.png";
+import purpapplogo from "../../../public/purpapplogo.png";
 function ProfileButton() {
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
@@ -60,27 +65,44 @@ function ProfileButton() {
               </div>
             </div>
             {user ? (
-              <>
-                <li>{user.username}</li>
-                <li>{user.email}</li>
-                <li>
-                  <button onClick={logout}>Log Out</button>
-                </li>
-              </>
+              <div id="user-deets">
+                <p>{user.username}</p>
+                <p>{user.email}</p>
+                <p style={{ cursor: "pointer" }} onClick={() => navigate("")}>
+                  Add your restaurant
+                </p>
+                <button id="logout-button" onClick={logout}>
+                  Log Out
+                </button>
+              </div>
             ) : (
-              <>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
                 <OpenModalMenuItem
+                  className="profiledropdown-tings"
                   itemText="Log In"
                   onItemClick={closeMenu}
                   modalComponent={<LoginFormModal />}
                 />
                 <OpenModalMenuItem
+                  className="profiledropdown-tings"
                   itemText="Sign Up"
                   onItemClick={closeMenu}
                   modalComponent={<SignupFormModal />}
                 />
-              </>
+              </div>
             )}
+
+            <div id="shameless-promotion">
+              Wuber's better in the app!
+              <img id="applogo" src={purpapplogo} alt="Our app logo" />
+              <img id="downloadlink" src={crappstore} alt="Get it here!" />
+            </div>
           </div>
         </>
       )}

@@ -28,6 +28,11 @@
   transform: translateX(0);
 }
 
+.profiledropdown-tings {
+  font-family: Inter;
+  font-size: 24px;
+  cursor: pointer;
+}
 
 #sitenav {
   display: flex;
@@ -42,7 +47,7 @@
 }
 
 #home-navlink {
-  font-family: Itim;
+  font-family: Inter;
   font-size: 30px;
   color: black;
   text-decoration: none;
@@ -67,6 +72,14 @@
   position: absolute;
 }
 
+#sidebar-ham span {
+  height: 5px;
+  width: 30px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 25px;
+  position: absolute;
+}
+
 .ham-menu span:nth-child(1) {
   top: 25%;
 }
@@ -79,11 +92,49 @@
   position: relative;
   width: 280px;
   height: 80px;
-  background-color: purple;
+  background-color: rgb(99, 59, 99);
   padding: 0 10px;
   z-index: 1000001;
 }
 
 .profile-dropdown ul {
   padding: 0;
+}
+
+#user-deets {
+  font-family: Inter;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+#user-deets p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+#shameless-promotion {
+  position: fixed;
+  bottom: 20px;
+  font-family: Inter;
+  margin-left: 25px;
+  font-weight: 900;
+}
+
+#applogo {
+  width: 100px;
+  height: 100px;
+  margin-left: 50px;
+  margin-top: 10px;
+  border-radius: 30%;
+  cursor: pointer;
+}
+
+#downloadlink {
+  height: 55px;
+  margin-top: 8px;
+  width: 200px;
+  cursor: pointer;
 }
