@@ -66,7 +66,7 @@ const deleteMenuByRestaurantId = (menuId) => ({
   payload: menuId,
 });
 
-// action creator for MENU
+// action creator for REVIEW
 
 const createReviewByRestaurantId = (review) => ({
   type: CREATE_REVIEW_BY_RESTAURANT_ID,
@@ -90,6 +90,8 @@ const deleteReviewByRestaurantId = (reviewId) => ({
 
 /// thunkkkk action creator
 
+// RESTAURANT -----------------------------------------------------------------------
+// Load all the restaurants
 export const loadRestaurantsThunk = () => async (dispatch) => {
   try {
     const res = await fetch("/api/restaurants");
@@ -111,117 +113,131 @@ export const loadRestaurantsThunk = () => async (dispatch) => {
   }
 };
 
+// Create a new restaurant
 export const createRestaurantThunk = (restaurant) => async (dispatch) => {
-  try {
-    const res = await fetch("/api/restaurants/new", {
-      method: "POST",
-      body: restaurant,
-    });
+    try {
+        const res = await fetch("/api/restaurants/new",{
+            method: "POST",
+            body:restaurant
+        })
 
-    const data = await res.json();
-    console.log(`res ${data}`);
+        const data = await res.json()
+        console.log(`res ${data}`)
 
-    if (!res.ok) return { errors: data };
+        if (!res.ok) return {"errors": data}
 
-    await dispatch(createRestaurant(data));
-    return data;
-  } catch (error) {
-    console.error("Failed to create restaurants:", error);
-    return { errors: error.message };
-  }
-};
+        await dispatch(createRestaurant(data))
+        return data
+    } catch (error) {
+        console.error('Failed to create restaurants:', error);
+        return { "errors": error.message };
+    }
+}
 
 export const restaurantByIdThunk = (restaurantId) => async (dispatch) => {
-  try {
-    const res = await fetch(`/api/restaurants/${restaurantId}`);
-    const data = await res.json();
-    console.log(`res ${data}`);
-
-    if (!res.ok) {
-      return { errors: data };
-    }
-
-    await dispatch(loadSingleRestaurantbyId(data));
-    return data;
-  } catch (error) {
-    console.error("Failed to fetch by restaurant by id:", error);
-    return { errors: error.message };
-  }
-};
-
-export const editRestaurantThunk =
-  (restaurant, restaurantId) => async (dispatch) => {
     try {
-      const res = await fetch(`/api/restaurants/${restaurantId}`, {
-        method: "PUT",
-        body: restaurant,
-      });
 
-      const data = await res.json();
-      console.log(`res ${data}`);
+        const res = await fetch(`/api/restaurants/${restaurantId}`)
+        const data = await res.json()
+        console.log(`res ${data}`)
 
-      if (!res.ok) {
-        return { errors: data };
-      }
+        if(!res.ok) {
+            return {"errors": data}
+        }
 
-      await dispatch(editRestaurant(data));
+        await dispatch(loadSingleRestaurantbyId(data))
+        return data
+
+
+    } catch (error) {
+        console.error('Failed to fetch by restaurant by id:', error);
+        return { "errors": error.message };
+    }
+}
+
+export const editRestaurantThunk = (restaurant, restaurantId) => async (dispatch) => {
+    try {
+
+        const res = await fetch(`/api/restaurants/${restaurantId}`, {
+            method: "PUT",
+            body:restaurant
+        })
+
+        const data = await res.json()
+        console.log(`res ${data}`)
+
+        if(!res.ok) {
+            return {"errors": data}
+        }
+
+      await dispatch(loadReviewByRestaurantId(data.reviews));
+
       return data;
     } catch (error) {
-      console.error("Failed to fetch by restaurant by id:", error);
+      console.error("Failed to load reviews for restaurants:", error);
       return { errors: error.message };
     }
-  };
+
+}
 
 export const deleteRestaurantThunk = (restaurantId) => async (disaptch) => {
-  try {
-    const res = await fetch(`/api/restaurants/${restaurantId}`, {
-      method: "DELETE",
-    });
-    const data = await res.json();
-    console.log(`res ${data}`);
+    try {
 
-    if (!res.ok) {
-      return { errors: data };
+        const res = await fetch(`/api/restaurants/${restaurantId}`, {
+            method: "DELETE"
+        })
+        const data = await res.json()
+        console.log(`res ${data}`)
+
+        if(!res.ok) {
+            return {"errors": data}
+        }
+
+        await dispatch(deleteRestaurant(productId))
+
+    } catch (error) {
+
+        console.error('Failed to fetch by restaurant by id:', error);
+        return { "errors": error.message };
+
+
     }
+}
 
-    await dispatch(deleteRestaurant(productId));
-  } catch (error) {
-    console.error("Failed to fetch by restaurant by id:", error);
-    return { errors: error.message };
-  }
-};
+
+
+
 
 /// the reducerrrrrrrrrr
-
 function restaurantReducer(state = {}, action) {
-  switch (action.type) {
-    case LOAD_RESTAURANTS: {
-      const newState = {};
-      //   console.log(action.payload);
-      action.payload.forEach((eachRestaurant) => {
-        newState[eachRestaurant.id] = eachRestaurant;
-      });
-      return newState;
-    }
-    case LOAD_SINGLE_RESTAURANT: {
-      const newState = { ...state, [action.payload.id]: action.payload };
-      return newState;
-    }
-    case CREATE_RESTAURANT: {
-      const newState = { ...state };
-      newState[action.payload.id] = action.payload;
-      return newState;
-    }
-    case EDIT_RESTAURANT: {
-      const newState = { ...state };
-      newState[action.payload.id] = action.payload;
-      return newState;
-    }
-    case DELETE_RESTAURANT: {
-      const newState = { ...state };
-      delete newState[action.payload];
-      return newState;
-    }
+    switch (action.type) {
+        case LOAD_RESTAURANTS: {
+            const newState = {}
+            action.payload.forEach(eachRestaurant => {
+                newState[eachRestaurant.id] = eachRestaurant
+            });
+            return newState
+        }
+        case LOAD_SINGLE_RESTAURANT: {
+            const newState = {...state, [action.payload.id]: action.payload}
+            return newState
+        }
+        case CREATE_RESTAURANT: {
+            const newState = {...state}
+            newState[action.payload.id] = action.payload
+            return newState
+        }
+        case EDIT_RESTAURANT: {
+            const newState = {...state}
+            newState[action.payload.id] = action.payload
+            return newState
+        }
+        case DELETE_RESTAURANT: {
+            const newState = {...state}
+            delete newState[action.payload]
+            return newState
+        }
+
 
     default:
       return state;
