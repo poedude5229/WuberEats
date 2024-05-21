@@ -13,19 +13,19 @@
   position: fixed;
   margin-top: 0px;
   top: 0px;
-  right: 250px;
+  right: 0px;
   height: 100%;
   width: 250px;
   border-color: #fff;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
-  transform: translateX(100%);
-  transition: transform 3s ease-in-out;
+
   z-index: 10001;
   overflow: hidden;
 }
 
 .profile-dropdown.show {
-  transform: translateX(0);
+  transition-duration: 2s;
+  transition-property: margin-right;
 }
 
 .profiledropdown-tings {
@@ -137,4 +137,59 @@
   margin-top: 8px;
   width: 200px;
   cursor: pointer;
+}
+
+#address-box {
+  width: 270px;
+  height: 50px;
+  font-family: Inter;
+  font-size: 20px;
+  right: 100px;
+  top: 15px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#address-box:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#searchbox {
+  width: 250px;
+  height: 36px;
+  position: relative;
+  top: 20px;
+  right: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: rgb(227, 227, 227);
+  border-radius: 30px;
+}
+
+#wubesearch:focus-within {
+  outline: none;
+}
+
+#logout-button {
+  background-color: rgb(99, 59, 99);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 30px;
+  position: relative;
+  margin-left: 75px;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+#logout-button:hover {
+  background-color: grey;
 }
