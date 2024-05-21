@@ -14,3 +14,13 @@ class RestaurantForm(FlaskForm):
     description = StringField("Description: ", validators=[DataRequired()])
     hours_of_operation = StringField("Hours of operation: ", validators=[DataRequired()])
     delivery_radius = IntegerField("Delivery Radius")
+
+
+class EditRestaurantForm(FlaskForm):
+    name = StringField('Name: ', validators=[DataRequired()])
+    address = StringField("Address: ", validators=[DataRequired()])
+    phone_number = StringField("Phone Number: ", validators=[DataRequired()])
+    cuisine = StringField("Cuisine Type: ", validators=[DataRequired()])
+    description = StringField("Description: ", validators=[DataRequired()])
+    hours_of_operation = StringField("Hours of operation: ", validators=[DataRequired()])
+    delivery_radius = IntegerField("Delivery Radius")
