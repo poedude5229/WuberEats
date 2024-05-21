@@ -10,358 +10,471 @@ const LOAD_MENU_BY_RESTAURANT_ID = "restaurants/LOAD_MENU_BY_RESTAURANT_ID";
 const EDIT_MENU_BY_RESTAURANT_ID = "restaurants/EDIT_MENU_BY_RESTAURANT_ID";
 const DELETE_MENU_BY_RESTURANT_ID = "restaurants/DELETE_MENU_BY_RESTAURANT_ID";
 
-const CREATE_REVIEW_BY_RESTAURANT_ID = "restaurants/CREATE_REVIEW_BY_RESTAURANT_ID";
+const CREATE_REVIEW_BY_RESTAURANT_ID =
+  "restaurants/CREATE_REVIEW_BY_RESTAURANT_ID";
 const LOAD_REVIEW_BY_RESTAURANT_ID = "restaurants/LOAD_REVIEW_BY_RESTAURANT_ID";
 const EDIT_REVIEW_BY_RESTAURANT_ID = "restaurants/EDIT_REVIEW_BY_RESTAURANT_ID";
-const DELETE_REVIEW_BY_RESTAURANT_ID = "restaurants/DELETE_REVIEW_BY_RESTAURANT_ID";
+const DELETE_REVIEW_BY_RESTAURANT_ID =
+  "restaurants/DELETE_REVIEW_BY_RESTAURANT_ID";
 
 // action creator for RESTAURANTEEE
 
 const loadRestaurants = (restaurants) => ({
-    type: LOAD_RESTAURANTS,
-    payload: restaurants
-})
+  type: LOAD_RESTAURANTS,
+  payload: restaurants,
+});
 
 const createRestaurant = (restaurant) => ({
-    type: CREATE_RESTAURANT,
-    payload: restaurant
-})
+  type: CREATE_RESTAURANT,
+  payload: restaurant,
+});
 
 const loadSingleRestaurantbyId = (restaurant) => ({
-    type: LOAD_SINGLE_RESTAURANT,
-    payload: restaurant
-})
+  type: LOAD_SINGLE_RESTAURANT,
+  payload: restaurant,
+});
 
 const editRestaurant = (restaurant) => ({
-    type: EDIT_RESTAURANT,
-    payload: restaurant
-})
+  type: EDIT_RESTAURANT,
+  payload: restaurant,
+});
 
 const deleteRestaurant = (restaurantId) => ({
-    type : DELETE_RESTAURANT,
-    payload: restaurantId
-})
+  type: DELETE_RESTAURANT,
+  payload: restaurantId,
+});
 
 // action creator for MENU
 
 const createMenuByRestaurantId = (menu) => ({
-    type: CREATE_MENU_BY_RESTAURANT_ID,
-    payload: menu
-})
+  type: CREATE_MENU_BY_RESTAURANT_ID,
+  payload: menu,
+});
 
 const loadMenuByRestaurantId = (menu) => ({
-    type: LOAD_MENU_BY_RESTAURANT_ID,
-    payload: menu
-})
+  type: LOAD_MENU_BY_RESTAURANT_ID,
+  payload: menu,
+});
 
 const editMenuByRestaurantId = (menu) => ({
-    type: EDIT_MENU_BY_RESTAURANT_ID,
-    payload: menu
-})
+  type: EDIT_MENU_BY_RESTAURANT_ID,
+  payload: menu,
+});
 
 const deleteMenuByRestaurantId = (menuId) => ({
-    type: DELETE_MENU_BY_RESTURANT_ID, 
-    payload: menuId
-})
+  type: DELETE_MENU_BY_RESTURANT_ID,
+  payload: menuId,
+});
 
 // action creator for REVIEW
 
 const createReviewByRestaurantId = (review) => ({
-    type: CREATE_REVIEW_BY_RESTAURANT_ID,
-    payload:review
-})
+  type: CREATE_REVIEW_BY_RESTAURANT_ID,
+  payload: review,
+});
 
 const loadReviewByRestaurantId = (review) => ({
-    type: LOAD_REVIEW_BY_RESTAURANT_ID,
-    payload: review
-})
+  type: LOAD_REVIEW_BY_RESTAURANT_ID,
+  payload: review,
+});
 
 const editReviewByRestaurantId = (review) => ({
-    type:EDIT_REVIEW_BY_RESTAURANT_ID,
-    payload: review
-})
+  type: EDIT_REVIEW_BY_RESTAURANT_ID,
+  payload: review,
+});
 
 const deleteReviewByRestaurantId = (reviewId) => ({
-    type: DELETE_REVIEW_BY_RESTAURANT_ID,
-    payload: reviewId
-})
+  type: DELETE_REVIEW_BY_RESTAURANT_ID,
+  payload: reviewId,
+});
 
+/// thunkkkk action creator
 
-
-/// thunkkkk action creator 
-
+// RESTAURANT -----------------------------------------------------------------------
+// Load all the restaurants
 export const loadRestaurantsThunk = () => async (dispatch) => {
-    try {
-        const res = await fetch("/api/restaurants");
+  try {
+    const res = await fetch("/api/restaurants");
 
-        const data = await res.json();
-        console.log(`res ${data}`);
+    const data = await res.json();
+    console.log(`res ${data}`);
 
-        if (!res.ok) {
-            return {"errors": data};
-        }
-
-        // const { Restaurants } = data;
-        await dispatch(loadRestaurants(data.restaurants));
-
-        return data;
-    } catch (error) {
-        console.error('Failed to load restaurants:', error);
-        return { "errors": error.message };
+    if (!res.ok) {
+      return { errors: data };
     }
+
+    // const { Restaurants } = data;
+    await dispatch(loadRestaurants(data.restaurants));
+
+    return data;
+  } catch (error) {
+    console.error("Failed to load restaurants:", error);
+    return { errors: error.message };
+  }
 };
 
+// Create a new restaurant
 export const createRestaurantThunk = (restaurant) => async (dispatch) => {
-    try {
-        const res = await fetch("/api/restaurants/new",{
-            method: "POST",
-            body:restaurant
-        })
-        
-        const data = await res.json()
-        console.log(`res ${data}`)
+  try {
+    const res = await fetch("/api/restaurants/new", {
+      method: "POST",
+      body: restaurant,
+    });
 
-        if (!res.ok) return {"errors": data}
+    const data = await res.json();
+    console.log(`res ${data}`);
 
-        await dispatch(createRestaurant(data))
-        return data
-    } catch (error) {
-        console.error('Failed to create restaurants:', error);
-        return { "errors": error.message };
-    }
-}
+    if (!res.ok) return { errors: data };
 
+    await dispatch(createRestaurant(data));
+    return data;
+  } catch (error) {
+    console.error("Failed to create restaurants:", error);
+    return { errors: error.message };
+  }
+};
+
+// Get Restaurant by Id
 export const restaurantByIdThunk = (restaurantId) => async (dispatch) => {
-    try {
+  try {
+    const res = await fetch(`/api/restaurants/${restaurantId}`);
+    const data = await res.json();
+    console.log(`res ${data}`);
 
-        const res = await fetch(`/api/restaurants/${restaurantId}`)
-        const data = await res.json()
-        console.log(`res ${data}`)
-
-        if(!res.ok) {
-            return {"errors": data}
-        }
-
-        await dispatch(loadSingleRestaurantbyId(data))
-        return data
-
-        
-    } catch (error) {
-        console.error('Failed to fetch by restaurant by id:', error);
-        return { "errors": error.message };
-    }
-}
-
-export const editRestaurantThunk = (restaurant, restaurantId) => async (dispatch) => {
-    try {
-        
-        const res = await fetch(`/api/restaurants/${restaurantId}`, {
-            method: "PUT",
-            body:restaurant
-        })
-
-        const data = await res.json()
-        console.log(`res ${data}`)
-
-        if(!res.ok) {
-            return {"errors": data}
-        }
-
-        await dispatch(editRestaurant(data))
-        return data;
-
-    } catch (error) {
-        console.error('Failed to fetch by restaurant by id:', error);
-        return { "errors": error.message };
+    if (!res.ok) {
+      return { errors: data };
     }
 
-}
+    await dispatch(loadSingleRestaurantbyId(data));
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch by restaurant by id:", error);
+    return { errors: error.message };
+  }
+};
 
+// Update a restaurant
+export const editRestaurantThunk =
+  (restaurant, restaurantId) => async (dispatch) => {
+    try {
+      const res = await fetch(`/api/restaurants/${restaurantId}`, {
+        method: "PUT",
+        body: restaurant,
+      });
+
+      const data = await res.json();
+      console.log(`res ${data}`);
+
+      if (!res.ok) {
+        return { errors: data };
+      }
+
+      await dispatch(editRestaurant(data));
+      return data;
+    } catch (error) {
+      console.error("Failed to fetch by restaurant by id:", error);
+      return { errors: error.message };
+    }
+  };
+
+// Delete a restaurant
 export const deleteRestaurantThunk = (restaurantId) => async (dispatch) => {
+  try {
+    const res = await fetch(`/api/restaurants/${restaurantId}`, {
+      method: "DELETE",
+    });
+    const data = await res.json();
+    console.log(`res ${data}`);
+
+    if (!res.ok) {
+      return { errors: data };
+    }
+
+    await dispatch(deleteRestaurant(restaurantId));
+  } catch (error) {
+    console.error("Failed to fetch by restaurant by id:", error);
+    return { errors: error.message };
+  }
+};
+
+// MENU ITEMS -----------------------------------------------------------------------
+// Get Menu Items by Restaurant Id
+export const getMenusByRestaurantIdThunk =
+  (restaurantId) => async (dispatch) => {
     try {
+      const res = await fetch(`/api/restaurants/${restaurantId}/menus`);
 
-        const res = await fetch(`/api/restaurants/${restaurantId}`, {
-            method: "DELETE"
-        })
-        const data = await res.json()
-        console.log(`res ${data}`)
+      const data = await res.json();
 
-        if(!res.ok) {
-            return {"errors": data}
+      console.log(`res ${data}`);
+
+      if (!res.ok) {
+        return { errors: data };
+      }
+
+      await dispatch(loadMenuByRestaurantId(data.menus));
+
+      return data;
+    } catch (error) {
+      console.error("Failed to load menus for restaurants:", error);
+      return { errors: error.message };
+    }
+  };
+
+// Post a new menu item for the restaurant
+export const postANewMenuForRestaurantThunk =
+  (restaurantId, menu) => async (dispatch) => {
+    try {
+      const res = await fetch(`/api/restaurants/${restaurantId}/menus/new`, {
+        method: "POST",
+        body: menu,
+      });
+      const data = await res.json();
+      console.log(`res ${data}`);
+
+      if (!res.ok) return { errors: data };
+
+      await dispatch(createMenuByRestaurantId(data));
+      return data;
+    } catch (error) {
+      console.error("Failed to create a menu for a restaurant :", error);
+      return { errors: error.message };
+    }
+  };
+
+// Update a menu item for the restaurant
+export const updateAMenuForARestaurantThunk =
+  (restaurantId, menu, menuId) => async (dispatch) => {
+    try {
+      const res = await fetch(
+        `/api/restaurants/${restaurantId}/menu/${menuId}`,
+        {
+          method: "PUT",
+          body: menu,
         }
-        
-        await dispatch(deleteRestaurant(productId))
-        
+      );
+
+      const data = await res.json();
+      console.log(`res ${data}`);
+
+      if (!res.ok) {
+        return { errors: data };
+      }
+
+      await dispatch(editMenuByRestaurantId(data));
+      return data;
     } catch (error) {
-
-        console.error('Failed to fetch by restaurant by id:', error);
-        return { "errors": error.message };
-
-        
+      console.error("Failed to update the menu by restaurant id:", error);
+      return { errors: error.message };
     }
-}
+  };
 
-export const getMenusByRestaurantIdThunk = (restaurantId) => async (dispatch) => {
+// Delete a menu item
+export const deleteAMenuBasedOffARestaurantThunk =
+  (restaurantId, menuId) => async (dispatch) => {
     try {
-        const res = await fetch(`/api/restaurants/${restaurantId}/menus`)
-
-        const data = await res.json()
-
-        console.log(`res ${data}`)
-
-        if (!res.ok){ 
-            return {"errors": data};
+      const res = await fetch(
+        `/api/restaurants/${restaurantId}/menu/${menuId}`,
+        {
+          method: "DELETE",
         }
+      );
+      const data = await res.json();
+      console.log(`res ${data}`);
 
-        await dispatch(loadMenuByRestaurantId(data.menus))
+      if (!res.ok) {
+        return { errors: data };
+      }
 
-        return data
+      await dispatch(deleteMenuByRestaurantId(menuId));
     } catch (error) {
-        console.error('Failed to load menus for restaurants:', error);
-        return { "errors": error.message };
+      console.error("Failed to delete menu based of restaurant id:", error);
+      return { errors: error.message };
     }
+  };
 
-    
-}
-
-
-export const postANewMenuForRestaurantThunk = (restaurantId, menu) => async (dispatch) => {
+// REVIEWS -----------------------------------------------------------------------
+// Get Review of a Restaurant
+export const getReviewsByRestaurantIdThunk =
+  (restaurantId) => async (dispatch) => {
     try {
-        const res = await fetch(`/api/restaurants/${restaurantId}/menus/new`, {
-            method: "POST",
-            body: menu
-        })
-        const data = await res.json()
-        console.log(`res ${data}`)
+      const res = await fetch(`/api/restaurants/${restaurantId}/reviews`);
 
-        if (!res.ok) return {"errors": data}
+      const data = await res.json();
 
-        await dispatch(createMenuByRestaurantId(data))
-        return data
+      console.log(`res ${data}`);
+
+      if (!res.ok) {
+        return { errors: data };
+      }
+
+      await dispatch(loadReviewByRestaurantId(data.reviews));
+
+      return data;
     } catch (error) {
-        console.error('Failed to create a menu for a restaurant :', error);
-        return { "errors": error.message };
+      console.error("Failed to load reviews for restaurants:", error);
+      return { errors: error.message };
     }
-}
+  };
 
-
-export const updateAMenuForARestaurantThunk = (restaurantId, menu, menuId) => async (dispatch) => {
+// Create a new review for the restaurant
+export const postANewReviewForRestaurantThunk =
+  (restaurantId, review) => async (dispatch) => {
     try {
-        
-        const res = await fetch(`/api/restaurants/${restaurantId}/menu/${menuId}`, {
-            method: "PUT",
-            body:menu
-        })
+      const res = await fetch(`/api/restaurants/${restaurantId}/menus/new`, {
+        method: "POST",
+        body: review,
+      });
+      const data = await res.json();
+      console.log(`res ${data}`);
 
-        const data = await res.json()
-        console.log(`res ${data}`)
+      if (!res.ok) return { errors: data };
 
-        if(!res.ok) {
-            return {"errors": data}
+      await dispatch(createReviewByRestaurantId(data));
+      return data;
+    } catch (error) {
+      console.error("Failed to create a review for a restaurant :", error);
+      return { errors: error.message };
+    }
+  };
+
+// Edit a Review
+export const updateAReviewForARestaurantThunk =
+  (restaurantId, review, reviewId) => async (dispatch) => {
+    try {
+      const res = await fetch(
+        `/api/restaurants/${restaurantId}/reviews/${reviewId}`,
+        {
+          method: "PUT",
+          body: review,
         }
+      );
 
-        await dispatch(editMenuByRestaurantId(data))
-        return data;
+      const data = await res.json();
+      console.log(`res ${data}`);
 
+      if (!res.ok) {
+        return { errors: data };
+      }
+
+      await dispatch(editReviewByRestaurantId(data));
+      return data;
     } catch (error) {
-        console.error('Failed to update the menu by restaurant id:', error);
-        return { "errors": error.message };
+      console.error("Failed to update the review by restaurant id:", error);
+      return { errors: error.message };
     }
+  };
 
-
-
-}
-
-export const deleteAMenuBasedOffARestaurantThunk = (restaurantId, menuId) => async (dispatch) => {
+// Delete a review
+export const deleteAReviewBasedOffARestaurantThunk =
+  (restaurantId, reviewId) => async (dispatch) => {
     try {
-
-        const res = await fetch(`/api/restaurants/${restaurantId}/menu/${menuId}`, {
-            method: "DELETE"
-        })
-        const data = await res.json()
-        console.log(`res ${data}`)
-
-        if(!res.ok) {
-            return {"errors": data}
+      const res = await fetch(
+        `/api/restaurants/${restaurantId}/revies/${reviewId}`,
+        {
+          method: "DELETE",
         }
-        
-        await dispatch(deleteMenuByRestaurantId(menuId))
-        
+      );
+      const data = await res.json();
+      console.log(`res ${data}`);
+
+      if (!res.ok) {
+        return { errors: data };
+      }
+
+      await dispatch(deleteReviewByRestaurantId(reviewId));
     } catch (error) {
-
-        console.error('Failed to delete menu based of restaurant id:', error);
-        return { "errors": error.message };
-
-        
+      console.error("Failed to delete review based of restaurant id:", error);
+      return { errors: error.message };
     }
-}
-
-
-
-
-
-
+  };
 
 /// the reducerrrrrrrrrr
-
 function restaurantReducer(state = {}, action) {
-    switch (action.type) {
-        case LOAD_RESTAURANTS: {
-            const newState = {}
-            action.payload.forEach(eachRestaurant => {
-                newState[eachRestaurant.id] = eachRestaurant
-            });
-            return newState
-        }
-        case LOAD_SINGLE_RESTAURANT: {
-            const newState = {...state, [action.payload.id]: action.payload}
-            return newState
-        }
-        case CREATE_RESTAURANT: {
-            const newState = {...state}
-            newState[action.payload.id] = action.payload
-            return newState
-        }
-        case EDIT_RESTAURANT: {
-            const newState = {...state}
-            newState[action.payload.id] = action.payload
-            return newState
-        }
-        case DELETE_RESTAURANT: {
-            const newState = {...state}
-            delete newState[action.payload]
-            return newState
-        }
-
-        case LOAD_MENU_BY_RESTAURANT_ID: {
-            const newState = {}
-            action.payload.forEach(menuItem => {
-                newState[menuItem.id] = menuItem
-            })
-            return newState
-        }
-
-        case CREATE_MENU_BY_RESTAURANT_ID: {
-            const newState = {...state}
-            newState[action.payload.id] = action.payload
-            return newState
-        }
-
-        case EDIT_MENU_BY_RESTAURANT_ID: {
-            const newState = {...state}
-            newState[action.payload.id] = action.payload
-            return newState
-        }
-        case DELETE_MENU_BY_RESTURANT_ID: {
-            const newState = {...state}
-            delete newState[action.payload]
-            return newState
-        }
-
-    
-    default:
-        return state
+  switch (action.type) {
+    case LOAD_RESTAURANTS: {
+      const newState = {};
+      action.payload.forEach((eachRestaurant) => {
+        newState[eachRestaurant.id] = eachRestaurant;
+      });
+      return newState;
     }
+    case LOAD_SINGLE_RESTAURANT: {
+      const newState = { ...state, [action.payload.id]: action.payload };
+      return newState;
+    }
+    case CREATE_RESTAURANT: {
+      const newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
+    }
+    case EDIT_RESTAURANT: {
+      const newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
+    }
+    case DELETE_RESTAURANT: {
+      const newState = { ...state };
+      delete newState[action.payload];
+      return newState;
+    }
+
+    // MENU ------------------------------------------------------
+    case LOAD_MENU_BY_RESTAURANT_ID: {
+      const newState = {};
+      action.payload.forEach((menuItem) => {
+        newState[menuItem.id] = menuItem;
+      });
+      return newState;
+    }
+
+    case CREATE_MENU_BY_RESTAURANT_ID: {
+      const newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
+    }
+
+    case EDIT_MENU_BY_RESTAURANT_ID: {
+      const newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
+    }
+    case DELETE_MENU_BY_RESTURANT_ID: {
+      const newState = { ...state };
+      delete newState[action.payload];
+      return newState;
+    }
+
+    // REVIEW ------------------------------------------------------
+    case LOAD_REVIEW_BY_RESTAURANT_ID: {
+      const newState = {};
+      action.payload.forEach((eachReview) => {
+        newState[eachReview.id] = eachReview;
+      });
+      return newState;
+    }
+
+    case CREATE_REVIEW_BY_RESTAURANT_ID: {
+      const newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
+    }
+
+    case EDIT_REVIEW_BY_RESTAURANT_ID: {
+      const newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
+    }
+
+    case DELETE_REVIEW_BY_RESTAURANT_ID: {
+      const newState = { ...state };
+      delete newState[action.payload];
+      return newState;
+    }
+
+    default:
+      return state;
+  }
 }
 
-export default restaurantReducer
+export default restaurantReducer;
