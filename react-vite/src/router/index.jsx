@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>WuberEats</h1>,
+        element: <h1>WubeasrEats</h1>,
       },
       {
         path: "login",
