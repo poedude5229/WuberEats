@@ -92,7 +92,7 @@ const deleteReviewByRestaurantId = (reviewId) => ({
 
 export const loadRestaurantsThunk = () => async (dispatch) => {
     try {
-        const res = await fetch("/");
+        const res = await fetch("/api/restaurants");
 
         const data = await res.json();
         console.log(`res ${data}`);
@@ -113,7 +113,7 @@ export const loadRestaurantsThunk = () => async (dispatch) => {
 
 export const createRestaurantThunk = (restaurant) => async (dispatch) => {
     try {
-        const res = await fetch("/",{
+        const res = await fetch("/api/restaurants/new",{
             method: "POST",
             body:restaurant
         })
@@ -131,10 +131,10 @@ export const createRestaurantThunk = (restaurant) => async (dispatch) => {
     }
 }
 
-export const restaurantByIdThunk = (productId) => async (dispatch) => {
+export const restaurantByIdThunk = (restaurantId) => async (dispatch) => {
     try {
 
-        const res = await fetch(`/api/restaurant/${restaurantId}`)
+        const res = await fetch(`/api/restaurants/${restaurantId}`)
         const data = await res.json()
         console.log(`res ${data}`)
 
@@ -155,7 +155,7 @@ export const restaurantByIdThunk = (productId) => async (dispatch) => {
 export const editRestaurantThunk = (restaurant, restaurantId) => async (dispatch) => {
     try {
         
-        const res = await fetch(`/api/restaurant/${restaurantId}`, {
+        const res = await fetch(`/api/restaurants/${restaurantId}`, {
             method: "PUT",
             body:restaurant
         })
@@ -180,7 +180,7 @@ export const editRestaurantThunk = (restaurant, restaurantId) => async (dispatch
 export const deleteRestaurantThunk = (restaurantId) => async (disaptch) => {
     try {
 
-        const res = await fetch(`/api/restaurant/${restaurantId}`, {
+        const res = await fetch(`/api/restaurants/${restaurantId}`, {
             method: "DELETE"
         })
         const data = await res.json()
@@ -210,7 +210,30 @@ export const deleteRestaurantThunk = (restaurantId) => async (disaptch) => {
 function restaurantReducer(state = {}, action) {
     switch (action.type) {
         case LOAD_RESTAURANTS: {
-
+            const newState = {}
+            action.restaurants.forEach(eachRestaurant => {
+                newState[eachRestaurant.id] = eachRestaurant
+            });
+            return newState
+        }
+        case LOAD_SINGLE_RESTAURANT: {
+            const newState = {...state, [action.payload.id]: action.payload}
+            return newState
+        }
+        case CREATE_RESTAURANT: {
+            const newState = {...state}
+            newState[action.payload.id] = action.payload
+            return newState
+        }
+        case EDIT_RESTAURANT: {
+            const newState = {...state}
+            newState[action.payload.id] = action.payload
+            return newState
+        }
+        case DELETE_RESTAURANT: {
+            const newState = {...state}
+            delete newState[action.payload]
+            return newState
         }
     
     
