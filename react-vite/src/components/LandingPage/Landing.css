@@ -1,0 +1,39 @@
+@font-face {
+  font-family: Inter;
+  src: url("../../../public/inter.ttf");
+}
+
+#cover-image {
+  width: 300px;
+  height: 150px;
+}
+
+section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+* {
+  font-family: Inter;
+}
+.restaurant-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.name-review-holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dot {
+  height: 50px;
+  width: 50px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
