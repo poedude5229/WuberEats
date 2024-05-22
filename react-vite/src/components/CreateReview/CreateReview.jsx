@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   postANewReviewForRestaurantThunk,
@@ -13,7 +12,7 @@ import "./CreateReview.css";
 export const CreateAReview = () => {
   const { restaurantId } = useParams();
   const dispatch = useDispatch();
-  const { closeModal } = useModal();
+  const navigate = useNavigate();
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
   const [validationErrors, setValidationErrors] = useState({});
@@ -45,7 +44,7 @@ export const CreateAReview = () => {
     if (submitted) {
       dispatch(restaurantByIdThunk);
       dispatch(getReviewsByRestaurantIdThunk(restaurantId));
-      closeModal();
+      navigate(`/restaurants/${restaurantId}`);
     }
   };
 
