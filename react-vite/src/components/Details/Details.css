@@ -31,3 +31,17 @@
   gap: 4px;
   align-items: center;
 }
+
+.menu-item-image {
+  width: 340px;
+  height: 190px;
+  border-radius: 12px;
+}
+
+.menu-item-name {
+  font-weight: 600;
+}
+
+.dot {
+  background-color: grey;
+}

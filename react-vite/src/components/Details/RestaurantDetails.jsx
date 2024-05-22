@@ -12,7 +12,8 @@ function Details() {
   }, [dispatch]);
   let all = useSelector((state) => state.restaurantReducer);
   let selected = all[restaurantId];
-  console.log(selected?.menu_items);
+  let menu = selected?.menu_items;
+  console.log(menu);
   return (
     <>
       <div className="details-container">
@@ -31,7 +32,35 @@ function Details() {
         <br />
         <div className="description">{selected?.description}</div>
       </div>
-      <section>{/* {selected?.menu.map()} */}</section>
+      <section>
+        {menu.map((item) => (
+          <div className="menu-item-container">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <img className="menu-item-image" src={item.image_url} alt="" />{" "}
+              <span className="dot">
+                <p
+                  style={{
+                    fontSize: "40px",
+                    position: "relative",
+                    bottom: "47px",
+                  }}
+                >
+                  +
+                </p>
+              </span>
+            </div>
+            <p className="menu-item-name">{item.name}</p>
+
+            <p className="menu-item-price">${item.price}</p>
+          </div>
+        ))}
+      </section>
     </>
   );
 }
