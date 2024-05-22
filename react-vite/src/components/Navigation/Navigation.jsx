@@ -129,46 +129,71 @@ function Navigation() {
               <>
                 <hr />
                 <div key={item.id}>
-                  <b>
+                  <b style={{ marginLeft: "12px" }}>
                     {menuItems.find((thing) => thing.id === item.id).restaurant}
                   </b>
-                  <p>{menuItems.find((thing) => thing.id === item.id).name} </p>{" "}
+                  <p style={{ marginLeft: "12px" }}>
+                    {menuItems.find((thing) => thing.id === item.id).name}{" "}
+                  </p>{" "}
                   <div
                     style={{
                       display: "flex",
                       flexDirection: "row",
                       justifyContent: "space-between",
+                      marginLeft: "12px",
                     }}
                   >
                     <p>Quantity: {item.count}</p>
-                    <p>
+                    <p style={{marginRight: "12px"}}>
                       $
                       {menuItems.find((thing) => thing.id === item.id).price *
                         item.count}{" "}
                     </p>
                   </div>
-                  <div style={{ display: "flex" }}>
+                  <div style={{ display: "flex", marginLeft: "12px", gap: "14px" }}>
                     <button
-                      className="dot"
+                      // className="dot"
                       style={{
                         fontSize: "34px",
                         display: "flex",
                         justifyContent: "center",
                         alignContent: "center",
                         paddingBottom: "5px",
+                        backgroundColor: "rgb(99, 59, 99)",
+                        color: "white",
+                        borderRadius: "50%",
+                        height: "30px",
+                        width: "30px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                        fontSize: "20px",
+                        cursor: "pointer",
                       }}
                       onClick={() => dispatch(addToCartThunk(item.id))}
                     >
                       +
                     </button>
                     <button
-                      className="dot"
+                      // className="dot"
                       style={{
                         fontSize: "34px",
                         display: "flex",
                         justifyContent: "center",
                         alignContent: "center",
                         paddingBottom: "5px",
+                        backgroundColor: "rgb(99, 59, 99)",
+                        color: "white",
+                        borderRadius: "50%",
+                        height: "30px",
+                        width: "30px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                        fontSize: "20px",
+                        cursor: "pointer",
                       }}
                       onClick={() =>
                         item.count > 1
