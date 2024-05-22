@@ -1,54 +1,61 @@
-import { useDispatch } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useModal } from "../../context/Modal";
 import {
-  postANewReviewForRestaurantThunk,
-  restaurantByIdThunk,
+  updateAReviewForARestaurantThunk,
   getReviewsByRestaurantIdThunk,
 } from "../../redux/restaurant";
 import { MdStar, MdStarBorder } from "react-icons/md";
-import "./CreateReview.css";
+import "./UpdateReview.css";
 
-export const CreateAReview = () => {
+export const UpdateAReview = () => {
   const { restaurantId } = useParams();
-  const dispatch = useDispatch();
+  const { reviewId } = useParams();
   const { closeModal } = useModal();
-  const [review, setReview] = useState("");
-  const [rating, setRating] = useState(0);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getReviewsByRestaurantIdThunk(restaurantId));
+  }, [dispatch, restaurantId]);
+
+  const indvReview = useSelector((state) => state.restaurantReducer[reviewId]);
+  console.log("INDV REVIEW ====>>>>", indvReview);
+  const [review, setReview] = useState(indvReview?.review);
+  const [rating, setRating] = useState(indvReview?.rating);
   const [validationErrors, setValidationErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
-  useEffect(() => {
-    const errors = {};
+  // useEffect(() => {
+  //   const errors = {};
 
-    if (review.length === 0) {
-      errors.review = "Review is required.";
-    }
-    if (rating === 0) {
-      errors.rating = "Rating needs at least 1 star.";
-    }
-    setValidationErrors(errors);
-  }, [review, rating]);
+  //   if (review.length === 0) {
+  //     errors.review = "Review is required.";
+  //   }
+  //   if (rating === 0) {
+  //     errors.rating = "Rating needs at least 1 star.";
+  //   }
+  //   setValidationErrors(errors);
+  // }, [review, rating]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
-    const createdReview = {
+    const updatedReview = {
       review,
       rating,
     };
     const submitted = await dispatch(
-      postANewReviewForRestaurantThunk(restaurantId, createdReview)
+      updateAReviewForARestaurantThunk(restaurantId, updatedReview, reviewId)
     );
 
     if (submitted) {
-      dispatch(restaurantByIdThunk);
       dispatch(getReviewsByRestaurantIdThunk(restaurantId));
       closeModal();
     }
   };
 
-  const disabledButton = review.length === 0;
+  // const disabledButton = review.length === 0;
 
   return (
     <div className="review-modal">
@@ -84,7 +91,7 @@ export const CreateAReview = () => {
             <button
               onClick={handleSubmit}
               className="created-review"
-              disabled={disabledButton}
+              // disabled={disabledButton}
             >
               {" "}
               Submit Review
