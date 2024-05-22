@@ -197,12 +197,23 @@
 }
 
 .cartMenu {
-  border: 1px solid black;
-  background-color: #fff;
+  background-color: grey;
   position: absolute;
   height: 300px;
   width: 300px;
   top: 80px;
   right: 130px;
   z-index: 1;
+  border-radius: 12px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: grey;
+  padding-left: 12px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(99, 59, 99);
+  height: 50px;
+  border-radius: 9px;
 }

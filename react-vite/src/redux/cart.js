@@ -14,10 +14,25 @@ export function removeFromCart(itemId) {
   };
 }
 
+const DECREMENT = "cart/DECREMENT";
+export function decrementCartItem(itemId) {
+  return {
+    type: DECREMENT,
+    payload: itemId,
+  };
+}
+
 export const addToCartThunk = (id) => async (dispatch) => {
-    await dispatch(addToCart(id))
+  await dispatch(addToCart(id));
 };
 
+export const deletefromCartThunk = (id) => async (dispatch) => {
+  await dispatch(removeFromCart(id));
+};
+
+export const decrementCartItemThunk = (id) => async (dispatch) => {
+  await dispatch(decrementCartItem(id));
+};
 
 export function cartReducer(state = {}, action) {
   switch (action.type) {
@@ -33,7 +48,16 @@ export function cartReducer(state = {}, action) {
       let newState = { ...state };
       delete newState[action.payload];
       return newState;
-    }
+      }
+
+      case DECREMENT: {
+          let itemId = action.payload;
+          let currentCount = state[itemId].count
+          return {
+              ...state,
+              [itemId]: {id: itemId, count: currentCount - 1}
+          }
+          }
     default:
       return state;
   }

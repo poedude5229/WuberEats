@@ -3,10 +3,16 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import DarkSiteLogo from "../../../public/hamberderDarkLogo.png";
+import LightSiteLogo from "../../../public/hamberderLightLogo.png";
 import magnifyingglasssolid from "../../../public/magnifying-glass-solid.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import cart from "../../../public/cart.png";
 import { useEffect, useRef, useState } from "react";
+import {
+  addToCartThunk,
+  decrementCartItemThunk,
+  deletefromCartThunk,
+} from "../../redux/cart";
 function Navigation() {
   let navigate = useNavigate();
   let user = useSelector((state) => state.session.user);
@@ -15,6 +21,7 @@ function Navigation() {
   let restaurants = useSelector((state) => state.restaurantReducer);
   restaurants = [...Object.values(restaurants)];
   let menuItems = [];
+  let dispatch = useDispatch();
   restaurants.forEach((restaurant) => menuItems.push(...restaurant.menu_items));
   console.log(menuItems);
 
@@ -92,7 +99,6 @@ function Navigation() {
           id="shopping-cart-container"
           onClick={() => setCartOpen(cartOpen === true ? false : true)}
           style={{ cursor: "pointer" }}
-          ref={cartRef}
         >
           <img
             src={cart}
@@ -103,18 +109,120 @@ function Navigation() {
       )}
       {user && cartOpen && (
         <>
-          <div className="cartMenu" style={{ overflowY: "scroll" }}>
+          <div
+            className="cartMenu"
+            ref={cartRef}
+            style={{ overflowY: "scroll" }}
+          >
+            <span
+              style={{
+                cursor: "pointer",
+                marginLeft: "264px",
+                fontSize: "20px",
+              }}
+              onClick={() => setCartOpen(false)}
+            >
+              X
+            </span>
+
             {cartItems.map((item) => (
-              <div key={item.id}>
-                <b>
-                  {menuItems.find((thing) => thing.id === item.id).restaurant}
-                </b>
-                <p>
-                  {menuItems.find((thing) => thing.id === item.id).name} X
-                  {item.count}
-                </p>
-              </div>
+              <>
+                <hr />
+                <div key={item.id}>
+                  <b>
+                    {menuItems.find((thing) => thing.id === item.id).restaurant}
+                  </b>
+                  <p>{menuItems.find((thing) => thing.id === item.id).name} </p>{" "}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <p>Quantity: {item.count}</p>
+                    <p>
+                      $
+                      {menuItems.find((thing) => thing.id === item.id).price *
+                        item.count}{" "}
+                    </p>
+                  </div>
+                  <div style={{ display: "flex" }}>
+                    <button
+                      className="dot"
+                      style={{
+                        fontSize: "34px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                        paddingBottom: "5px",
+                      }}
+                      onClick={() => dispatch(addToCartThunk(item.id))}
+                    >
+                      +
+                    </button>
+                    <button
+                      className="dot"
+                      style={{
+                        fontSize: "34px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignContent: "center",
+                        paddingBottom: "5px",
+                      }}
+                      onClick={() =>
+                        item.count > 1
+                          ? dispatch(decrementCartItemThunk(item.id))
+                          : dispatch(deletefromCartThunk(item.id))
+                      }
+                    >
+                      -
+                    </button>
+                  </div>
+                </div>
+              </>
             ))}
+            {cartItems.length > 0 && <hr />}
+            {cartItems.length == 0 && (
+              <>
+                <p
+                  style={{
+                    marginLeft: "60px",
+                    marginRight: "60px",
+                    textAlign: "center",
+                    marginTop: "30px",
+                  }}
+                >
+                  Add some items to start Wubering!
+                </p>
+                <img
+                  src={DarkSiteLogo}
+                  alt="It's the site logo. I only have so much time to add an alt tag to everything you know."
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    marginLeft: "90px",
+                  }}
+                />
+              </>
+            )}
+            {cartItems.length > 0 && (
+              <button
+                style={{
+                  width: "160px",
+                  height: "40px",
+                  marginLeft: "65px",
+                  marginBottom: "24px",
+                  marginTop: "6px",
+                }}
+              >
+                Go to checkout!
+                <img
+                  style={{ width: "30px", height: "30px" }}
+                  src={LightSiteLogo}
+                />
+              </button>
+            )}
           </div>
         </>
       )}
