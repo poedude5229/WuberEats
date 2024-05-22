@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadRestaurantsThunk } from "../../redux/restaurant";
 import { MdOutlineStar } from "react-icons/md";
 import { RiArrowRightLine } from "react-icons/ri";
+import hamberderLightLogo from "../../../public/hamberderLightLogo.png";
 import "./Landing.css";
 import { NavLink } from "react-router-dom";
 function Landing() {
@@ -15,13 +16,35 @@ function Landing() {
   }, [dispatch]);
   return (
     <>
-      <section style={{gap: "100px"}}>
+      <section style={{ gap: "100px" }}>
         <div style={{ backgroundColor: "Orange" }} className="wube-cards">
-          <span className="wubeAdText">
+          <span className="wubeAdText" style={{marginTop: "95px", marginBottom: "0"}}>
             Wube that? Order that!
+            <img
+              style={{
+                width: "105px",
+                height: "105px",
+                position: "inherit",
+                top: "205px",
+                left: "490px"
+              }}
+              src={hamberderLightLogo}
+              alt="yea"
+            />
             <button
-              style={{ width: "150px", height: "50px", marginTop: "104px", color: "white", backgroundColor: "black", borderRadius: "12px" }}
-            >Getchu some food!</button>
+              style={{
+                width: "150px",
+                height: "50px",
+                marginTop: "20px",
+                marginBottom: "90px",
+                color: "white",
+                backgroundColor: "black",
+                borderRadius: "12px",
+                fontWeight: "900",
+              }}
+            >
+              Getchu some food!
+            </button>
           </span>
           <img
             src="https://shakeshack.com/sites/default/files/styles/locations_mobile/public/location-about-02.jpg?itok=E6VOpWRc"
@@ -59,6 +82,7 @@ function Landing() {
               textAlign: "left",
               display: "flex",
               flexDirection: "row",
+              fontWeight: "900",
             }}
           >
             <span style={{ marginTop: "8px" }}>
