@@ -1,32 +1,32 @@
 import { useEffect, useState } from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { postANewMenuForRestaurantThunk } from '../../redux/restaurant'
-
+import { updateAMenuForARestaurantThunk } from '../../redux/restaurant'
 
 import './menuform.css'
 
-const MenuForm = () => {
+const UpdateMenuForm = () => {
   
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
 //   const user = useSelector(state => state.session.user)
   
-  const {restaurantId} = useParams() 
+  const {menuId, restaurantId} = useParams() 
+  const menuItem = useSelector((state) => state.resaurantReducer?.[menuId] )
 
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [price, setPrice] = useState('')
-  const [category, setCategory] = useState('')
-  const [is_avaliable, setIs_avaliable] = useState('')
-  const [image_url, setImage_url] = useState('')
+  const [name, setName] = useState(menuItem?.name || '')
+  const [description, setDescription] = useState(menuItem?.description || '')
+  const [price, setPrice] = useState(menuItem?.price || '')
+  const [category, setCategory] = useState(menuItem?.category || '')
+  const [is_avaliable, setIs_avaliable] = useState(menuItem?.is_avaliable || '')
+  const [image_url, setImage_url] = useState(menuItem?.image_url || '')
   const [errors, setErrors] = useState({})
   
   const handleSubmit  = async (e) => {
     e.preventDefault()
 
-    const newMenuItem = {
+    const updatedMenu = {
         name,
         description,
         price,
@@ -37,7 +37,7 @@ const MenuForm = () => {
     
 
     try {
-        await dispatch(postANewMenuForRestaurantThunk(newMenuItem, restaurantId))
+        await dispatch(updateAMenuForARestaurantThunk(updatedMenu, menuId))
         navigate(`/restaurants/${restaurantId}`)
 
     } catch (error) {
@@ -63,12 +63,11 @@ const MenuForm = () => {
   
   
     return (
-
-        <div className='menu-form-con'>
-        <h1 className='menu-form-h1'>Create a menu item!</h1>
+    <div className='menu-form-con'>
+        <h1 className='menu-form-h1'>Update your menu item!</h1>
         <div className='menu-item-description'>
-            <h2 className='menu-item-h2'>What would you like people to be able to order from your restaurant?</h2>
-            <p className='menu-item-desc'>Create a wonderful menu item that your customers can enjoy. Having a menu with more items gives you a better chance to get orders! </p>
+            <h2 className='menu-item-h2'>Did you make a mistake or did something change?</h2>
+            <p className='menu-item-desc'>Update your menu item to whatever you may change keep in mind the more menu items you have the better chance to get orders! </p>
         </div>
         
         <form className='menu-form' onSubmit={handleSubmit}>
@@ -178,4 +177,4 @@ const MenuForm = () => {
 
 
 
-export default MenuForm
+export default UpdateMenuForm
