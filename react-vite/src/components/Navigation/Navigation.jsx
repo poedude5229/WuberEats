@@ -37,7 +37,7 @@ function Navigation() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (cartItems.length) {
+    if (cartItems.length > -1) {
       localStorage.setItem("cartState", JSON.stringify(cartState));
     }
   });
