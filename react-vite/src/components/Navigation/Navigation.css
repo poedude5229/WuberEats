@@ -195,3 +195,14 @@
 #logout-button:hover {
   background-color: grey;
 }
+
+.cartMenu {
+  border: 1px solid black;
+  background-color: #fff;
+  position: absolute;
+  height: 300px;
+  width: 300px;
+  top: 80px;
+  right: 130px;
+  z-index: 1;
+}

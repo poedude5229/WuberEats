@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
 from app.models import User
-
+from app.models import Cart
 user_routes = Blueprint('users', __name__)
 
 
@@ -23,3 +23,10 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+# @user_routes.route("/<int:id>/cart")
+# @login_required
+# def cart(id):
+
+#     carts = Cart.query.filter(Cart.user_id == id).all()
+#     return {"cart": [cart.to_dict() for cart in carts]}

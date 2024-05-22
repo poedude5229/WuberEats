@@ -97,7 +97,7 @@ export const loadRestaurantsThunk = () => async (dispatch) => {
     const res = await fetch("/api/restaurants");
 
     const data = await res.json();
-    console.log(`res ${data}`);
+    // console.log(`res ${data}`);
 
     if (!res.ok) {
       return { errors: data };
@@ -163,7 +163,7 @@ export const editRestaurantThunk =
       });
 
       const data = await res.json();
-      console.log(`res ${data}`);
+      // console.log(`res ${data}`);
 
       if (!res.ok) {
         return { errors: data };

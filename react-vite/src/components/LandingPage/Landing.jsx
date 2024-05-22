@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 function Landing() {
   let restaurants = useSelector((state) => state.restaurantReducer);
   restaurants = Object.values(restaurants);
-  console.log(restaurants);
+  // console.log(restaurants);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadRestaurantsThunk());

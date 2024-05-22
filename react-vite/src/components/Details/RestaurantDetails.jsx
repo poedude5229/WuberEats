@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { loadRestaurantsThunk } from "../../redux/restaurant";
+import { addToCartThunk } from "../../redux/cart";
 import { MdStarBorder } from "react-icons/md";
 import "./Details.css";
 function Details() {
@@ -11,9 +12,12 @@ function Details() {
     dispatch(loadRestaurantsThunk());
   }, [dispatch]);
   let all = useSelector((state) => state.restaurantReducer);
+  let cartState = useSelector((state) => {
+    state.cart;
+  });
   let selected = all[restaurantId];
   let menu = selected?.menu_items;
-  console.log(selected);
+  //   console.log(selected);
   return (
     <>
       <div className="details-container">
@@ -39,7 +43,7 @@ function Details() {
       </div>
       <section>
         {menu?.map((item) => (
-          <div className="menu-item-container">
+          <div key={item.id} className="menu-item-container">
             <div
               style={{
                 display: "flex",
@@ -48,7 +52,11 @@ function Details() {
               }}
             >
               <img className="menu-item-image" src={item.image_url} alt="" />{" "}
-              <span className="dot" style={{ cursor: "pointer" }}>
+              <span
+                className="dot"
+                style={{ cursor: "pointer" }}
+                onClick={() => dispatch(addToCartThunk(item.id))}
+              >
                 <p
                   style={{
                     fontSize: "40px",
