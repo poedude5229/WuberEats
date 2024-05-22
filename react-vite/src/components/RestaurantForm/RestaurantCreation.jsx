@@ -91,6 +91,9 @@ const deliveryRadiusOptions = [
                 />
               </label>
             </div>
+            <div className="">
+              {error.address && <p>{error.address}</p>}
+            </div>
             <div className=''>
               <label>
                 Restaurant Name:
@@ -102,6 +105,9 @@ const deliveryRadiusOptions = [
                 />
               </label>
             </div>
+            <div className="" >
+              {error.name && <p>{error.name}</p>}
+            </div>
             <div className=''>
               <label>
                 Phone Number:
@@ -112,6 +118,9 @@ const deliveryRadiusOptions = [
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 />
               </label>
+            </div>
+            <div className="">
+              {error.phoneNumber && <p>{error.phoneNumber}</p>}
             </div>
           <div className=''>
             <label>
@@ -134,6 +143,9 @@ const deliveryRadiusOptions = [
                 </select>
               </label>
           </div>
+          <div className="">
+              {error.cuisine && <p>{error.cuisine}</p>}
+            </div>
           <div className=''>
             <p>Describe You're Restaurant Nicely!!!!!!!!</p>
           <textarea placeholder="30 Characters are needed at minimun"
@@ -145,6 +157,9 @@ const deliveryRadiusOptions = [
                 >
           </textarea>
         </div>
+        <div className="">
+              {error.description && <p>{error.description}</p>}
+            </div>
         <div className=''>
           <label>
               Hours of Operation:
@@ -159,6 +174,9 @@ const deliveryRadiusOptions = [
               ))}
             </select>
           </label>
+            <div className="">
+              {error.hoursOfOperation && <p>{error.hoursOfOperation}</p>}
+            </div>
         </div>
           <div className=''>
               <label>
@@ -174,6 +192,9 @@ const deliveryRadiusOptions = [
                 ))}
             </select>
           </label>
+          <div className="">
+              {error.deliveryRadius && <p>{error.deliveryRadius}</p>}
+            </div>
           <div className=''>
               <label>
                 Cover Image:
@@ -184,6 +205,9 @@ const deliveryRadiusOptions = [
                 onChange={(e) => setCoverImage(e.target.value)}
                 />
               </label>
+            </div>
+            <div className="">
+              {error.coverImage && <p>{error.coverImage}</p>}
             </div>
           <div>
           <button type="submit" disabled={Object.values(error).length > 0}>Submit</button>
