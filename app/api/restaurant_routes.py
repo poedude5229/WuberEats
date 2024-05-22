@@ -10,22 +10,32 @@ restaurant_routes = Blueprint('restaurants', __name__)
 # Get all the restaurants CHECKED
 @restaurant_routes.route("/")
 def restaurants():
-
     fetched_restaurants = Restaurant.query.all()
     restaurant_menus = []
     for restaurant in fetched_restaurants:
-       restaurant_dict = restaurant.to_dict()
-       print(len(restaurant_dict['reviews']))
-       menu_items = Menu.query.filter(Menu.restaurant_id == restaurant.id).all()
-       restaurant_dict['menu_items'] = [item.to_dict() for item in menu_items]
-       total_rating = 0
-       if len(restaurant_dict['reviews']) != 0:
-          total_rating = (sum(review['rating'] for review in restaurant_dict['reviews']) / len(restaurant_dict['reviews']))
-       else:
-          total_rating = 0
-       restaurant_dict['avgrating'] = total_rating
-       restaurant_menus.append(restaurant_dict)
-    return {'restaurants':restaurant_menus }
+        restaurant_dict = restaurant.to_dict()
+        # print(len(restaurant_dict['reviews']))
+
+        menu_items = Menu.query.filter(Menu.restaurant_id == restaurant.id).all()
+        # Adding restaurant name to each menu item dictionary
+        menu_items_with_restaurant = []
+        for item in menu_items:
+            item_dict = item.to_dict()
+            item_dict['restaurant'] = restaurant_dict['name']
+            menu_items_with_restaurant.append(item_dict)
+
+        restaurant_dict['menu_items'] = menu_items_with_restaurant
+
+        total_rating = 0
+        if len(restaurant_dict['reviews']) != 0:
+            total_rating = sum(review['rating'] for review in restaurant_dict['reviews']) / len(restaurant_dict['reviews'])
+        else:
+            total_rating = 0
+
+        restaurant_dict['avgrating'] = total_rating
+        restaurant_menus.append(restaurant_dict)
+
+    return {'restaurants': restaurant_menus}
 
 
 

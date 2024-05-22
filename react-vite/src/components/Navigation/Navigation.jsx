@@ -103,10 +103,16 @@ function Navigation() {
       )}
       {user && cartOpen && (
         <>
-          <div className="cartMenu">
+          <div className="cartMenu" style={{ overflowY: "scroll" }}>
             {cartItems.map((item) => (
               <div key={item.id}>
-                {menuItems.find((thing) => thing.id === item.id).name}
+                <b>
+                  {menuItems.find((thing) => thing.id === item.id).restaurant}
+                </b>
+                <p>
+                  {menuItems.find((thing) => thing.id === item.id).name} X
+                  {item.count}
+                </p>
               </div>
             ))}
           </div>
