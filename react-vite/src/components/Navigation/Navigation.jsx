@@ -12,6 +12,7 @@ import {
   addToCartThunk,
   decrementCartItemThunk,
   deletefromCartThunk,
+  setCartState,
 } from "../../redux/cart";
 function Navigation() {
   let navigate = useNavigate();
@@ -27,6 +28,19 @@ function Navigation() {
 
   const [cartOpen, setCartOpen] = useState(false);
   const cartRef = useRef();
+
+  useEffect(() => {
+    const storedCartState = localStorage.getItem("cartState");
+    if (storedCartState) {
+      dispatch(setCartState(JSON.parse(storedCartState)));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (cartItems.length) {
+      localStorage.setItem("cartState", JSON.stringify(cartState));
+    }
+  });
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -144,13 +158,15 @@ function Navigation() {
                     }}
                   >
                     <p>Quantity: {item.count}</p>
-                    <p style={{marginRight: "12px"}}>
+                    <p style={{ marginRight: "12px" }}>
                       $
                       {menuItems.find((thing) => thing.id === item.id).price *
                         item.count}{" "}
                     </p>
                   </div>
-                  <div style={{ display: "flex", marginLeft: "12px", gap: "14px" }}>
+                  <div
+                    style={{ display: "flex", marginLeft: "12px", gap: "14px" }}
+                  >
                     <button
                       // className="dot"
                       style={{

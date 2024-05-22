@@ -22,6 +22,14 @@ export function decrementCartItem(itemId) {
   };
 }
 
+const SETCARTSTATE = "cart/SETCARTSTATE";
+export function setCartState(cartState) {
+  return {
+    type: SETCARTSTATE,
+    payload: cartState,
+  };
+}
+
 export const addToCartThunk = (id) => async (dispatch) => {
   await dispatch(addToCart(id));
 };
@@ -48,16 +56,19 @@ export function cartReducer(state = {}, action) {
       let newState = { ...state };
       delete newState[action.payload];
       return newState;
-      }
+    }
 
-      case DECREMENT: {
-          let itemId = action.payload;
-          let currentCount = state[itemId].count
-          return {
-              ...state,
-              [itemId]: {id: itemId, count: currentCount - 1}
-          }
-          }
+    case DECREMENT: {
+      let itemId = action.payload;
+      let currentCount = state[itemId].count;
+      return {
+        ...state,
+        [itemId]: { id: itemId, count: currentCount - 1 },
+      };
+    }
+    case SETCARTSTATE: {
+      return action.payload;
+    }
     default:
       return state;
   }
