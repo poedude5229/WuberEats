@@ -20,11 +20,11 @@ class User(db.Model, UserMixin):
     address = db.Column(db.String(100), nullable=False)
     role = db.Column(db.String(25), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
-    
-    
-    
+
+
+
     # cart = db.Relationship('Cart', back_populates='user')
-    # review = db.Relationship('Reviews', back_populates='user')
+    review = db.relationship('Review', back_populates='user')
     # restaurant = db.Relationship('Restaurant', back_populates='user')
 
     @property

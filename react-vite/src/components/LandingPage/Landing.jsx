@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadRestaurantsThunk } from "../../redux/restaurant";
 import { MdOutlineStar } from "react-icons/md";
+import { RiArrowRightLine } from "react-icons/ri";
 import "./Landing.css";
 import { NavLink } from "react-router-dom";
 function Landing() {
@@ -14,16 +15,59 @@ function Landing() {
   }, [dispatch]);
   return (
     <>
-      <section>
+      <section style={{gap: "100px"}}>
         <div style={{ backgroundColor: "Orange" }} className="wube-cards">
-          <span className="wubeAdText">Wube that? Order that!</span>
+          <span className="wubeAdText">
+            Wube that? Order that!
+            <button
+              style={{ width: "150px", height: "50px", marginTop: "104px", color: "white", backgroundColor: "black", borderRadius: "12px" }}
+            >Getchu some food!</button>
+          </span>
           <img
             src="https://shakeshack.com/sites/default/files/styles/locations_mobile/public/location-about-02.jpg?itok=E6VOpWRc"
             alt="Shake Shack Wube Card"
           />
         </div>
+        <div className="wube-cards" style={{ backgroundColor: "grey" }}>
+          <span
+            className="wubeAdText"
+            style={{
+              fontSize: "18px",
+              textAlign: "center",
+              marginLeft: "200px",
+            }}
+          >
+            Willem Dafoe ordered here once. It was so good, bro hit this pose
+          </span>
+          <img
+            src="https://pbs.twimg.com/media/GASGdkPWgAEpnj_.jpg"
+            alt="willem dapose"
+            style={{ marginRight: "12px" }}
+          />
+          <button
+            style={{
+              position: "absolute",
+              marginLeft: "104px",
+              marginTop: "200px",
+              width: "170px",
+              height: "50px",
+              color: "black",
+              backgroundColor: "white",
+              border: "none",
+              borderRadius: "12px",
+              cursor: "pointer",
+              textAlign: "left",
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <span style={{ marginTop: "8px" }}>
+              Wube it now, Wube it real good
+            </span>{" "}
+            <RiArrowRightLine style={{ marginTop: "10px", fontSize: "24px" }} />
+          </button>
+        </div>
       </section>
-      <div className="wube-cards"></div>
       <section>
         {restaurants?.map((restaurant) => (
           <NavLink

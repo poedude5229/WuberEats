@@ -26,14 +26,19 @@ function Details() {
           {selected?.name} &#40;{selected?.address}&#41;{" "}
         </h1>
         <p className="starRating">
-          {selected?.avgrating} <MdStarBorder /> • {selected?.reviews?.length}{" "}
-          reviews
+          {selected?.reviews?.length > 0 ? `${selected?.avgrating}` : `New!`}{" "}
+          {selected?.reviews.length > 0 && <MdStarBorder />}{" "}
+          {selected?.reviews?.length > 0
+            ? selected.reviews.length > 1
+              ? `${selected.reviews.length} reviews`
+              : "1 review"
+            : "Be the first to leave a review!"}
         </p>
         <br />
         <div className="description">{selected?.description}</div>
       </div>
       <section>
-        {menu.map((item) => (
+        {menu?.map((item) => (
           <div className="menu-item-container">
             <div
               style={{
@@ -43,7 +48,7 @@ function Details() {
               }}
             >
               <img className="menu-item-image" src={item.image_url} alt="" />{" "}
-              <span className="dot">
+              <span className="dot" style={{ cursor: "pointer" }}>
                 <p
                   style={{
                     fontSize: "40px",

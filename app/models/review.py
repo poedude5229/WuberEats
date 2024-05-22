@@ -18,7 +18,7 @@ class Review(db.Model):
 
 
 
-  # user = db.Relationship('User', back_populates='review', cascade='all, delete-orphan')
+  user = db.relationship('User', back_populates='review')
   restaurants = db.relationship('Restaurant', back_populates='reviews')
 
 
@@ -26,6 +26,7 @@ class Review(db.Model):
         return {
             'id': self.id,
             'user_id': self.user_id,
+            'user_firstname': self.user.firstname,
             'restaurant_id': self.restaurant_id,
             'review': self.review,
             'rating': self.rating,

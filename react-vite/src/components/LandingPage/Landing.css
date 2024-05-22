@@ -54,18 +54,32 @@ section {
 
 .wube-cards {
   width: 500px;
-  height: 200px;
+  height: 300px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .wube-cards img {
-  width: 250px;
-  height: 200px;
+  flex-shrink: 0;
+  width: auto;
+  height: 300px;
+  overflow-x: clip;
+  object-fit: cover;
 }
 
 .wubeAdText {
   font-family: JockeyOne;
+  font-size: 30px;
+  text-align: center;
+  margin-left: 300px;
+  margin-right: 56px;
+  z-index: 1;
 }
 
 .restaurant-card-container {

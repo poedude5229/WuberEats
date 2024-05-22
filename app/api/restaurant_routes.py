@@ -103,7 +103,7 @@ def get_restaurant_by_id(id):
         restaurant_dict['menu_items'] = [item.to_dict() for item in menu_items]
         restaurant_dict['avgrating'] = total_rating
         restmenu.append(restaurant_dict)
-        return jsonify(restmenu)
+        return restmenu
     else: return {  "message": "Restaurant couldn't be found" }, 404
 
 

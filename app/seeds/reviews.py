@@ -173,6 +173,12 @@ def seed_reviews():
     rating = 5
   )
 
+  review25 = Review(
+      user_id = 1,
+      restaurant_id = 7,
+      review = "This made my stomach fall out",
+      rating = 1
+  )
 
   db.session.add(review1)
   db.session.add(review2)
@@ -198,6 +204,7 @@ def seed_reviews():
   db.session.add(review22)
   db.session.add(review23)
   db.session.add(review24)
+  db.session.add(review25)
   db.session.commit()
 
 def undo_reviews():
