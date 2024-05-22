@@ -13,7 +13,7 @@ function Details() {
   let all = useSelector((state) => state.restaurantReducer);
   let selected = all[restaurantId];
   let menu = selected?.menu_items;
-  console.log(menu);
+  console.log(selected);
   return (
     <>
       <div className="details-container">

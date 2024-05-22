@@ -18,7 +18,10 @@ function Landing() {
     <>
       <section style={{ gap: "100px" }}>
         <div style={{ backgroundColor: "Orange" }} className="wube-cards">
-          <span className="wubeAdText" style={{marginTop: "95px", marginBottom: "0"}}>
+          <span
+            className="wubeAdText"
+            style={{ marginTop: "95px", marginBottom: "0" }}
+          >
             Wube that? Order that!
             <img
               style={{
@@ -26,7 +29,7 @@ function Landing() {
                 height: "105px",
                 position: "inherit",
                 top: "205px",
-                left: "490px"
+                left: "490px",
               }}
               src={hamberderLightLogo}
               alt="yea"
@@ -41,6 +44,7 @@ function Landing() {
                 backgroundColor: "black",
                 borderRadius: "12px",
                 fontWeight: "900",
+                cursor: "pointer",
               }}
             >
               Getchu some food!
@@ -55,9 +59,9 @@ function Landing() {
           <span
             className="wubeAdText"
             style={{
-              fontSize: "18px",
+              fontSize: "20px",
               textAlign: "center",
-              marginLeft: "200px",
+              marginLeft: "300px",
             }}
           >
             Willem Dafoe ordered here once. It was so good, bro hit this pose
@@ -65,7 +69,7 @@ function Landing() {
           <img
             src="https://pbs.twimg.com/media/GASGdkPWgAEpnj_.jpg"
             alt="willem dapose"
-            style={{ marginRight: "12px" }}
+            style={{ marginRight: "42px", right: "22px", position: "inherit" }}
           />
           <button
             style={{

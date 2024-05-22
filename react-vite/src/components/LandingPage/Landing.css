@@ -79,7 +79,7 @@ section {
   text-align: center;
   margin-left: 300px;
   margin-right: 56px;
-  z-index: 0;
+  z-index: 1;
 }
 
 .restaurant-card-container {
