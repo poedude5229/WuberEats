@@ -24,7 +24,7 @@ function Navigation() {
   let menuItems = [];
   let dispatch = useDispatch();
   restaurants.forEach((restaurant) => menuItems.push(...restaurant.menu_items));
-  console.log(menuItems);
+  // console.log(menuItems);
 
   const [cartOpen, setCartOpen] = useState(false);
   const cartRef = useRef();
