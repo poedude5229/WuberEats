@@ -1,0 +1,55 @@
+.review-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container-review {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  border-radius: 12px;
+  box-shadow: 5px 5px 5px rgb(99, 59, 99);
+  padding: 35px;
+}
+
+.review-text-area {
+  height: 200px;
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: rgb(99, 59, 99), solid, 2px;
+}
+
+.new-rating {
+  margin-bottom: 10px;
+}
+
+.star {
+  font-size: 36px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.283);
+}
+
+.star.selected {
+  color: rgb(99, 59, 99);
+}
+
+.submit-button {
+  display: flex;
+  justify-content: center;
+}
+
+.created-review {
+  padding: 10px 20px;
+  border-radius: 12px;
+  background-color: rgb(99, 59, 99);
+  color: white;
+}
+.created-review:hover {
+  transform: scale(1.05);
+}

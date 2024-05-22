@@ -1,0 +1,98 @@
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  postANewReviewForRestaurantThunk,
+  restaurantByIdThunk,
+  getReviewsByRestaurantIdThunk,
+} from "../../redux/restaurant";
+import { MdStar, MdStarBorder } from "react-icons/md";
+import "./CreateReview.css";
+
+export const CreateAReview = () => {
+  const { restaurantId } = useParams();
+  const dispatch = useDispatch();
+  const { closeModal } = useModal();
+  const [review, setReview] = useState("");
+  const [rating, setRating] = useState(0);
+  const [validationErrors, setValidationErrors] = useState({});
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  useEffect(() => {
+    const errors = {};
+
+    if (review.length === 0) {
+      errors.review = "Review is required.";
+    }
+    if (rating === 0) {
+      errors.rating = "Rating needs at least 1 star.";
+    }
+    setValidationErrors(errors);
+  }, [review, rating]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setHasSubmitted(true);
+    const createdReview = {
+      review,
+      rating,
+    };
+    const submitted = await dispatch(
+      postANewReviewForRestaurantThunk(restaurantId, createdReview)
+    );
+
+    if (submitted) {
+      dispatch(restaurantByIdThunk);
+      dispatch(getReviewsByRestaurantIdThunk(restaurantId));
+      closeModal();
+    }
+  };
+
+  const disabledButton = review.length === 0;
+
+  return (
+    <div className="review-modal">
+      <div className="container-review">
+        <label>
+          <textarea
+            className="review-text-area"
+            value={review}
+            type="text"
+            placeholder="Describe your WuberEats experience here..."
+            onChange={(e) => setReview(e.target.value)}
+          ></textarea>
+        </label>
+        <div style={{ color: "red" }}>
+          {hasSubmitted && validationErrors.review}
+        </div>
+        <div className="new-rating">
+          {[1, 2, 3, 4, 5].map((num) => (
+            <span key={num} onClick={() => setRating(num)}>
+              {num <= rating ? (
+                <MdStar className="star selected" />
+              ) : (
+                <MdStarBorder className="star" />
+              )}
+            </span>
+          ))}
+        </div>
+        <div style={{ color: "red" }}>
+          {hasSubmitted && validationErrors.rating}
+        </div>
+        <div className="create-button-container">
+          <div className="submit-button">
+            <button
+              onClick={handleSubmit}
+              className="created-review"
+              disabled={disabledButton}
+            >
+              {" "}
+              Submit Review
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
