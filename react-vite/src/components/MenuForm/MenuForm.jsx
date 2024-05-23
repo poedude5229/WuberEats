@@ -38,7 +38,7 @@ const MenuForm = () => {
     
 
     try {
-        await dispatch(postANewMenuForRestaurantThunk(formData, restaurantId))
+        await dispatch(postANewMenuForRestaurantThunk(restaurantId, formData))
         navigate(`/restaurants/${restaurantId}`)
 
     } catch (error) {

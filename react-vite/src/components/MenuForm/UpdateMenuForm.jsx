@@ -6,15 +6,15 @@ import { updateAMenuForARestaurantThunk } from '../../redux/restaurant'
 import './menuform.css'
 
 const UpdateMenuForm = () => {
-  
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
 //   const user = useSelector(state => state.session.user)
   
   const {menuId, restaurantId} = useParams() 
-  const menuItem = useSelector((state) => state.restaurantReducer?.[menuId] )
-  // console.log(menuItem);
+  const menuItem = useSelector((state) => state.restaurantReducer)
+  console.log('menu', menuItem);
 
   const [name, setName] = useState(menuItem?.name || '')
   const [description, setDescription] = useState(menuItem?.description || '')
@@ -51,7 +51,7 @@ const UpdateMenuForm = () => {
     
 
     try {
-        await dispatch(updateAMenuForARestaurantThunk(formData, menuId))
+        await dispatch(updateAMenuForARestaurantThunk(restaurantId, menuId, formData))
         navigate(`/restaurants/${restaurantId}`)
 
     } catch (error) {

@@ -7,6 +7,8 @@ import { MdStarBorder } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteRestaurantModal from "../RestaurantForm/DeleteRestaurant"
+import DeleteAMenu from '../MenuForm/DeleteAMenu'
+
 import "./Details.css";
 function Details() {
   let { restaurantId } = useParams();
@@ -24,7 +26,7 @@ function Details() {
   console.log('sel',selected?.id);
   // console.log(selected?.owner_id);
   let menu = selected?.menu_items;
-  //   console.log(selected);
+  // console.log(menu);
   return (
     <>
       <div className="details-container">
@@ -79,14 +81,20 @@ function Details() {
             <p className="menu-item-name">{item.name}</p>
 
             <p className="menu-item-price">${item.price}</p>
+
+            <NavLink to={`/restaurants/${selected?.id}/menus/${item.id}/update`}>Update Menu Item</NavLink>
+            {currentUser.id === selected?.owner_id && <OpenModalMenuItem itemText={<button>Delete</button>} className='delete-btn-getall' modalComponent={<DeleteAMenu restaurantId={+selected?.id} menuId={item.id} />}/>}
           </div>
 
         ))}
+        <div className="buttons-con">
         {currentUser.id === selected?.owner_id && <button><NavLink to={`/restaurants/${selected?.id}/update`}>Update Your Restaurant</NavLink></button>}
         
         <div className="delete-button-container">
         {currentUser.id === selected?.owner_id && <OpenModalMenuItem itemText={<button>Delete</button>} className='delete-btn-getall' modalComponent={<DeleteRestaurantModal restaurantId={+selected?.id} />}/>}
         
+        {currentUser.id === selected?.owner_id && <NavLink to={`/restaurants/${selected?.id}/menu/new`}>Create a menu item</NavLink> }
+        </div>
         </div>
       </section>
     </>
