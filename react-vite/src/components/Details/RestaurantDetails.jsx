@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteRestaurantModal from "../RestaurantForm/DeleteRestaurant";
 import DeleteAMenu from "../MenuForm/DeleteAMenu";
+import CreateReview from "../CreateReview/CreateReview";
 
 import "./Details.css";
 
@@ -43,13 +44,14 @@ function Details() {
         <div>
           <p className="starRating">
             {selected?.reviews?.length > 0 ? `${selected?.avgrating}` : `New!`}{" "}
-            {selected?.reviews.length > 0 && <MdStarBorder />}{" "}
+            {selected?.reviews?.length > 0 && <MdStarBorder />}{" "}
             {selected?.reviews?.length > 0
               ? selected?.reviews?.length > 1
                 ? `${selected?.reviews?.length} reviews`
                 : "1 review"
               : "Be the first to leave a review!"}
           </p>
+          <OpenModalMenuItem itemText={<button>Create your review</button>} modalComponent={<CreateReview/>}></OpenModalMenuItem>
           <br />
           {selected?.reviews?.length > 0 && (
             <div
