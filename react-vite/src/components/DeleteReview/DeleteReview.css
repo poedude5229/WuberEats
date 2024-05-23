@@ -1,0 +1,53 @@
+.delete-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.modal-container {
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 12px;
+  box-shadow: 5px 5px 5px rgb(99, 59, 99);
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.delete-confirm {
+  color: red;
+}
+
+.modal-container h1 {
+  margin-bottom: 10px;
+}
+
+.modal-container p {
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  width: 100%;
+}
+
+.delete-button:hover,
+.cancel-button:hover {
+  transform: scale(1.05);
+}
+
+.d-bttn:hover {
+  background-color: red;
+  color: white;
+}

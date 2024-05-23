@@ -320,7 +320,7 @@ export const getReviewsByRestaurantIdThunk =
 export const postANewReviewForRestaurantThunk =
   (restaurantId, review) => async (dispatch) => {
     try {
-      const res = await fetch(`/api/restaurants/${restaurantId}/menus/new`, {
+      const res = await fetch(`/api/restaurants/${restaurantId}/reviews/new`, {
         method: "POST",
         body: review,
       });
