@@ -19,7 +19,7 @@ const MenuForm = () => {
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
   const [category, setCategory] = useState('')
-  const [is_avaliable, setIs_avaliable] = useState('')
+  // const [is_avaliable, setIs_avaliable] = useState(true)
   const [image_url, setImage_url] = useState('')
   const [errors, setErrors] = useState({})
   
@@ -32,7 +32,7 @@ const MenuForm = () => {
         formData.append('description',description)
         formData.append('price', price)
         formData.append('category', category)
-        formData.append('is_avaliable', is_avaliable)
+        // formData.append('is_avaliable', is_avaliable)
         formData.append('image_url', image_url)
         
     
@@ -55,12 +55,12 @@ const MenuForm = () => {
         if(!description) errorsObj.description = 'Please provide a valid description'
         if(!isNaN(price) === false || price.length < 1) errorsObj.price = 'Please provide a price that is a number'
         if(!category) errorsObj.category = 'Please provide a valid category'
-        if(!is_avaliable) errorsObj.is_avaliable = 'Please provide a valid avaliabliliy'
+        // if(!is_avaliable) errorsObj.is_avaliable = 'Please provide a valid avaliabliliy'
         if(!image_url) errorsObj.image_url = 'Please provide a valid image with .png .jpg or .webp'
         if(image_url.length && !(image_url.endsWith('.png') || image_url.endsWith('.jpg') || image_url.endsWith('.jpeg') || image_url.endsWith('.webp'))) errorsObj.image_url = 'Image URL needs to end in png or jpg (or jpeg)';
 
         setErrors(errorsObj)
-  },[name, description, price, category, is_avaliable, image_url])
+  },[name, description, price, category, image_url])
   
   
     return (
@@ -131,21 +131,7 @@ const MenuForm = () => {
           </div>
 
           <div className='catagories'>
-            <label>
-            <p className='menu-name'>Is Available:</p>
-              <select
-                name="is_avaliable"
-                value={is_avaliable}
-                onChange={(e) => setIs_avaliable(e.target.value)}
-                className='select-field'
-                >
-                <option value="" disabled>Select Availability</option>
-                <option value="True">True</option>
-                <option value="False">False</option>
-                
-                </select>
-              </label>
-              {errors.is_avaliable && <p className='form-errors'>{errors.is_avaliable}</p>}
+
 
 
             <p className='menu-name'>Menu Item Image</p>

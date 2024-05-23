@@ -82,7 +82,7 @@ function Details() {
 
             <p className="menu-item-price">${item.price}</p>
 
-            <NavLink to={`/restaurants/${selected?.id}/menus/${item.id}/update`}>Update Menu Item</NavLink>
+            {currentUser.id === selected?.owner_id && <NavLink to={`/restaurants/${selected?.id}/menus/${item.id}/update`}>Update Menu Item</NavLink>}
             {currentUser.id === selected?.owner_id && <OpenModalMenuItem itemText={<button>Delete</button>} className='delete-btn-getall' modalComponent={<DeleteAMenu restaurantId={+selected?.id} menuId={item.id} />}/>}
           </div>
 

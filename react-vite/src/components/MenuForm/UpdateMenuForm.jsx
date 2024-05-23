@@ -13,14 +13,14 @@ const UpdateMenuForm = () => {
 //   const user = useSelector(state => state.session.user)
   
   const {menuId, restaurantId} = useParams() 
-  const menuItem = useSelector((state) => state.restaurantReducer)
+  const menuItem = useSelector((state) => state.restaurantReducer[restaurantId].menu_items[0])
   console.log('menu', menuItem);
 
   const [name, setName] = useState(menuItem?.name || '')
   const [description, setDescription] = useState(menuItem?.description || '')
   const [price, setPrice] = useState(menuItem?.price || '')
   const [category, setCategory] = useState(menuItem?.category || '')
-  const [is_avaliable, setIs_avaliable] = useState(menuItem?.is_avaliable || '')
+  const [is_avaliable, setAvaliable] = useState(menuItem?.is_avaliable || '')
   const [image_url, setImage_url] = useState(menuItem?.image_url || '')
   const [errors, setErrors] = useState({})
 
@@ -32,10 +32,10 @@ const UpdateMenuForm = () => {
       setDescription(menuItem.description || '')
       setPrice(menuItem.price || '')
       setCategory(menuItem.category || '')
-      setIs_avaliable(menuItem.is_avaliable || '')
+      setAvaliable(menuItem.is_avaliable || '')
       setImage_url(menuItem.image_url || '')
     }
-  },[name, description, price, category, is_avaliable, image_url, menuItem])
+  },[menuItem])
   
   const handleSubmit  = async (e) => {
     e.preventDefault()
@@ -68,7 +68,7 @@ const UpdateMenuForm = () => {
         if(!description) errorsObj.description = 'Please provide a valid description'
         if(!isNaN(price) === false || price.length < 1) errorsObj.price = 'Please provide a price that is a number'
         if(!category) errorsObj.category = 'Please provide a valid category'
-        if(!is_avaliable) errorsObj.is_avaliable = 'Please provide a valid avaliabliliy'
+        if(is_avaliable == 'false') errorsObj.is_avaliable = 'Please provide a valid avaliablility'
         if(!image_url) errorsObj.image_url = 'Please provide a valid image with .png .jpg or .webp'
         if(image_url.length && !(image_url.endsWith('.png') || image_url.endsWith('.jpg') || image_url.endsWith('.jpeg') || image_url.endsWith('.webp'))) errorsObj.image_url = 'Image URL needs to end in png or jpg (or jpeg)';
 
@@ -143,21 +143,6 @@ const UpdateMenuForm = () => {
           </div>
 
           <div className='catagories'>
-            <label>
-            <p className='menu-name'>Is Available:</p>
-              <select
-                name="is_avaliable"
-                value={is_avaliable}
-                onChange={(e) => setIs_avaliable(e.target.value)}
-                className='select-field'
-                >
-                <option value="" disabled>Select Availability</option>
-                <option value="True">True</option>
-                <option value="False">False</option>
-                
-                </select>
-              </label>
-              {errors.is_avaliable && <p className='form-errors'>{errors.is_avaliable}</p>}
 
 
             <p className='menu-name'>Menu Item Image</p>
