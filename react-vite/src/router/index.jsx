@@ -4,6 +4,7 @@ import SignupFormPage from "../components/SignupFormPage";
 import Layout from "./Layout";
 import Landing from "../components/LandingPage/Landing";
 import Details from "../components/Details/RestaurantDetails";
+import { Checkout } from "../components/Checkout/Checkout";
 export const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "restaurants/:restaurantId",
         element: <Details />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
       },
     ],
   },

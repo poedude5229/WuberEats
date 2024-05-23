@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 // import bblDrizzy from "../../../public/bb2ca70dc88b4fd38ed9355c07521f30.png";
 import crappstore from "../../../public/appstorebadge.png";
 import purpapplogo from "../../../public/purpapplogo.png";
+import RickModal from "../rick/RickModal";
 function ProfileButton() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
@@ -101,7 +102,13 @@ function ProfileButton() {
             <div id="shameless-promotion">
               Wuber's better in the app!
               <img id="applogo" src={purpapplogo} alt="Our app logo" />
-              <img id="downloadlink" src={crappstore} alt="Get it here!" />
+              <OpenModalMenuItem
+                itemText={
+                  <img id="downloadlink" src={crappstore} alt="Get it here!" />
+                }
+                onItemClick={closeMenu}
+                modalComponent={RickModal}
+              />
             </div>
           </div>
         </>

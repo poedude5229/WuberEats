@@ -12,8 +12,10 @@ import {
   addToCartThunk,
   decrementCartItemThunk,
   deletefromCartThunk,
+  getThisOffMyScreen,
   setCartState,
 } from "../../redux/cart";
+import { GoTrash } from "react-icons/go";
 function Navigation() {
   let navigate = useNavigate();
   let user = useSelector((state) => state.session.user);
@@ -23,7 +25,9 @@ function Navigation() {
   restaurants = [...Object.values(restaurants)];
   let menuItems = [];
   let dispatch = useDispatch();
-  restaurants.forEach((restaurant) => menuItems.push(...restaurant.menu_items));
+  restaurants?.forEach((restaurant) =>
+    menuItems.push(...restaurant.menu_items)
+  );
   // console.log(menuItems);
 
   const [cartOpen, setCartOpen] = useState(false);
@@ -130,6 +134,7 @@ function Navigation() {
             ref={cartRef}
             style={{ overflowY: "scroll" }}
           >
+            {/* <span style={{width: "200px"}}>Ye Olde Cart</span> */}
             <span
               style={{
                 cursor: "pointer",
@@ -162,12 +167,17 @@ function Navigation() {
                     <p>Quantity: {item.count}</p>
                     <p style={{ marginRight: "12px" }}>
                       $
-                      {menuItems.find((thing) => thing.id === item.id).price *
-                        item.count}{" "}
+                      {menuItems?.find((thing) => thing?.id === item?.id)
+                        ?.price * item.count}{" "}
                     </p>
                   </div>
                   <div
-                    style={{ display: "flex", marginLeft: "12px", gap: "14px" }}
+                    style={{
+                      display: "flex",
+                      marginLeft: "12px",
+                      gap: "14px",
+                      alignItems: "center",
+                    }}
                   >
                     <button
                       // className="dot"
@@ -221,6 +231,14 @@ function Navigation() {
                     >
                       -
                     </button>
+                    <GoTrash
+                      style={{
+                        fontSize: "24px",
+                        color: "rgb(99,59,99)",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => dispatch(deletefromCartThunk(item.id))}
+                    />
                   </div>
                 </div>
               </>
@@ -256,10 +274,23 @@ function Navigation() {
                   height: "40px",
                   marginLeft: "65px",
                   marginBottom: "24px",
-                  marginTop: "6px",
+                  marginTop: "26px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "black",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "12px",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  dispatch(getThisOffMyScreen());
+                  localStorage.removeItem("cartState");
+                  navigate("/checkout");
                 }}
               >
-                Go to checkout!
+                Checkout Cart
                 <img
                   style={{ width: "30px", height: "30px" }}
                   src={LightSiteLogo}
