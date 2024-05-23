@@ -30,6 +30,12 @@ export function setCartState(cartState) {
   };
 }
 
+const CLEARCART = "cart/CLEARCART";
+export function getThisOffMyScreen() {
+  return {
+    type: CLEARCART,
+  };
+}
 export const addToCartThunk = (id) => async (dispatch) => {
   await dispatch(addToCart(id));
 };
@@ -68,6 +74,9 @@ export function cartReducer(state = {}, action) {
     }
     case SETCARTSTATE: {
       return action.payload;
+    }
+    case CLEARCART: {
+      return {};
     }
     default:
       return state;

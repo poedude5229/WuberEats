@@ -12,8 +12,10 @@ import {
   addToCartThunk,
   decrementCartItemThunk,
   deletefromCartThunk,
+  getThisOffMyScreen,
   setCartState,
 } from "../../redux/cart";
+import { GoTrash } from "react-icons/go";
 function Navigation() {
   let navigate = useNavigate();
   let user = useSelector((state) => state.session.user);
@@ -23,8 +25,9 @@ function Navigation() {
   restaurants = [...Object.values(restaurants)];
   let menuItems = [];
   let dispatch = useDispatch();
-  restaurants.forEach((restaurant) => menuItems.push(...restaurant.menu_items));
-  
+  restaurants?.forEach((restaurant) =>
+    menuItems.push(...restaurant.menu_items)
+  );
   // console.log(menuItems);
 
   const [cartOpen, setCartOpen] = useState(false);
@@ -40,6 +43,8 @@ function Navigation() {
   useEffect(() => {
     if (cartItems.length > 0) {
       localStorage.setItem("cartState", JSON.stringify(cartState));
+    } else if (cartItems.length == 0) {
+      localStorage.removeItem("cartState");
     }
   });
 
@@ -59,6 +64,15 @@ function Navigation() {
     };
   }, [cartOpen]);
   // console.log(user);
+
+  const calculateTotalPrice = () => {
+    return cartItems
+      ?.reduce((total, item) => {
+        const menuItem = menuItems?.find((thing) => thing?.id === item?.id);
+        return total + menuItem?.price * item.count;
+      }, 0)
+      .toFixed(2);
+  };
   return (
     <nav id="sitenav">
       <div
@@ -129,6 +143,7 @@ function Navigation() {
             ref={cartRef}
             style={{ overflowY: "scroll" }}
           >
+            {/* <span style={{width: "200px"}}>Ye Olde Cart</span> */}
             <span
               style={{
                 cursor: "pointer",
@@ -161,12 +176,17 @@ function Navigation() {
                     <p>Quantity: {item.count}</p>
                     <p style={{ marginRight: "12px" }}>
                       $
-                      {menuItems.find((thing) => thing.id === item.id).price *
-                        item.count}{" "}
+                      {menuItems?.find((thing) => thing?.id === item?.id)
+                        ?.price * item.count}{" "}
                     </p>
                   </div>
                   <div
-                    style={{ display: "flex", marginLeft: "12px", gap: "14px" }}
+                    style={{
+                      display: "flex",
+                      marginLeft: "12px",
+                      gap: "14px",
+                      alignItems: "center",
+                    }}
                   >
                     <button
                       // className="dot"
@@ -220,6 +240,14 @@ function Navigation() {
                     >
                       -
                     </button>
+                    <GoTrash
+                      style={{
+                        fontSize: "24px",
+                        color: "rgb(99,59,99)",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => dispatch(deletefromCartThunk(item.id))}
+                    />
                   </div>
                 </div>
               </>
@@ -248,22 +276,42 @@ function Navigation() {
                 />
               </>
             )}
+
             {cartItems.length > 0 && (
-              <button
-                style={{
-                  width: "160px",
-                  height: "40px",
-                  marginLeft: "65px",
-                  marginBottom: "24px",
-                  marginTop: "6px",
-                }}
-              >
-                Go to checkout!
-                <img
-                  style={{ width: "30px", height: "30px" }}
-                  src={LightSiteLogo}
-                />
-              </button>
+              <>
+                <span>Total Price: </span>
+                <span>${calculateTotalPrice()}</span>
+                <button
+                  style={{
+                    width: "160px",
+                    height: "40px",
+                    marginLeft: "65px",
+                    marginBottom: "24px",
+                    marginTop: "26px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "black",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "12px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    localStorage.setItem("totalPrice", calculateTotalPrice());
+                    dispatch(getThisOffMyScreen());
+                    localStorage.removeItem("cartState");
+                    navigate("/checkout");
+                    setCartOpen(false);
+                  }}
+                >
+                  Checkout Cart
+                  <img
+                    style={{ width: "30px", height: "30px" }}
+                    src={LightSiteLogo}
+                  />
+                </button>
+              </>
             )}
           </div>
         </>
@@ -276,4 +324,3 @@ function Navigation() {
 }
 
 export default Navigation;
-
