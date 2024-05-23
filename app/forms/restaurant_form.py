@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField
+from wtforms import StringField, IntegerField,SubmitField
 from wtforms.validators import DataRequired, ValidationError
 from app.models import Restaurant
 
@@ -14,6 +14,7 @@ class RestaurantForm(FlaskForm):
     description = StringField("Description: ", validators=[DataRequired()])
     hours_of_operation = StringField("Hours of operation: ", validators=[DataRequired()])
     delivery_radius = IntegerField("Delivery Radius")
+    cover_image = StringField('Restaurant Image')
 
 
 class EditRestaurantForm(FlaskForm):
@@ -24,3 +25,4 @@ class EditRestaurantForm(FlaskForm):
     description = StringField("Description: ", validators=[DataRequired()])
     hours_of_operation = StringField("Hours of operation: ", validators=[DataRequired()])
     delivery_radius = IntegerField("Delivery Radius")
+    cover_image = StringField('Restaurant Image')

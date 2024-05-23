@@ -40,17 +40,15 @@ def restaurants():
 
 
 # Create a Restaurant CHECKED
+
 @restaurant_routes.route("/new", methods=["POST"])
 @login_required
 def restaurant_post():
-      form = RestaurantForm()
-
-      if not form:
-         return {"message": "Bad Request"}, 400
-
-      form["csrf_token"].data = request.cookies["csrf_token"]
-      if form.validate_on_submit():
-
+    form = RestaurantForm()
+    
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    
+    if form.validate_on_submit():
         new = Restaurant(
             owner_id=current_user.id,
             name=form.data['name'],
@@ -66,7 +64,9 @@ def restaurant_post():
         db.session.add(new)
         db.session.commit()
 
-      return new.to_dict(), 201
+        return new.to_dict(), 201
+    else:
+        return form.errors, 400
 
 #Update a resaurant based of the resaurant id
 @restaurant_routes.route('/<int:id>', methods=["PUT"])

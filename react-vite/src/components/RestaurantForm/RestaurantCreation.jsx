@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { createRestaurantThunk,loadRestaurantsThunk  } from '../../redux/restaurant'
 
+
 const RestaurantCreation = () => {
 
 const dispatch = useDispatch()
@@ -11,15 +12,16 @@ const navigate = useNavigate()
 
 const [address, setAddress] = useState('')
 const [name, setName] = useState('')
-const [phoneNumber, setPhoneNumber] = useState('')
+const [phone_number, setPhoneNumber] = useState('')
 const [cuisine, setCuisine] = useState('')
 const [description, setDescription] = useState('')
-const [hoursOfOperation, setHoursOfOperation] = useState('')
-const [deliveryRadius, setDeliveryRadius] = useState('')
-const [coverImage, setCoverImage] = useState('')
+const [hours_of_operation, setHoursOfOperation] = useState('')
+const [delivery_radius, setDeliveryRadius] = useState('')
+const [cover_image, setCoverImage] = useState('')
 const [error, setError] = useState({})
 
-const currentUser = useSelector(state => state.session['user'])
+const currentUser = useSelector(state => state.session.user)
+// console.log(currentUser)
 
 
 useEffect(() => {
@@ -28,23 +30,24 @@ useEffect(() => {
 }, [navigate,currentUser])
 
 const handleSubmit = async (e) => {
+  e.preventDefault();
+  const formData = new FormData()
+
+        formData.append('name', name)
+        formData.append('address', address)
+        formData.append('phone_number', phone_number)
+        formData.append('cuisine', cuisine)
+        formData.append('description', description)
+        formData.append('hours_of_operation', hours_of_operation)
+        formData.append('delivery_radius', delivery_radius)
+        formData.append('cover_image', cover_image)
+  // console.log(restaurant)
   try {
-    const restaurant = {
-      ownerId: currentUser.id,
-      address,
-      name,
-      phoneNumber,
-      cuisine,
-      description,
-      hoursOfOperation,
-      deliveryRadius,
-      coverImage
-    }
-    const newRestaurant = await dispatch(createRestaurantThunk(restaurant));
+    const newRestaurant = await dispatch(createRestaurantThunk(formData));
 
     await dispatch(loadRestaurantsThunk(newRestaurant.id))
-
-    navigate(`/restaurants/${restaurant.id}`)
+    console.log(newRestaurant)
+    navigate(`/restaurants/${newRestaurant.id}`)
   } catch (error) {
     console.error("Error creating restaurant:", error);
   }
@@ -55,26 +58,26 @@ useEffect(() => {
     
     if(!address.length) errObj.address = "Address Required"
     if(!name.length) errObj.name = "Name Required"
-    if(!phoneNumber.length) errObj.phoneNumber = "Phone Number Required"
+    if(!phone_number.length) errObj.phone_number = "Phone Number Required"
     if(!cuisine.length) errObj.cuisine = "Cuisine required"
     if(!description.length) errObj.description = "Description required"
-    if(!hoursOfOperation.length) errObj.hoursOfOperation = "Hours of operation required"
-    if(!deliveryRadius.length) errObj.deliveryRadius = "Delivery Radius required"
-    if(!coverImage.length) errObj.coverImage = "CoverImage"
+    if(!hours_of_operation.length) errObj.hoursOfOperation = "Hours of operation required"
+    if(!delivery_radius.length) errObj.deliveryRadius = "Delivery Radius required"
+    if(!cover_image.length) errObj.coverImage = "CoverImage"
 
 
     setError(errObj)
 
-}, [address,name,phoneNumber,cuisine,description,hoursOfOperation,deliveryRadius,coverImage])
+}, [address,name,phone_number,cuisine,description,hours_of_operation,delivery_radius,cover_image])
 
-const hoursOptions = [
-  "8am-5pm", "9am-6pm", "10am-7pm", "11am-8pm",
-  "12pm-9pm", "1pm-10pm", "2pm-11pm", "3pm-12am",
-  "4pm-1am", "5pm-2am", "6pm-3am"
-];
-const deliveryRadiusOptions = [
-  "1 mile", "2 miles", "3 miles", "5 miles", "10 miles", "15 miles", "20 miles"
-];
+// const hoursOptions = [
+//   "8am-5pm", "9am-6pm", "10am-7pm", "11am-8pm",
+//   "12pm-9pm", "1pm-10pm", "2pm-11pm", "3pm-12am",
+//   "4pm-1am", "5pm-2am", "6pm-3am"
+// ];
+// const deliveryRadiusOptions = [
+//   "1 mile", "2 miles", "3 miles", "5 miles", "10 miles", "15 miles", "20 miles"
+// ];
 
   return (
     <div>
@@ -112,9 +115,9 @@ const deliveryRadiusOptions = [
               <label>
                 Phone Number:
                 <input
-                type="number"
+                type="text"
                 name="phoneNumber" placeholder='Phone Number'
-                value={phoneNumber}
+                value={phone_number}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 />
               </label>
@@ -125,12 +128,13 @@ const deliveryRadiusOptions = [
           <div className=''>
             <label>
               Cuisine:
-              <select
+              <input
                 name="cuisine"
+                type='text'
                 value={cuisine}
                 onChange={(e) => setCuisine(e.target.value)}
                 >
-                <option value="" disabled>Select Cuisine</option>
+                {/* <option value="" disabled>Select Cuisine</option>
                 <option value="Italian">Italian</option>
                 <option value="Chinese">Chinese</option>
                 <option value="Japanese">Japanese</option>
@@ -139,15 +143,15 @@ const deliveryRadiusOptions = [
                 <option value="French">French</option>
                 <option value="Thai">Thai</option>
                 <option value="Greek">Greek</option>
-                <option value="Spanish">Spanish</option>
-                </select>
+                <option value="Spanish">Spanish</option> */}
+                </input>
               </label>
           </div>
           <div className="">
-              {error.cuisine && <p>{error.cuisine}</p>}
+              {/* {error.cuisine && <p>{error.cuisine}</p>} */}
             </div>
           <div className=''>
-            <p>Describe You're Restaurant Nicely!!!!!!!!</p>
+          <p>Describe You&apos;re Restaurant Nicely!!!!!!!!</p>
           <textarea placeholder="30 Characters are needed at minimun"
                 cols="45"
                 rows="8"
@@ -163,37 +167,39 @@ const deliveryRadiusOptions = [
         <div className=''>
           <label>
               Hours of Operation:
-              <select
+              <input
                 name="hoursOfOperation"
-                value={hoursOfOperation}
+                type='text'
+                value={hours_of_operation}
                 onChange={(e) => setHoursOfOperation(e.target.value)}
                 >
-                <option value="" disabled>Select Hours of Operation</option>
+                {/* <option value="" disabled>Select Hours of Operation</option>
                 {hoursOptions.map((hours, index) => (
                 <option key={index} value={hours}>{hours}</option>
-              ))}
-            </select>
+              ))} */}
+            </input>
           </label>
             <div className="">
-              {error.hoursOfOperation && <p>{error.hoursOfOperation}</p>}
+              {/* {error.hoursOfOperation && <p>{error.hoursOfOperation}</p>} */}
             </div>
         </div>
           <div className=''>
               <label>
                 Delivery Radius:
-              <select
+              <input
                 name="deliveryRadius"
-                value={deliveryRadius}
+                type='number'
+                value={delivery_radius}
                 onChange={(e) => setDeliveryRadius(e.target.value)}
                 >
-                <option value="" disabled>Select Delivery Radius</option>
+                {/* <option value="" disabled>Select Delivery Radius</option>
                 {deliveryRadiusOptions.map((radius, index) => (
-                <option key={index} value={radius}>{radius}</option>
-                ))}
-            </select>
+                <option key={index} value={radius}>{radius}</option> */}
+                {/* ))} */}
+            </input>
           </label>
           <div className="">
-              {error.deliveryRadius && <p>{error.deliveryRadius}</p>}
+              {/* {error.deliveryRadius && <p>{error.deliveryRadius}</p>} */}
             </div>
           <div className=''>
               <label>
@@ -201,13 +207,13 @@ const deliveryRadiusOptions = [
                 <input
                 type="text"
                 name="address" placeholder='Image url'
-                value={coverImage}
+                value={cover_image}
                 onChange={(e) => setCoverImage(e.target.value)}
                 />
               </label>
             </div>
             <div className="">
-              {error.coverImage && <p>{error.coverImage}</p>}
+              {error.cover_image && <p>{error.cover_image}</p>}
             </div>
           <div>
           <button type="submit" disabled={Object.values(error).length > 0}>Submit</button>

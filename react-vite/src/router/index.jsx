@@ -4,6 +4,7 @@ import SignupFormPage from "../components/SignupFormPage";
 import Layout from "./Layout";
 import Landing from "../components/LandingPage/Landing";
 import Details from "../components/Details/RestaurantDetails";
+import RestaurantCreation from "../components/RestaurantForm/RestaurantCreation";
 export const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
+      },
+      {
+        path: "/restaurants/new",
+        element: <RestaurantCreation/>
       },
       {
         path: "restaurants/:restaurantId",
