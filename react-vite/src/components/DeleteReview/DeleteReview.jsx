@@ -7,7 +7,7 @@ import { useModal } from "../../context/Modal";
 import { useParams } from "react-router-dom";
 import "./DeleteReview.css";
 
-export const DeleteReview = ({ review }) => {
+export const DeleteReview = ({ reviewId }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const restaurantId = useParams();
@@ -16,7 +16,7 @@ export const DeleteReview = ({ review }) => {
     e.preventDefault();
 
     const deletedReview = await dispatch(
-      deleteAReviewBasedOffARestaurantThunk(review.id)
+      deleteAReviewBasedOffARestaurantThunk(restaurantId, reviewId)
     );
 
     if (deletedReview) {

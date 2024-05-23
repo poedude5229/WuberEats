@@ -33,16 +33,17 @@ export const CreateAReview = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
-    const createdReview = {
-      review,
-      rating,
-    };
+    const formData = new FormData();
+
+    formData.append("review", review);
+    formData.append("rating", rating);
+
     const submitted = await dispatch(
-      postANewReviewForRestaurantThunk(restaurantId, createdReview)
+      postANewReviewForRestaurantThunk(restaurantId, formData)
     );
 
     if (submitted) {
-      dispatch(restaurantByIdThunk);
+      dispatch(restaurantByIdThunk(restaurantId));
       dispatch(getReviewsByRestaurantIdThunk(restaurantId));
       closeModal();
     }

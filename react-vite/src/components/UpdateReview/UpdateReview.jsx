@@ -15,9 +15,9 @@ export const UpdateAReview = () => {
   const { closeModal } = useModal();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getReviewsByRestaurantIdThunk(restaurantId));
-  }, [dispatch, restaurantId]);
+  // useEffect(() => {
+  //   dispatch(getReviewsByRestaurantIdThunk(restaurantId));
+  // }, [dispatch, restaurantId]);
 
   const indvReview = useSelector((state) => state.restaurantReducer[reviewId]);
   console.log("INDV REVIEW ====>>>>", indvReview);
@@ -26,27 +26,27 @@ export const UpdateAReview = () => {
   const [validationErrors, setValidationErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
-  // useEffect(() => {
-  //   const errors = {};
+  useEffect(() => {
+    const errors = {};
 
-  //   if (review.length === 0) {
-  //     errors.review = "Review is required.";
-  //   }
-  //   if (rating === 0) {
-  //     errors.rating = "Rating needs at least 1 star.";
-  //   }
-  //   setValidationErrors(errors);
-  // }, [review, rating]);
+    if (review.length === 0) {
+      errors.review = "Review is required.";
+    }
+    if (rating === 0) {
+      errors.rating = "Rating needs at least 1 star.";
+    }
+    setValidationErrors(errors);
+  }, [review, rating]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
-    const updatedReview = {
-      review,
-      rating,
-    };
+    const formData = new FormData();
+    formData.append("review", review);
+    formData.append("rating", rating);
+
     const submitted = await dispatch(
-      updateAReviewForARestaurantThunk(restaurantId, updatedReview, reviewId)
+      updateAReviewForARestaurantThunk(restaurantId, formData, reviewId)
     );
 
     if (submitted) {
@@ -55,7 +55,7 @@ export const UpdateAReview = () => {
     }
   };
 
-  // const disabledButton = review.length === 0;
+  const disabledButton = review.length === 0;
 
   return (
     <div className="review-modal">
@@ -91,7 +91,7 @@ export const UpdateAReview = () => {
             <button
               onClick={handleSubmit}
               className="created-review"
-              // disabled={disabledButton}
+              disabled={disabledButton}
             >
               {" "}
               Submit Review
