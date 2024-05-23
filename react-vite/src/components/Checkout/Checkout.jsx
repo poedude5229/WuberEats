@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import map from "../../../public/map.png";
 import "./Checkout.css";
+
 export function Checkout() {
-  let [showTip, setShowTip] = useState(true);
-  let [tip, setTip] = useState(0);
-  let subtotal = parseFloat(localStorage.getItem("totalPrice"));
+  const [showTip, setShowTip] = useState(true);
+  const [tip, setTip] = useState(0);
+  const subtotal = parseFloat(localStorage.getItem("totalPrice")) || 0;
   const [final, setFinal] = useState(subtotal);
+
   useEffect(() => {
     setShowTip(true);
   }, []);
@@ -18,10 +20,12 @@ export function Checkout() {
   };
 
   const handleSubmit = (e) => {
-    let newTotal = subtotal + +tip;
-    setFinal((+newTotal).toFixed(2));
+    e.preventDefault(); // Prevent form submission if inside a form
+    let newTotal = subtotal + tip;
+    setFinal(newTotal.toFixed(2));
     setShowTip(false);
   };
+
   return (
     <div
       style={{
@@ -35,21 +39,19 @@ export function Checkout() {
       <h3 style={{ marginLeft: "50px" }}>Your order cost was ${final}</h3>
       <p style={{ marginLeft: "50px" }}>
         Your estimated delivery time will be after you fall asleep, leave the
-        house or have something else to do. You may want to try ordering from
+        house, or have something else to do. You may want to try ordering from
         your kitchen next time.
       </p>
-      {showTip === false && (
-        <>
-          <div
-            style={{
-              marginLeft: "auto",
-              marginRight: "auto",
-              fontWeight: "900",
-            }}
-          >
-            Thanks for your tip!
-          </div>
-        </>
+      {!showTip && (
+        <div
+          style={{
+            marginLeft: "auto",
+            marginRight: "auto",
+            fontWeight: "900",
+          }}
+        >
+          Thanks for your tip!
+        </div>
       )}
       <img
         src={map}
@@ -146,7 +148,7 @@ export function Checkout() {
               fontWeight: "900",
               cursor: "pointer",
             }}
-            onClick={() => handleSubmit}
+            onClick={handleSubmit}
           >
             Submit Tip!
           </button>
