@@ -3,25 +3,52 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadRestaurantsThunk } from "../../redux/restaurant";
 import { MdOutlineStar } from "react-icons/md";
 import { RiArrowRightLine } from "react-icons/ri";
+import hamberderLightLogo from "../../../public/hamberderLightLogo.png";
 import "./Landing.css";
 import { NavLink } from "react-router-dom";
 function Landing() {
   let restaurants = useSelector((state) => state.restaurantReducer);
   restaurants = Object.values(restaurants);
-  console.log(restaurants);
+  // console.log(restaurants);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadRestaurantsThunk());
   }, [dispatch]);
   return (
     <>
-      <section style={{gap: "100px"}}>
+      <section style={{ gap: "100px" }}>
         <div style={{ backgroundColor: "Orange" }} className="wube-cards">
-          <span className="wubeAdText">
+          <span
+            className="wubeAdText"
+            style={{ marginTop: "95px", marginBottom: "0" }}
+          >
             Wube that? Order that!
+            <img
+              style={{
+                width: "105px",
+                height: "105px",
+                position: "inherit",
+                top: "205px",
+                left: "490px",
+              }}
+              src={hamberderLightLogo}
+              alt="yea"
+            />
             <button
-              style={{ width: "150px", height: "50px", marginTop: "104px", color: "white", backgroundColor: "black", borderRadius: "12px" }}
-            >Getchu some food!</button>
+              style={{
+                width: "150px",
+                height: "50px",
+                marginTop: "20px",
+                marginBottom: "90px",
+                color: "white",
+                backgroundColor: "black",
+                borderRadius: "12px",
+                fontWeight: "900",
+                cursor: "pointer",
+              }}
+            >
+              Getchu some food!
+            </button>
           </span>
           <img
             src="https://shakeshack.com/sites/default/files/styles/locations_mobile/public/location-about-02.jpg?itok=E6VOpWRc"
@@ -32,9 +59,9 @@ function Landing() {
           <span
             className="wubeAdText"
             style={{
-              fontSize: "18px",
+              fontSize: "20px",
               textAlign: "center",
-              marginLeft: "200px",
+              marginLeft: "300px",
             }}
           >
             Willem Dafoe ordered here once. It was so good, bro hit this pose
@@ -42,7 +69,7 @@ function Landing() {
           <img
             src="https://pbs.twimg.com/media/GASGdkPWgAEpnj_.jpg"
             alt="willem dapose"
-            style={{ marginRight: "12px" }}
+            style={{ marginRight: "42px", right: "22px", position: "inherit" }}
           />
           <button
             style={{
@@ -59,6 +86,7 @@ function Landing() {
               textAlign: "left",
               display: "flex",
               flexDirection: "row",
+              fontWeight: "900",
             }}
           >
             <span style={{ marginTop: "8px" }}>

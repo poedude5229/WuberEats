@@ -10,37 +10,45 @@ restaurant_routes = Blueprint('restaurants', __name__)
 # Get all the restaurants CHECKED
 @restaurant_routes.route("/")
 def restaurants():
-
     fetched_restaurants = Restaurant.query.all()
     restaurant_menus = []
     for restaurant in fetched_restaurants:
-       restaurant_dict = restaurant.to_dict()
-       print(len(restaurant_dict['reviews']))
-       menu_items = Menu.query.filter(Menu.restaurant_id == restaurant.id).all()
-       restaurant_dict['menu_items'] = [item.to_dict() for item in menu_items]
-       total_rating = 0
-       if len(restaurant_dict['reviews']) != 0:
-          total_rating = (sum(review['rating'] for review in restaurant_dict['reviews']) / len(restaurant_dict['reviews']))
-       else:
-          total_rating = 0
-       restaurant_dict['avgrating'] = total_rating
-       restaurant_menus.append(restaurant_dict)
-    return {'restaurants':restaurant_menus }
+        restaurant_dict = restaurant.to_dict()
+        # print(len(restaurant_dict['reviews']))
+
+        menu_items = Menu.query.filter(Menu.restaurant_id == restaurant.id).all()
+        # Adding restaurant name to each menu item dictionary
+        menu_items_with_restaurant = []
+        for item in menu_items:
+            item_dict = item.to_dict()
+            item_dict['restaurant'] = restaurant_dict['name']
+            menu_items_with_restaurant.append(item_dict)
+
+        restaurant_dict['menu_items'] = menu_items_with_restaurant
+
+        total_rating = 0
+        if len(restaurant_dict['reviews']) != 0:
+            total_rating = sum(review['rating'] for review in restaurant_dict['reviews']) / len(restaurant_dict['reviews'])
+        else:
+            total_rating = 0
+
+        restaurant_dict['avgrating'] = total_rating
+        restaurant_menus.append(restaurant_dict)
+
+    return {'restaurants': restaurant_menus}
 
 
 
 # Create a Restaurant CHECKED
+
 @restaurant_routes.route("/new", methods=["POST"])
 @login_required
 def restaurant_post():
-      form = RestaurantForm()
-
-      if not form:
-         return {"message": "Bad Request"}, 400
-
-      form["csrf_token"].data = request.cookies["csrf_token"]
-      if form.validate_on_submit():
-
+    form = RestaurantForm()
+    
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    
+    if form.validate_on_submit():
         new = Restaurant(
             owner_id=current_user.id,
             name=form.data['name'],
@@ -56,7 +64,9 @@ def restaurant_post():
         db.session.add(new)
         db.session.commit()
 
-      return new.to_dict(), 201
+        return new.to_dict(), 201
+    else:
+        return form.errors, 400
 
 #Update a resaurant based of the resaurant id
 @restaurant_routes.route('/<int:id>', methods=["PUT"])
@@ -217,13 +227,14 @@ def get_menus(id):
 
 
 # Post a new menu based on a restaurant CHECKED
-@restaurant_routes.route("/<int:id>/menu/new", methods =["POST"])
+@restaurant_routes.route("/<int:id>/menus/new", methods =["POST"])
 @login_required
 def menu_poster(id):
   selected = Restaurant.query.get(id)
   if not selected:
       return {"message": "Restaurant to post menu couldnt be found"}, 404
   form = MenuForm()
+  
   form["csrf_token"].data = request.cookies["csrf_token"]
 
   if form.validate_on_submit():
@@ -269,10 +280,12 @@ def menu_updated(menu_id, id):
 @restaurant_routes.route("/<int:id>/menu/<int:menu_id>", methods=["DELETE"])
 @login_required
 def delete_menu_by_id(id,menu_id):
-   get_menu = Menu.query.get(id)
-   if not get_menu:
-      return {"message":"Can't find the menu to delete"}, 404
-   else:
-      db.session.delete(get_menu)
-      db.session.commit()
-      return redirect("/api/restaurants/<int:id>")
+    get_menu = Menu.query.get(menu_id)
+    if not get_menu:
+       return {"message":"Can't find the menu to delete"}, 404
+    elif get_menu:
+        db.session.delete(get_menu)
+        db.session.commit()
+        return json.dumps({"message": "Succesfully Deleted your menu item"}), 202 
+    else: 
+       return {"message": "Bad Request"}, 400

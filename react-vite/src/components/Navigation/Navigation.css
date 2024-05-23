@@ -195,3 +195,26 @@
 #logout-button:hover {
   background-color: grey;
 }
+
+.cartMenu {
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  height: 300px;
+  width: 300px;
+  top: 80px;
+  right: 130px;
+  z-index: 1;
+  border-radius: 12px;
+  box-shadow: 1px 1px 5px grey;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  /* background-color: grey; */
+  padding-left: 12px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(99, 59, 99);
+  width: 50px;
+  border-radius: 9px;
+}

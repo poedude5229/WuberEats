@@ -6,12 +6,14 @@ import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import "./Navigation.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 // import bblDrizzy from "../../../public/bb2ca70dc88b4fd38ed9355c07521f30.png";
 import crappstore from "../../../public/appstorebadge.png";
 import purpapplogo from "../../../public/purpapplogo.png";
+import RickModal from "../rick/RickModal";
 function ProfileButton() {
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
@@ -68,9 +70,7 @@ function ProfileButton() {
               <div id="user-deets">
                 <p>{user.username}</p>
                 <p>{user.email}</p>
-                <p style={{ cursor: "pointer" }} onClick={() => navigate("")}>
-                  Add your restaurant
-                </p>
+                  <NavLink to='/restaurants/new'> Add your restaurant</NavLink>
                 <button id="logout-button" onClick={logout}>
                   Log Out
                 </button>
@@ -99,9 +99,15 @@ function ProfileButton() {
             )}
 
             <div id="shameless-promotion">
-              Wuber's better in the app!
+            <p>Wuber&apos;s better in the app!</p>
               <img id="applogo" src={purpapplogo} alt="Our app logo" />
-              <img id="downloadlink" src={crappstore} alt="Get it here!" />
+              <OpenModalMenuItem
+                itemText={
+                  <img id="downloadlink" src={crappstore} alt="Get it here!" />
+                }
+                onItemClick={closeMenu}
+                modalComponent={RickModal}
+              />
             </div>
           </div>
         </>
