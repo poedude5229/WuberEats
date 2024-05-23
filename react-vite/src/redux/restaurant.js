@@ -168,7 +168,7 @@ export const editRestaurantThunk =
       if (!res.ok) {
         return { errors: data };
       }
-
+      // await dispatch(loadSingleRestaurantbyId(restaurantId))
       await dispatch(editRestaurant(data));
       return data;
     } catch (error) {
@@ -405,13 +405,15 @@ function restaurantReducer(state = {}, action) {
     }
     case CREATE_RESTAURANT: {
       const newState = { ...state };
+      console.log(newState);
       newState[action.payload.id] = action.payload;
-      // console.log(newState);
       return newState;
     }
     case EDIT_RESTAURANT: {
       const newState = { ...state };
+      console.log('state',newState);
       newState[action.payload.id] = action.payload;
+      // console.log(newState);
       return newState;
     }
     case DELETE_RESTAURANT: {

@@ -69,7 +69,7 @@ def restaurant_post():
         return form.errors, 400
 
 #Update a resaurant based of the resaurant id
-@restaurant_routes.route('/<int:id>', methods=["PUT"])
+@restaurant_routes.route('/<int:id>/update', methods=["PUT"])
 @login_required
 def update_a_restaurant(id):
    selected = Restaurant.query.get(id)

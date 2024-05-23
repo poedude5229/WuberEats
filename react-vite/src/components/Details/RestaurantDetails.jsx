@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { loadRestaurantsThunk } from "../../redux/restaurant";
 import { addToCartThunk } from "../../redux/cart";
 import { MdStarBorder } from "react-icons/md";
+import { NavLink } from "react-router-dom";
 import "./Details.css";
 function Details() {
   let { restaurantId } = useParams();
@@ -12,10 +13,13 @@ function Details() {
     dispatch(loadRestaurantsThunk());
   }, [dispatch]);
   let all = useSelector((state) => state.restaurantReducer);
+  const currentUser = useSelector((state => state.session.user))
+  console.log('current-user', currentUser);
   let cartState = useSelector((state) => {
     state.cart;
   });
   let selected = all[restaurantId];
+  console.log(selected?.owner_id);
   let menu = selected?.menu_items;
   //   console.log(selected);
   return (
@@ -29,6 +33,7 @@ function Details() {
         <h1 className="title-address">
           {selected?.name} &#40;{selected?.address}&#41;{" "}
         </h1>
+        <div className="description">{selected?.description}</div>
         <p className="starRating">
           {selected?.reviews?.length > 0 ? `${selected?.avgrating}` : `New!`}{" "}
           {selected?.reviews.length > 0 && <MdStarBorder />}{" "}
@@ -39,7 +44,7 @@ function Details() {
             : "Be the first to leave a review!"}
         </p>
         <br />
-        <div className="description">{selected?.description}</div>
+        
       </div>
       <section>
         {menu?.map((item) => (
@@ -72,7 +77,9 @@ function Details() {
 
             <p className="menu-item-price">${item.price}</p>
           </div>
+
         ))}
+        {currentUser.id === selected?.owner_id && <button><NavLink to='/restaurants/:restaurantId/update'>Update Your Restaurant</NavLink></button>}
       </section>
     </>
   );
