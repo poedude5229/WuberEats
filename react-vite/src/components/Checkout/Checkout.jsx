@@ -50,7 +50,8 @@ export function Checkout() {
             fontWeight: "900",
           }}
         >
-          Thanks for your tip!
+          Thanks for your tip! We don't pay our drivers, so 25% of your tips go
+          directly to them
         </div>
       )}
       <img
