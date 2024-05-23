@@ -64,6 +64,15 @@ function Navigation() {
     };
   }, [cartOpen]);
   // console.log(user);
+
+  const calculateTotalPrice = () => {
+    return cartItems
+      ?.reduce((total, item) => {
+        const menuItem = menuItems?.find((thing) => thing?.id === item?.id);
+        return total + menuItem?.price * item.count;
+      }, 0)
+      .toFixed(2);
+  };
   return (
     <nav id="sitenav">
       <div
@@ -267,35 +276,42 @@ function Navigation() {
                 />
               </>
             )}
+
             {cartItems.length > 0 && (
-              <button
-                style={{
-                  width: "160px",
-                  height: "40px",
-                  marginLeft: "65px",
-                  marginBottom: "24px",
-                  marginTop: "26px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "black",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "12px",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  dispatch(getThisOffMyScreen());
-                  localStorage.removeItem("cartState");
-                  navigate("/checkout");
-                }}
-              >
-                Checkout Cart
-                <img
-                  style={{ width: "30px", height: "30px" }}
-                  src={LightSiteLogo}
-                />
-              </button>
+              <>
+                <span>Total Price: </span>
+                <span>${calculateTotalPrice()}</span>
+                <button
+                  style={{
+                    width: "160px",
+                    height: "40px",
+                    marginLeft: "65px",
+                    marginBottom: "24px",
+                    marginTop: "26px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "black",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "12px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    localStorage.setItem("totalPrice", calculateTotalPrice());
+                    dispatch(getThisOffMyScreen());
+                    localStorage.removeItem("cartState");
+                    navigate("/checkout");
+                    setCartOpen(false);
+                  }}
+                >
+                  Checkout Cart
+                  <img
+                    style={{ width: "30px", height: "30px" }}
+                    src={LightSiteLogo}
+                  />
+                </button>
+              </>
             )}
           </div>
         </>
