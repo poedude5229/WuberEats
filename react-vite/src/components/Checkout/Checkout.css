@@ -1,0 +1,20 @@
+.tipBox {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  width: 120px;
+}
+
+.tipLabel {
+  text-align: center;
+  border-bottom: 1px solid white;
+  padding-bottom: 14px;
+}
+
+#tipInput {
+  width: 70px;
+  border-radius: 12px;
+  text-align: center;
+}
