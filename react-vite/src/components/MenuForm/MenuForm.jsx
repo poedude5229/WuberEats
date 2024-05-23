@@ -26,18 +26,19 @@ const MenuForm = () => {
   const handleSubmit  = async (e) => {
     e.preventDefault()
 
-    const newMenuItem = {
-        name,
-        description,
-        price,
-        category,
-        is_avaliable,
-        image_url
-    }
+    const formData = new FormData()
+
+        formData.append('name', name)
+        formData.append('description',description)
+        formData.append('price', price)
+        formData.append('category', category)
+        formData.append('is_avaliable', is_avaliable)
+        formData.append('image_url', image_url)
+        
     
 
     try {
-        await dispatch(postANewMenuForRestaurantThunk(newMenuItem, restaurantId))
+        await dispatch(postANewMenuForRestaurantThunk(formData, restaurantId))
         navigate(`/restaurants/${restaurantId}`)
 
     } catch (error) {

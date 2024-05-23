@@ -13,7 +13,8 @@ const UpdateMenuForm = () => {
 //   const user = useSelector(state => state.session.user)
   
   const {menuId, restaurantId} = useParams() 
-  const menuItem = useSelector((state) => state.resaurantReducer?.[menuId] )
+  const menuItem = useSelector((state) => state.restaurantReducer?.[menuId] )
+  // console.log(menuItem);
 
   const [name, setName] = useState(menuItem?.name || '')
   const [description, setDescription] = useState(menuItem?.description || '')
@@ -22,22 +23,35 @@ const UpdateMenuForm = () => {
   const [is_avaliable, setIs_avaliable] = useState(menuItem?.is_avaliable || '')
   const [image_url, setImage_url] = useState(menuItem?.image_url || '')
   const [errors, setErrors] = useState({})
+
+
+
+  useEffect(() => {
+    if (menuItem) {
+      setName(menuItem.name || '')
+      setDescription(menuItem.description || '')
+      setPrice(menuItem.price || '')
+      setCategory(menuItem.category || '')
+      setIs_avaliable(menuItem.is_avaliable || '')
+      setImage_url(menuItem.image_url || '')
+    }
+  },[name, description, price, category, is_avaliable, image_url, menuItem])
   
   const handleSubmit  = async (e) => {
     e.preventDefault()
 
-    const updatedMenu = {
-        name,
-        description,
-        price,
-        category,
-        is_avaliable,
-        image_url
-    }
+    const formData = new FormData()
+
+    formData.append('name', name)
+    formData.append('description',description)
+    formData.append('price', price)
+    formData.append('category', category)
+    formData.append('is_avaliable', is_avaliable)
+    formData.append('image_url', image_url)
     
 
     try {
-        await dispatch(updateAMenuForARestaurantThunk(updatedMenu, menuId))
+        await dispatch(updateAMenuForARestaurantThunk(formData, menuId))
         navigate(`/restaurants/${restaurantId}`)
 
     } catch (error) {
