@@ -23,10 +23,8 @@ function Navigation() {
   restaurants = [...Object.values(restaurants)];
   let menuItems = [];
   let dispatch = useDispatch();
-  if (restaurants.menu_items != undefined) {
-    restaurants.forEach((restaurant) => menuItems.push(...restaurant.menu_items));
-
-  }
+  restaurants.forEach((restaurant) => menuItems.push(...restaurant.menu_items));
+  
   // console.log(menuItems);
 
   const [cartOpen, setCartOpen] = useState(false);
@@ -278,3 +276,4 @@ function Navigation() {
 }
 
 export default Navigation;
+

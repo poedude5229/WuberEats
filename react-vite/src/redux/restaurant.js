@@ -2,7 +2,7 @@
 const LOAD_RESTAURANTS = "restaurants/LOAD_RESTAURANTS";
 const CREATE_RESTAURANT = "restaurants/CREATE_RESTAURANT";
 const LOAD_SINGLE_RESTAURANT = "restaurants/LOAD_SINGLE_RESTAURANT";
-const EDIT_RESTAURANT = "restaurants/EDIT_RESTAURANT";
+const UPDATE_RESTAURANT = "restaurants/EDIT_RESTAURANT";
 const DELETE_RESTAURANT = "restaurants/DELETE_RESTAURANT";
 
 const CREATE_MENU_BY_RESTAURANT_ID = "restaurants/CREATE_MENU_BY_RESTAURANT_ID";
@@ -34,10 +34,12 @@ const loadSingleRestaurantbyId = (restaurant) => ({
   payload: restaurant,
 });
 
-const editRestaurant = (restaurant) => ({
-  type: EDIT_RESTAURANT,
-  payload: restaurant,
-});
+export const editRestaurant = (restaurant) => {
+  return {
+    type: UPDATE_RESTAURANT,
+    restaurant,
+  };
+};
 
 const deleteRestaurant = (restaurantId) => ({
   type: DELETE_RESTAURANT,
@@ -154,15 +156,15 @@ export const restaurantByIdThunk = (restaurantId) => async (dispatch) => {
 };
 
 // Update a restaurant
-export const editRestaurantThunk =
-  (restaurant, restaurantId) => async (dispatch) => {
-    try {
+export const editRestaurantThunk = (restaurantId, restaurant) => async (dispatch) => {
+   
       const res = await fetch(`/api/restaurants/${restaurantId}`, {
         method: "PUT",
         body: restaurant,
       });
 
       const data = await res.json();
+      console.log(data)
       // console.log(`res ${data}`);
 
       if (!res.ok) {
@@ -171,15 +173,12 @@ export const editRestaurantThunk =
       // await dispatch(loadSingleRestaurantbyId(restaurantId))
       await dispatch(editRestaurant(data));
       return data;
-    } catch (error) {
-      console.error("Failed to fetch by restaurant by id:", error);
-      return { errors: error.message };
-    }
+   
   };
 
 // Delete a restaurant
 export const deleteRestaurantThunk = (restaurantId) => async (dispatch) => {
-  try {
+
     const res = await fetch(`/api/restaurants/${restaurantId}`, {
       method: "DELETE",
     });
@@ -191,10 +190,9 @@ export const deleteRestaurantThunk = (restaurantId) => async (dispatch) => {
     }
 
     await dispatch(deleteRestaurant(restaurantId));
-  } catch (error) {
-    console.error("Failed to fetch by restaurant by id:", error);
-    return { errors: error.message };
-  }
+   
+    
+  
 };
 
 // MENU ITEMS -----------------------------------------------------------------------
@@ -409,12 +407,11 @@ function restaurantReducer(state = {}, action) {
       newState[action.payload.id] = action.payload;
       return newState;
     }
-    case EDIT_RESTAURANT: {
-      const newState = { ...state };
-      console.log('state',newState);
-      newState[action.payload.id] = action.payload;
-      // console.log(newState);
-      return newState;
+    case UPDATE_RESTAURANT: {
+      return {
+        ...state,
+        [action.restaurant.id]: action.restaurant
+      };
     }
     case DELETE_RESTAURANT: {
       const newState = { ...state };

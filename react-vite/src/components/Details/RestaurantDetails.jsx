@@ -5,6 +5,8 @@ import { loadRestaurantsThunk } from "../../redux/restaurant";
 import { addToCartThunk } from "../../redux/cart";
 import { MdStarBorder } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeleteRestaurantModal from "../RestaurantForm/DeleteRestaurant"
 import "./Details.css";
 function Details() {
   let { restaurantId } = useParams();
@@ -19,7 +21,8 @@ function Details() {
     state.cart;
   });
   let selected = all[restaurantId];
-  console.log(selected?.owner_id);
+  console.log('sel',selected?.id);
+  // console.log(selected?.owner_id);
   let menu = selected?.menu_items;
   //   console.log(selected);
   return (
@@ -79,7 +82,12 @@ function Details() {
           </div>
 
         ))}
-        {currentUser.id === selected?.owner_id && <button><NavLink to='/restaurants/:restaurantId/update'>Update Your Restaurant</NavLink></button>}
+        {currentUser.id === selected?.owner_id && <button><NavLink to={`/restaurants/${selected?.id}/update`}>Update Your Restaurant</NavLink></button>}
+        
+        <div className="delete-button-container">
+        {currentUser.id === selected?.owner_id && <OpenModalMenuItem itemText={<button>Delete</button>} className='delete-btn-getall' modalComponent={<DeleteRestaurantModal restaurantId={+selected?.id} />}/>}
+        
+        </div>
       </section>
     </>
   );

@@ -3,15 +3,16 @@ import {useSelector, useDispatch} from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { loadRestaurantsThunk,editRestaurantThunk  } from '../../redux/restaurant'
 
-const UpdatingRestaurant = ({restaurant}) => {
-console.log(restaurant)
+const UpdatingRestaurant = () => {
+
 
 const dispatch = useDispatch()
 const navigate = useNavigate()
 const {restaurantId} = useParams()
 
-// const restaurant = useSelector(state => state.restaurantReducer)
-// console.log(restaurant);
+
+const restaurant = useSelector(state => state.restaurantReducer[+restaurantId])
+console.log(restaurant);
 
 const [address, setAddress] = useState(restaurant?.address || '')
 const [name, setName] = useState(restaurant?.name || '')
@@ -24,6 +25,8 @@ const [cover_image, setCoverImage] = useState(restaurant?.cover_image || '')
 const [error, setError] = useState({})
 
 const currentUser = useSelector(state => state.session.user)
+
+
 
 
 useEffect(() => {
@@ -57,12 +60,12 @@ const handleSubmit = async (e) => {
   formData.append('cover_image', cover_image)
   try {
     
-    const updateRestaurant = await dispatch(editRestaurantThunk(formData, restaurantId));
-    // console.log(`line 44, ${updateRestaurant}`)
+    const updateRestaurant = await dispatch(editRestaurantThunk(restaurantId, formData));
     await dispatch(loadRestaurantsThunk(updateRestaurant))
-    navigate(`/restaurants/${restaurant.id}`)
+    // console.log(`line 44, ${updateRestaurant}`)
+    navigate(`/`)
     } catch (error) {
-    console.error("Error creating restaurant:", error);
+    console.error("Error updating restaurant:", error);
   }
 }
 

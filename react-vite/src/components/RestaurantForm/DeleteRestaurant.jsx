@@ -1,18 +1,24 @@
-import React from 'react'
+
+import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../context/Modal'
 import { deleteRestaurantThunk } from '../../redux/restaurant'
+import { useDispatch } from 'react-redux';
 
-const DeleteRestaurant = ({restaurandId}) => {
+const DeleteRestaurantModal = ({restaurantId}) => {
+    console.log(restaurantId)
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const { closeModal } = useModal()
 
 const handleDelete = async (e) => {
-    e.preventdefault()
+    e.preventDefault()
     try {
     
 
-    await dispatch(deleteRestaurantThunk(restaurandId))
+    await dispatch(deleteRestaurantThunk(restaurantId))
     closeModal()
+    navigate('/')
+    
     } catch (error) {
         console.error("Error deleting restaurant:", error);
     }
@@ -30,7 +36,7 @@ return (
                 <p>Are you sure you want to remove this Restaurant?</p>
             </div>
             <div className="">
-                <button type="submit" className="">Yes (Delete Restaurant)</button>
+                <button onClick={handleDelete} type="submit" className="">Yes (Delete Restaurant)</button>
             <button onClick={() => closeModal()} className="">No (Keep Restaurant)</button>
             </div>
         </form>
@@ -40,4 +46,4 @@ return (
 
 
 
-export default DeleteRestaurant
+export default DeleteRestaurantModal
