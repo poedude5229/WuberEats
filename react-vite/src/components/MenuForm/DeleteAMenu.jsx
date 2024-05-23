@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux"
 import { useModal } from "../../context/Modal"
-import { deleteAMenuBasedOffARestaurantThunk } from "../../redux/restaurant"
+import { deleteAMenuBasedOffARestaurantThunk, loadRestaurantsThunk } from "../../redux/restaurant"
+import { useNavigate } from "react-router-dom"
 // import { useEffect } from "react";
 // import { useParams } from "react-router-dom"
 
@@ -8,19 +9,24 @@ import { deleteAMenuBasedOffARestaurantThunk } from "../../redux/restaurant"
 
 
 
-export const DeleteAMenu = ({menuId}) => {
+export const DeleteAMenu = ({restaurantId, menuId}) => {
 
-    // const {spotId} = useParams()
+    // const {restaurantId} = useParams()
     // console.log(spotId);
     const {closeModal} = useModal()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     
     const deleteYourMenu = async(e) => {
         e.preventDefault()
 
+        
 
-        await dispatch(deleteAMenuBasedOffARestaurantThunk(menuId))
-        closeModal()
+            await dispatch(deleteAMenuBasedOffARestaurantThunk(restaurantId, menuId))
+            await dispatch(loadRestaurantsThunk(restaurantId))
+            navigate(`/restaurants/${restaurantId}`)
+            closeModal()
+        
     }
 
 

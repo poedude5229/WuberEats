@@ -117,14 +117,14 @@ function Details() {
             <p className="menu-item-name">{item.name}</p>
             <p className="menu-item-price">${item.price}</p>
 
-            {currentUser.id === selected?.owner_id && (
+            {currentUser?.id === selected?.owner_id && (
               <NavLink
                 to={`/restaurants/${selected?.id}/menus/${item.id}/update`}
               >
                 Update Menu Item
               </NavLink>
             )}
-            {currentUser.id === selected?.owner_id && (
+            {currentUser?.id === selected?.owner_id && (
               <OpenModalMenuItem
                 itemText={<button>Delete</button>}
                 className="delete-btn-getall"
@@ -136,7 +136,7 @@ function Details() {
           </div>
         ))}
         <div className="buttons-con">
-          {currentUser.id === selected?.owner_id && (
+          {currentUser?.id === selected?.owner_id && (
             <button>
               <NavLink to={`/restaurants/${selected?.id}/update`}>
                 Update Your Restaurant
@@ -144,7 +144,7 @@ function Details() {
             </button>
           )}
           <div className="delete-button-container">
-            {currentUser.id === selected?.owner_id && (
+            {currentUser?.id === selected?.owner_id && (
               <OpenModalMenuItem
                 itemText={<button>Delete</button>}
                 className="delete-btn-getall"
@@ -153,7 +153,7 @@ function Details() {
                 }
               />
             )}
-            {currentUser.id === selected?.owner_id && (
+            {currentUser?.id === selected?.owner_id && (
               <NavLink to={`/restaurants/${selected?.id}/menu/new`}>
                 Create a menu item
               </NavLink>

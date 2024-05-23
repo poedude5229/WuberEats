@@ -58,10 +58,12 @@ const loadMenuByRestaurantId = (menu) => ({
   payload: menu,
 });
 
-const editMenuByRestaurantId = (menu) => ({
-  type: EDIT_MENU_BY_RESTAURANT_ID,
-  payload: menu,
-});
+export const editMenuByRestaurantId = (menu) => {
+  return {
+    type: EDIT_MENU_BY_RESTAURANT_ID,
+    menu
+  };
+};
 
 const deleteMenuByRestaurantId = (menuId) => ({
   type: DELETE_MENU_BY_RESTURANT_ID,
@@ -241,38 +243,37 @@ export const postANewMenuForRestaurantThunk =
   };
 
 // Update a menu item for the restaurant
-export const updateAMenuForARestaurantThunk =
-  (restaurantId, menu, menuId) => async (dispatch) => {
-    try {
-      const res = await fetch(
-        `/api/restaurants/${restaurantId}/menu/${menuId}`,
-        {
-          method: "PUT",
-          body: menu,
-        }
-      );
+export const updateAMenuForARestaurantThunk = (restaurantId, menu, menuId) => async (dispatch) => {
+  try {
+    const res = await fetch(`/api/restaurants/${restaurantId}/menu/${menuId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(menu),
+    });
 
-      const data = await res.json();
-      console.log(`res ${data}`);
-
-      if (!res.ok) {
-        return { errors: data };
-      }
-
-      await dispatch(editMenuByRestaurantId(data));
-      return data;
-    } catch (error) {
-      console.error("Failed to update the menu by restaurant id:", error);
-      return { errors: error.message };
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.errors || "Failed to update the menu");
     }
-  };
+
+    const data = await res.json();
+    console.log(`res ${data}`);
+
+    await dispatch(editMenuByRestaurantId(data));
+    return data;
+  } catch (error) {
+    console.error("Failed to update the menu by restaurant id:", error);
+    return { errors: error.message };
+  }
+};
 
 // Delete a menu item
 export const deleteAMenuBasedOffARestaurantThunk =
   (restaurantId, menuId) => async (dispatch) => {
     try {
-      const res = await fetch(
-        `/api/restaurants/${restaurantId}/menu/${menuId}`,
+      const res = await fetch(`/api/restaurants/${restaurantId}/menu/${menuId}`,
         {
           method: "DELETE",
         }
@@ -368,7 +369,7 @@ export const deleteAReviewBasedOffARestaurantThunk =
   (restaurantId, reviewId) => async (dispatch) => {
     try {
       const res = await fetch(
-        `/api/restaurants/${restaurantId}/revies/${reviewId}`,
+        `/api/restaurants/${restaurantId}/reviews/${reviewId}`,
         {
           method: "DELETE",
         }
@@ -435,9 +436,10 @@ function restaurantReducer(state = {}, action) {
     }
 
     case EDIT_MENU_BY_RESTAURANT_ID: {
-      const newState = { ...state };
-      newState[action.payload.id] = action.payload;
-      return newState;
+      return {
+        ...state,
+        [action.menu.id]: action.menu
+      };
     }
     case DELETE_MENU_BY_RESTURANT_ID: {
       const newState = { ...state };

@@ -227,13 +227,14 @@ def get_menus(id):
 
 
 # Post a new menu based on a restaurant CHECKED
-@restaurant_routes.route("/<int:id>/menu/new", methods =["POST"])
+@restaurant_routes.route("/<int:id>/menus/new", methods =["POST"])
 @login_required
 def menu_poster(id):
   selected = Restaurant.query.get(id)
   if not selected:
       return {"message": "Restaurant to post menu couldnt be found"}, 404
   form = MenuForm()
+  
   form["csrf_token"].data = request.cookies["csrf_token"]
 
   if form.validate_on_submit():
@@ -279,10 +280,12 @@ def menu_updated(menu_id, id):
 @restaurant_routes.route("/<int:id>/menu/<int:menu_id>", methods=["DELETE"])
 @login_required
 def delete_menu_by_id(id,menu_id):
-   get_menu = Menu.query.get(id)
-   if not get_menu:
-      return {"message":"Can't find the menu to delete"}, 404
-   else:
-      db.session.delete(get_menu)
-      db.session.commit()
-      return redirect("/api/restaurants/<int:id>")
+    get_menu = Menu.query.get(menu_id)
+    if not get_menu:
+       return {"message":"Can't find the menu to delete"}, 404
+    elif get_menu:
+        db.session.delete(get_menu)
+        db.session.commit()
+        return json.dumps({"message": "Succesfully Deleted your menu item"}), 202 
+    else: 
+       return {"message": "Bad Request"}, 400
