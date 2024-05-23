@@ -78,7 +78,7 @@ useEffect(() => {
     if(!cuisine.length) errObj.cuisine = "Cuisine required"
     if(!description.length) errObj.description = "Description required"
     if(!hours_of_operation.length) errObj.hours_of_operation = "Hours of operation required"
-    if(!delivery_radius.length) errObj.delivery_radius = "Delivery Radius required"
+    if(!delivery_radius) errObj.delivery_radius = "Delivery Radius is required"
     if(!cover_image.length) errObj.cover_image = "CoverImage"
 
 
@@ -139,7 +139,7 @@ useEffect(() => {
               </label>
             </div>
             <div className="">
-              {error.phoneNumber && <p>{error.phoneNumber}</p>}
+              {error.phone_number && <p>{error.phone_number}</p>}
             </div>
           <div className=''>
             <label>
@@ -196,7 +196,7 @@ useEffect(() => {
             </input>
           </label>
             <div className="">
-              {/* {error.hoursOfOperation && <p>{error.hoursOfOperation}</p>} */}
+              {error.hours_of_operation && <p>{error.hours_of_operation}</p>}
             </div>
         </div>
           <div className=''>
@@ -215,7 +215,7 @@ useEffect(() => {
             </input>
           </label>
           <div className="">
-              {/* {error.deliveryRadius && <p>{error.deliveryRadius}</p>} */}
+              {error.delivery_radius && <p>{error.delivery_radius}</p>}
             </div>
           <div className=''>
               <label>
