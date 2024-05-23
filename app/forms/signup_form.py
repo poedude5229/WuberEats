@@ -32,6 +32,6 @@ class SignUpForm(FlaskForm):
     firstname = StringField('Firstname', validators=[DataRequired()])
     lastname = StringField('Firstname', validators=[DataRequired()])
     email = StringField('email', validators=[DataRequired(), user_exists])
-    address = StringField('address', validators=[DataRequired(), email_exists])
-    role = SelectField(choices=['owner', "user"])
+    address = StringField('address', validators=[DataRequired()])
+    role = StringField("role")
     password = StringField('password', validators=[DataRequired()])

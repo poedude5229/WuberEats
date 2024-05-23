@@ -118,7 +118,7 @@ function Details() {
             <p className="menu-item-price">${item.price}</p>
           </div>
         ))}
-        {currentUser.id === selected?.owner_id && (
+        {currentUser?.id === selected?.owner_id && (
           <button>
             <NavLink to={`/restaurants/${selected?.id}/update`}>
               Update Your Restaurant
@@ -127,7 +127,7 @@ function Details() {
         )}
 
         <div className="delete-button-container">
-          {currentUser.id === selected?.owner_id && (
+          {currentUser?.id === selected?.owner_id && (
             <OpenModalMenuItem
               itemText={<button>Delete</button>}
               className="delete-btn-getall"
