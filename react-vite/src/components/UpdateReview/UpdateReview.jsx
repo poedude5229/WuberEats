@@ -11,6 +11,17 @@ import { MdStar, MdStarBorder } from "react-icons/md";
 import "./UpdateReview.css";
 
 export const UpdateAReview = ({ reviewId, restaurantId, review }) => {
+ 
+
+  const indvReview = useSelector((state) => 
+    state.restaurantReducer[restaurantId].reviews?.find(review => review.id === parseInt(reviewId))
+  ); 
+  console.log(indvReview);
+
+ 
+  
+
+ 
   const { closeModal } = useModal();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,6 +31,13 @@ export const UpdateAReview = ({ reviewId, restaurantId, review }) => {
   const [rating, setRating] = useState(review?.rating || 0);
   const [validationErrors, setValidationErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  useEffect(() => {
+    if(review) {
+      setReviewText(indvReview.review || '')
+      setRating(indvReview.rating || '')
+    }
+  },[indvReview, review])
 
   useEffect(() => {
     const errors = {};

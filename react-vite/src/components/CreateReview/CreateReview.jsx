@@ -32,7 +32,7 @@ export const CreateReview = () => {
     setValidationErrors(errors);
   }, [review, rating]);
 
-  const handleSubmit =  (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
     const formData = new FormData();
@@ -40,9 +40,9 @@ export const CreateReview = () => {
     formData.append("review", review);
     formData.append("rating", rating);
 
-    dispatch(postANewReviewForRestaurantThunk(restaurantId, formData))
-    // dispatch(getReviewsByRestaurantIdThunk(restaurantId));
-    dispatch(loadRestaurantsThunk(restaurantId))
+   await dispatch(postANewReviewForRestaurantThunk(restaurantId, formData))
+   await dispatch(getReviewsByRestaurantIdThunk(restaurantId));
+   await dispatch(loadRestaurantsThunk(restaurantId))
    navigate(`/restaurants/${restaurantId}`)
    closeModal()
   };
