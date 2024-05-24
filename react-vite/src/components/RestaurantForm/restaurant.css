@@ -1,0 +1,99 @@
+.rest-h1 {
+    color: rgb(99, 59, 99);
+    font-size: 50px;
+}
+
+.add-rest-con {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rest-inputs-con * {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.rest-form input {
+    background-color: rgb(34, 36, 38);
+    border-color: transparent;
+    height: 30px;
+    border-radius: 8px;
+    padding: 5px;
+    color: lightgrey;
+    font-size: 15px;
+    width: 600px;
+    
+}
+
+.cui-input {
+    width: 600px;
+}
+
+.cui-text {
+    padding-top: 10px;
+}
+
+textarea {
+    background-color: rgb(34, 36, 38);
+    border-radius: 12px;
+    padding: 10px;
+    color: white;
+}
+
+.restaurant-create-btn {
+    height: 50px;
+    width: 400px;
+    background-color: rgb(31, 33, 35);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.res-btn-con {
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    padding-bottom: 150px;
+}
+
+
+.restaurant-create-btn:hover {
+    border-style: solid;
+    border: 3px 3px lightgray;
+    cursor: pointer;
+    border-color: lightgray;
+}
+
+.restaurant-create-btn:disabled:hover {
+    border-style: solid;
+    border: 3px 3px red;
+    cursor: not-allowed;
+    border-color: red;
+}
+
+.errors-res {
+    color: red;
+    font-size: 12px;
+}
+
+.rest-modal {
+    padding: 50px;
+}
+
+.rest-modal button {
+    border-radius: 12px;
+    cursor: pointer;
+    width: 125px;
+    height: 75px;
+}
+
+.btn-con {
+    padding-top: 15px;
+}

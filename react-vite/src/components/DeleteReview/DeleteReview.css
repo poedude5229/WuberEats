@@ -40,6 +40,7 @@
   justify-content: center;
   gap: 25px;
   width: 100%;
+  padding-top: 20px;
 }
 
 .delete-button:hover,
@@ -50,4 +51,28 @@
 .d-bttn:hover {
   background-color: red;
   color: white;
+  cursor: pointer;
 }
+
+.d-bttn {
+  width: 100px;
+  height: 50px;
+  border-radius: 12px;
+  background-color: black;
+  color: white;
+
+}
+
+.c-bttn {
+ 
+    width: 100px;
+    height: 50px;
+    border-radius: 12px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+  
+  
+}
+
+
