@@ -14,7 +14,7 @@
   border-radius: 12px;
 }
 
-section {
+.bigFlex {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

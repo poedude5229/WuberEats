@@ -1,0 +1,15 @@
+.devPFP {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+/* #devContainer {
+    display: flex;
+}*/
+
+.githubLink {
+    text-decoration: none;
+    color: black;
+    /* display: flex; */
+}

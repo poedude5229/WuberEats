@@ -144,6 +144,7 @@ function SignupFormModal() {
             marginLeft: "auto",
             marginRight: "auto",
             marginBottom: "5px",
+            cursor: "pointer",
           }}
         >
           Sign Up

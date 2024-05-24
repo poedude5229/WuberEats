@@ -110,6 +110,7 @@
   flex-direction: column;
   text-align: right;
   justify-content: flex-end;
+  gap: 8px;
 }
 
 #user-deets p {
@@ -123,6 +124,7 @@
   font-family: Inter;
   margin-left: 25px;
   font-weight: 900;
+  background-color: white;
 }
 
 #applogo {
@@ -190,6 +192,7 @@
   color: white;
   border-radius: 12px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 #logout-button:hover {

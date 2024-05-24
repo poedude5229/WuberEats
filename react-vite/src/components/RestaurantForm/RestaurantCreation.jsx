@@ -56,7 +56,7 @@ const handleSubmit = async (e) => {
 
 useEffect(() => {
     const errObj = {}
-    
+
     if(!address.length) errObj.address = "Address Required"
     if(!name.length) errObj.name = "Name Required"
     if(!phone_number.length) errObj.phone_number = "Phone Number Required"
@@ -82,11 +82,11 @@ useEffect(() => {
 
   return (
     <div>
-      <h1>Add a restaurant now!!!</h1>
-        <form className='' onSubmit={handleSubmit}>
+      <h1 style={{marginLeft: "12px"}}>Add a restaurant now!!!</h1>
+        <form style={{display: "flex", flexDirection: "column", gap: "8px"}} className='' onSubmit={handleSubmit}>
             <div className=''>
               <label>
-                Address:
+                Address:{" "}
                 <input
                 type="text"
                 name="address" placeholder='address'
@@ -100,7 +100,7 @@ useEffect(() => {
             </div>
             <div className=''>
               <label>
-                Restaurant Name:
+                Restaurant Name:{" "}
                 <input
                 type="text"
                 name="name" placeholder='Restaurant Name'
@@ -114,7 +114,7 @@ useEffect(() => {
             </div>
             <div className=''>
               <label>
-                Phone Number:
+                Phone Number:{" "}
                 <input
                 type="text"
                 name="phoneNumber" placeholder='Phone Number'
@@ -128,11 +128,13 @@ useEffect(() => {
             </div>
           <div className=''>
             <label>
-              Cuisine:
+              Cuisine:{" "}
               <input
                 name="cuisine"
                 type='text'
-                value={cuisine}
+              value={cuisine}
+              placeholder='What type of food do you serve?'
+              style={{width: "210px"}}
                 onChange={(e) => setCuisine(e.target.value)}
                 >
                 {/* <option value="" disabled>Select Cuisine</option>
@@ -152,8 +154,8 @@ useEffect(() => {
               {/* {error.cuisine && <p>{error.cuisine}</p>} */}
             </div>
           <div className=''>
-          <p>Describe You&apos;re Restaurant Nicely!!!!!!!!</p>
-          <textarea placeholder="30 Characters are needed at minimun"
+          <p>Describe Your Restaurant:</p>
+          <textarea placeholder="30 Characters are needed at minimum. What's something unique about your restaurant? Add details that will draw customers in."
                 cols="45"
                 rows="8"
                 minLength={30}
@@ -171,7 +173,8 @@ useEffect(() => {
               <input
                 name="hoursOfOperation"
                 type='text'
-                value={hours_of_operation}
+              value={hours_of_operation}
+              placeholder="AM to PM and the days open"
                 onChange={(e) => setHoursOfOperation(e.target.value)}
                 >
                 {/* <option value="" disabled>Select Hours of Operation</option>
@@ -186,25 +189,25 @@ useEffect(() => {
         </div>
           <div className=''>
               <label>
-                Delivery Radius:
+                Delivery Radius:{" "}
               <input
                 name="deliveryRadius"
                 type='number'
                 value={delivery_radius}
                 onChange={(e) => setDeliveryRadius(e.target.value)}
-                >
+                /> mi.
                 {/* <option value="" disabled>Select Delivery Radius</option>
                 {deliveryRadiusOptions.map((radius, index) => (
                 <option key={index} value={radius}>{radius}</option> */}
                 {/* ))} */}
-            </input>
+            {/* </input> */}
           </label>
           <div className="">
               {/* {error.deliveryRadius && <p>{error.deliveryRadius}</p>} */}
             </div>
           <div className=''>
               <label>
-                Cover Image:
+                Cover Image:{" "}
                 <input
                 type="text"
                 name="address" placeholder='Image url'

@@ -6,6 +6,7 @@ import { RiArrowRightLine } from "react-icons/ri";
 import hamberderLightLogo from "../../../public/hamberderLightLogo.png";
 import "./Landing.css";
 import { NavLink } from "react-router-dom";
+import { Carousel } from "../Carousel/Carousel";
 function Landing() {
   let restaurants = useSelector((state) => state.restaurantReducer);
   restaurants = Object.values(restaurants);
@@ -16,7 +17,7 @@ function Landing() {
   }, [dispatch]);
   return (
     <>
-      <section style={{ gap: "100px" }}>
+      <section className="bigFlex" style={{ gap: "100px" }}>
         <div style={{ backgroundColor: "Orange" }} className="wube-cards">
           <span
             className="wubeAdText"
@@ -96,7 +97,10 @@ function Landing() {
           </button>
         </div>
       </section>
-      <section>
+      <h2 style={{marginLeft: "30px", paddingTop: "20px"}}>New Arrivals</h2>
+      <Carousel />
+      <h2 style={{marginLeft: "30px"}}>Our Restaurants</h2>
+      <section className="bigFlex">
         {restaurants?.map((restaurant) => (
           <NavLink
             className="restaurant-card-container"

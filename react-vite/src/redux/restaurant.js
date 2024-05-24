@@ -159,7 +159,7 @@ export const restaurantByIdThunk = (restaurantId) => async (dispatch) => {
 
 // Update a restaurant
 export const editRestaurantThunk = (restaurantId, restaurant) => async (dispatch) => {
-   
+
       const res = await fetch(`/api/restaurants/${restaurantId}`, {
         method: "PUT",
         body: restaurant,
@@ -175,7 +175,7 @@ export const editRestaurantThunk = (restaurantId, restaurant) => async (dispatch
       // await dispatch(loadSingleRestaurantbyId(restaurantId))
       await dispatch(editRestaurant(data));
       return data;
-   
+
   };
 
 // Delete a restaurant
@@ -192,9 +192,9 @@ export const deleteRestaurantThunk = (restaurantId) => async (dispatch) => {
     }
 
     await dispatch(deleteRestaurant(restaurantId));
-   
-    
-  
+
+
+
 };
 
 // MENU ITEMS -----------------------------------------------------------------------
@@ -250,7 +250,7 @@ export const updateAMenuForARestaurantThunk = (restaurantId, menu, menuId) => as
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(menu),
+      body: JSON.stringify({...menu}),
     });
 
     if (!res.ok) {
