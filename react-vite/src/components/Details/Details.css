@@ -54,3 +54,94 @@
   padding-left: 130px;
   margin-top: 20px;
 }
+
+.review-btn-con {
+  display: flex;
+
+  gap: 10px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.review-btn-con button {
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  
+}
+
+.review-btn-con-for-details {
+  padding-left: 22px;
+}
+
+.owned-restaurant-edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.update-restaurant {
+  width: 175px;
+  height: 50px;
+  border-radius: 12px;
+  width: 500px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  
+}
+
+.lol-class {
+  text-decoration: none;
+  background-color: black;
+  color: white;
+  border-radius: 12px;
+  width: 500px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.update-restaurant-link {
+  text-decoration: none;
+  background-color: black;
+  color: white;
+  border-radius: 12px;
+  width: 500px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.menu-items-con-l {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding-right: 65px;
+}
+
+
+
+
+
+
+.create-menu-restaurant {
+  text-decoration: none;
+  padding: 15px;
+  background-color: black;
+  color: white;
+  border-radius: 12px;
+}

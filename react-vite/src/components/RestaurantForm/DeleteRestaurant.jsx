@@ -22,10 +22,10 @@ const DeleteRestaurantModal = ({ restaurantId }) => {
 
   return (
     <div style={{ borderRadius: "12px" }} className="">
+        <div className="rest-modal">
       <form onSubmit={handleDelete} className="">
-        <div className="">
           <h2>Confirm Delete</h2>
-        </div>
+
         <div className="">
           <p>Are you sure you want to remove this Restaurant?</p>
         </div>
@@ -36,12 +36,11 @@ const DeleteRestaurantModal = ({ restaurantId }) => {
             justifyContent: "space-around",
             marginBottom: "8px",
           }}
-          className=""
+          className="btn-con"
         >
           <button
             style={{
-              height: "70px",
-              width: "100px",
+              height: "50px",
               color: "black",
               backgroundColor: "red",
               cursor: "pointer",
@@ -56,8 +55,7 @@ const DeleteRestaurantModal = ({ restaurantId }) => {
           </button>
           <button
             style={{
-              height: "70px",
-              width: "100px",
+              height: "50px",
               color: "white",
               backgroundColor: "black",
               cursor: "pointer",
@@ -70,6 +68,7 @@ const DeleteRestaurantModal = ({ restaurantId }) => {
           </button>
         </div>
       </form>
+      </div>
     </div>
   );
 };

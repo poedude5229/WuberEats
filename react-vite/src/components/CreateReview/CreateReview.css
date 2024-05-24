@@ -54,3 +54,9 @@
 .created-review:hover {
   transform: scale(1.05);
 }
+
+.created-review:disabled:hover {
+  cursor: not-allowed;
+  background-color: red;
+}
+

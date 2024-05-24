@@ -35,6 +35,7 @@ export const DeleteAMenu = ({restaurantId, menuId}) => {
 return (
     <div className="delete-your-menu-con">
         <form onSubmit={deleteYourMenu} className="delete-form-container">
+        
         <h2 className="delete-warning">Are you sure you want to remove this menu from your restaurant?</h2>
 
         <div className="warning-message">

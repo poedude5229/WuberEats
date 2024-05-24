@@ -65,18 +65,22 @@ function Details() {
             !reviewIdLog.includes(currentUser?.id) && (
               <OpenModalMenuItem
                 itemText={
+                  <div className="review-btn-con-for-details">
                   <button
                     style={{
-                      width: "100px",
-                      height: "40px",
+                      width: "200px",
+                      height: "50px",
                       backgroundColor: "black",
                       color: "white",
                       border: "none",
                       cursor: "pointer",
+                      borderRadius: "8px",
+                      
                     }}
                   >
                     Leave a review!
                   </button>
+                  </div>
                 }
                 modalComponent={<CreateReview />}
               ></OpenModalMenuItem>
@@ -113,17 +117,8 @@ function Details() {
                     )}
                   </span>
                   <p>{review.review}</p>
-                  {currentUser && currentUser?.id === review?.user_id && (
-                    <OpenModalMenuItem
-                      itemText={<button>Delete this review</button>}
-                      modalComponent={
-                        <DeleteReview
-                          restaurantId={selected?.id}
-                          reviewId={review.id}
-                        />
-                      }
-                    />
-                  )}
+                  <div className="review-btn-con">
+
                   {currentUser && currentUser?.id === review?.user_id && (
                     <OpenModalMenuItem
                       itemText={<button>Update this review</button>}
@@ -136,6 +131,19 @@ function Details() {
                       }
                     />
                   )}
+                  {currentUser && currentUser?.id === review?.user_id && (
+                    <OpenModalMenuItem
+                      itemText={<button>Delete this review</button>}
+                      modalComponent={
+                        <DeleteReview
+                          restaurantId={selected?.id}
+                          reviewId={review.id}
+                        />
+                      }
+                    />
+                  )}
+                  
+                </div>
                 </>
               ))}
             </div>
@@ -182,7 +190,7 @@ function Details() {
             </div>
             <p className="menu-item-name">{item.name}</p>
             <p className="menu-item-price">${item.price}</p>
-
+            <div className="menu-items-con-l">
             {currentUser?.id === selected?.owner_id && (
               <NavLink
                 style={{
@@ -190,13 +198,16 @@ function Details() {
                   alignContent: "center",
                   justifyContent: "center",
                   border: "1 px solid black",
-                  width: "100px",
+                  width: "150px",
                   height: "45px",
                   backgroundColor: "black",
                   color: "white",
                   textDecoration: "none",
-                  paddingTop: "5px",
                   textAlign: "center",
+                  borderRadius: "12px",
+                  alignItems: "center",
+                  fontSize: "14px"
+
                 }}
                 to={`/restaurants/${selected?.id}/menus/${item.id}/update`}
               >
@@ -207,14 +218,22 @@ function Details() {
               <OpenModalMenuItem
                 itemText={
                   <button
-                    style={{
-                      width: "100px",
-                      height: "50px",
-                      backgroundColor: "black",
-                      color: "white",
-                      cursor: "pointer",
-                      border: "none",
-                    }}
+                  style={{
+                    display: "flex",
+                    alignContent: "center",
+                    justifyContent: "center",
+                    border: "1 px solid black",
+                    width: "150px",
+                    height: "45px",
+                    backgroundColor: "black",
+                    color: "white",
+                    textDecoration: "none",
+                    textAlign: "center",
+                    borderRadius: "12px",
+                    alignItems: "center",
+                    fontSize: "14px",
+                    cursor: 'pointer'
+                  }}
                   >
                     Delete Menu Item
                   </button>
@@ -225,25 +244,22 @@ function Details() {
                 }
               />
             )}
+            </div>
           </div>
         ))}
+        </section>
         <div className="buttons-con">
+          <div className="owned-restaurant-edit">
           {currentUser?.id === selected?.owner_id && (
-            <button
-              style={{
-                width: "100px",
-                height: "40px",
-                backgroundColor: "black",
-                border: "none",
-              }}
-            >
+           
               <NavLink
                 style={{ color: "white", textDecoration: "none" }}
                 to={`/restaurants/${selected?.id}/update`}
+                className={'update-restaurant-link'}
               >
                 Update Your Restaurant
               </NavLink>
-            </button>
+           
           )}
           <div className="delete-button-container">
             {currentUser?.id === selected?.owner_id && (
@@ -253,11 +269,10 @@ function Details() {
                     style={{
                       backgroundColor: "black",
                       color: "white",
-                      width: "100px",
-                      height: "70px",
                       cursor: "pointer",
                       border: "none",
                     }}
+                    className="update-restaurant"
                   >
                     Delete this restaurant?
                   </button>
@@ -269,13 +284,13 @@ function Details() {
               />
             )}
             {currentUser?.id === selected?.owner_id && (
-              <NavLink style={{}} to={`/restaurants/${selected?.id}/menu/new`}>
+              <NavLink className={'lol-class'} style={{}} to={`/restaurants/${selected?.id}/menu/new`}>
                 Create a menu item
               </NavLink>
             )}
+            </div>
           </div>
         </div>
-      </section>
     </>
   );
 }

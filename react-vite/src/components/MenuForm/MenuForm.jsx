@@ -56,8 +56,8 @@ const MenuForm = () => {
         if(!isNaN(price) === false || price.length < 1) errorsObj.price = 'Please provide a price that is a number'
         if(!category) errorsObj.category = 'Please provide a valid category'
         // if(!is_avaliable) errorsObj.is_avaliable = 'Please provide a valid avaliabliliy'
-        if(!image_url) errorsObj.image_url = 'Please provide a valid image with .png .jpg or .webp'
-        if(image_url.length && !(image_url.endsWith('.png') || image_url.endsWith('.jpg') || image_url.endsWith('.jpeg') || image_url.endsWith('.webp'))) errorsObj.image_url = 'Image URL needs to end in png or jpg (or jpeg)';
+        // if(!image_url) errorsObj.image_url = 'Please provide a valid image with .png .jpg or .webp'
+        if(image_url.length && !(image_url.endsWith('.png') || image_url.endsWith('.jpg') || image_url.endsWith('.jpeg') || image_url.endsWith('.webp'))) errorsObj.image_url = 'Image URL needs to end in png or jpg (or jpeg) and greater than 5 characters';
 
         setErrors(errorsObj)
   },[name, description, price, category, image_url])
