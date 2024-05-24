@@ -20,10 +20,12 @@ export function Checkout() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent form submission if inside a form
-    let newTotal = subtotal + tip;
-    setFinal(newTotal.toFixed(2));
-    setShowTip(false);
+    e.preventDefault();
+    if (tip > 0) {
+      let newTotal = subtotal + tip;
+      setFinal(newTotal.toFixed(2));
+      setShowTip(false);
+    }
   };
 
   return (
@@ -97,6 +99,7 @@ export function Checkout() {
                   name="tip"
                   onClick={handleTipChange}
                   value={(subtotal * 0.13).toFixed(2)}
+                  readOnly
                 />
                 <p>${(subtotal * 0.13).toFixed(2)}</p>
               </div>
@@ -107,6 +110,7 @@ export function Checkout() {
                   name="tip"
                   onClick={handleTipChange}
                   value={(subtotal * 0.56).toFixed(2)}
+                  readOnly
                 />
                 <p>${(subtotal * 0.56).toFixed(2)}</p>
               </div>
@@ -117,6 +121,7 @@ export function Checkout() {
                   name="tip"
                   onClick={handleTipChange}
                   value={subtotal}
+                  readOnly
                 />
                 <p>${subtotal}</p>
               </div>
@@ -131,7 +136,12 @@ export function Checkout() {
                     style={{ marginLeft: "10px" }}
                     id="tipInput"
                     type="number"
-                    onChange={(e) => setTip(parseFloat(e.target.value) || 0)}
+                    min={0}
+                    onChange={(e) =>
+                      e.target.value > 0
+                        ? setTip(parseFloat(e.target.value))
+                        : setTip(0)
+                    }
                   />
                 </label>
               </div>
