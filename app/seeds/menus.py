@@ -14,7 +14,7 @@ def seed_menus():
         "price": 25,
         "category": "Main Courses",
         "is_available": True,
-        "image_url": ""
+        "image_url": "https://static.wikia.nocookie.net/spongebob/images/b/b9/Nasty_Patty_061.png/revision/latest/scale-to-width-down/1200?cb=20200805135150"
     },
     {
         "restaurant_id": 1,
@@ -23,7 +23,7 @@ def seed_menus():
         "price": 4,
         "category": "Sides",
         "is_available": True,
-        "image_url": ""
+        "image_url": "https://sysconorth.ca/cdn/shop/files/00734730277318c_e227baf9-a153-4617-9fb4-04d2049a1ed8_2048x2048.jpg?v=1716531348"
     },
     {
         "restaurant_id": 1,
@@ -32,7 +32,7 @@ def seed_menus():
         "price": 1,
         "category": "Sides",
         "is_available": True,
-        "image_url": ""
+        "image_url": "https://assets.usfoods.com/Product/Image/692883/6cf6a3d77d3acb70e9596145040efcf8.jpg"
     },
     {
         "restaurant_id": 1,

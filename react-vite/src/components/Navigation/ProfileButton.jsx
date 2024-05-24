@@ -70,7 +70,7 @@ function ProfileButton() {
               <div id="user-deets">
                 <p>{user.username}</p>
                 <p>{user.email}</p>
-                  <NavLink to='/restaurants/new'> Add your restaurant</NavLink>
+                <NavLink to="/restaurants/new"> Add your restaurant</NavLink>
                 <button id="logout-button" onClick={logout}>
                   Log Out
                 </button>
@@ -97,9 +97,10 @@ function ProfileButton() {
                 />
               </div>
             )}
+            <NavLink style={{position: "absolute", marginLeft: "100px", paddingTop: "100px"}} to="/about">About WuberEats</NavLink>
 
             <div id="shameless-promotion">
-            <p>Wuber&apos;s better in the app!</p>
+              <p>Wuber&apos;s better in the app!</p>
               <img id="applogo" src={purpapplogo} alt="Our app logo" />
               <OpenModalMenuItem
                 itemText={

@@ -9,6 +9,7 @@ import UpdatingRestaurant from "../components/RestaurantForm/UpdatingRestaurant"
 import MenuForm from "../components/MenuForm/MenuForm";
 import { Checkout } from "../components/Checkout/Checkout";
 import UpdateMenuForm from "../components/MenuForm/UpdateMenuForm";
+import { About } from "../components/About/About";
 export const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
         path: '/restaurants/:restaurantId/menus/:menuId/update',
         element: <UpdateMenuForm/>
 
+      },
+      {
+        path: "/about",
+        element: <About />
       }
     ],
   },
