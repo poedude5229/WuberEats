@@ -12,6 +12,7 @@ import DeleteAMenu from "../MenuForm/DeleteAMenu";
 import CreateReview from "../CreateReview/CreateReview";
 
 import "./Details.css";
+import { DeleteReview } from "../DeleteReview/DeleteReview";
 
 function Details() {
   let { restaurantId } = useParams();
@@ -98,6 +99,17 @@ function Details() {
                     )}
                   </span>
                   <p>{review.review}</p>
+                  {currentUser && currentUser?.id === review?.user_id && (
+                    <OpenModalMenuItem
+                      itemText={<button>Delete this review</button>}
+                      modalComponent={
+                        <DeleteReview
+                          restaurantId={selected?.id}
+                          reviewId={review.id}
+                        />
+                      }
+                    />
+                  )}
                 </>
               ))}
             </div>
