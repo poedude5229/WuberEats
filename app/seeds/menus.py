@@ -14,7 +14,7 @@ def seed_menus():
         "price": 25,
         "category": "Main Courses",
         "is_available": True,
-        "image_url": "https://static.wikia.nocookie.net/spongebob/images/b/b9/Nasty_Patty_061.png/revision/latest/scale-to-width-down/1200?cb=20200805135150"
+        "image_url": "https://img3.wikia.nocookie.net/__cb20120715163345/spongebob/images/2/2e/Synthetic-Krabby-Patties.jpg"
     },
     {
         "restaurant_id": 1,
