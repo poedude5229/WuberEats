@@ -113,17 +113,8 @@ function Details() {
                     )}
                   </span>
                   <p>{review.review}</p>
-                  {currentUser && currentUser?.id === review?.user_id && (
-                    <OpenModalMenuItem
-                      itemText={<button>Delete this review</button>}
-                      modalComponent={
-                        <DeleteReview
-                          restaurantId={selected?.id}
-                          reviewId={review.id}
-                        />
-                      }
-                    />
-                  )}
+                  <div className="review-btn-con">
+
                   {currentUser && currentUser?.id === review?.user_id && (
                     <OpenModalMenuItem
                       itemText={<button>Update this review</button>}
@@ -136,6 +127,19 @@ function Details() {
                       }
                     />
                   )}
+                  {currentUser && currentUser?.id === review?.user_id && (
+                    <OpenModalMenuItem
+                      itemText={<button>Delete this review</button>}
+                      modalComponent={
+                        <DeleteReview
+                          restaurantId={selected?.id}
+                          reviewId={review.id}
+                        />
+                      }
+                    />
+                  )}
+                  
+                </div>
                 </>
               ))}
             </div>

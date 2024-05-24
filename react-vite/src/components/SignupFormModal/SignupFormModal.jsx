@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
@@ -18,6 +18,21 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  useEffect(() => {
+    const errorsObj = {}
+    
+    if (!email.includes('@') || (email.length < 10 || email.length > 25)) errorsObj.email = 'Please have your email include an @ symbol and be between 10 and 25 characters'
+    if (firstname.length < 2 || firstname.length > 25) errorsObj.firstname = 'Please have your firstname be between 2 and 25 characters'
+    if (lastname.length < 2 || lastname.length > 25) errorsObj.lastname = 'Please have your lastname be between 2 and 25 characters'
+    if (password.length < 8 || password.length > 25 ) errorsObj.password = 'Please have your password be between 2 and 25 characters'
+    if (username.length < 2 || username.length > 25) errorsObj.username = 'Please have your username be between 2 and 25 characters'
+    if (address.length < 2 || address.length > 25) errorsObj.address = 'Please have your address be between 2 and 25 characters'
+
+    setErrors(errorsObj)
+
+    
+  },[email, firstname, lastname, password, username, address])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(email, username, firstname, lastname, address, role, password);
@@ -27,6 +42,8 @@ function SignupFormModal() {
           "Confirm Password field must be the same as the Password field",
       });
     }
+
+    
 
     const serverResponse = await dispatch(
       thunkSignup({
@@ -49,13 +66,14 @@ function SignupFormModal() {
 
   return (
     <>
+    <div className="sign-up-con">
       <h1>Sign Up</h1>
       {errors.server && <p>{errors.server}</p>}
       <form
         onSubmit={handleSubmit}
         style={{ display: "flex", flexDirection: "column", gap: "14px" }}
       >
-        <label>
+        <label  className="label-item">
           Email
           <input
             type="text"
@@ -64,8 +82,8 @@ function SignupFormModal() {
             // required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
+        {errors.email && <p className="errors">{errors.email}</p>}
+        <label className="label-item">
           Username
           <input
             type="text"
@@ -74,8 +92,8 @@ function SignupFormModal() {
             // required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
+        {errors.username && <p className="errors">{errors.username}</p>}
+        <label className="label-item">
           First Name{" "}
           <input
             type="text"
@@ -83,6 +101,7 @@ function SignupFormModal() {
             onChange={(e) => setFirstname(e.target.value)}
           />{" "}
         </label>
+        {errors.firstname && <p className="errors">{errors.firstname}</p>}
         <label>
           Last Name
           <input
@@ -91,7 +110,8 @@ function SignupFormModal() {
             onChange={(e) => setLastname(e.target.value)}
           />
         </label>
-        <label>
+        {errors.lastname && <p className="errors">{errors.lastname}</p>}
+        <label className="label-item">
           Address
           <input
             type="text"
@@ -99,6 +119,7 @@ function SignupFormModal() {
             onChange={(e) => setAddress(e.target.value)}
           />
         </label>
+        {errors.address && <p className="errors">{errors.address}</p>}
         {/* <label>
           Role{" "}
           <select
@@ -113,7 +134,7 @@ function SignupFormModal() {
             <option value="owner">Owner</option>
           </select>
         </label> */}
-        <label>
+        <label className="label-item">
           Password
           <input
             type="password"
@@ -122,8 +143,8 @@ function SignupFormModal() {
             // required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
+        {errors.password && <p className="errors">{errors.password}</p>}
+        <label className="label-item">
           Confirm Password
           <input
             type="password"
@@ -135,6 +156,7 @@ function SignupFormModal() {
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button
           type="submit"
+          disabled={Object.values(errors).length > 0}
           style={{
             width: "100px",
             height: "50px",
@@ -144,12 +166,14 @@ function SignupFormModal() {
             marginLeft: "auto",
             marginRight: "auto",
             marginBottom: "5px",
-            cursor: "pointer",
           }}
+
+          className="sign-up-btn"
         >
           Sign Up
         </button>
       </form>
+      </div>
     </>
   );
 }

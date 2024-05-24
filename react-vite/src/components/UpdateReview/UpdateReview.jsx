@@ -41,10 +41,11 @@ export const UpdateAReview = ({ reviewId, restaurantId, review }) => {
 
   useEffect(() => {
     const errors = {};
-    if (reviewText.length === 0) {
-      errors.review = "Review is required.";
+
+    if (reviewText.length < 2 || reviewText.length > 255) {
+      errors.review = "Review is required and must be between 2 and 255.";
     }
-    if (rating === 0) {
+    if (rating < 1) {
       errors.rating = "Rating needs at least 1 star.";
     }
     setValidationErrors(errors);
@@ -81,7 +82,7 @@ export const UpdateAReview = ({ reviewId, restaurantId, review }) => {
           ></textarea>
         </label>
         <div style={{ color: "red" }}>
-          {hasSubmitted && validationErrors.review}
+        {validationErrors.review && <p className='form-errors'>{validationErrors.review}</p>}
         </div>
         <div className="new-rating">
           {[1, 2, 3, 4, 5].map((num) => (
@@ -95,7 +96,7 @@ export const UpdateAReview = ({ reviewId, restaurantId, review }) => {
           ))}
         </div>
         <div style={{ color: "red" }}>
-          {hasSubmitted && validationErrors.rating}
+        {validationErrors.rating && <p className='form-errors'>{validationErrors.rating}</p>}
         </div>
         <div className="create-button-container">
           <div className="submit-button">
