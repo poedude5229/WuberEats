@@ -70,7 +70,18 @@ function ProfileButton() {
               <div id="user-deets">
                 <p>{user.username}</p>
                 <p>{user.email}</p>
-                <NavLink to="/restaurants/new" onClick={toggleMenu}> Add your restaurant</NavLink>
+                <NavLink
+                  to="/restaurants/new"
+                  style={{
+                    color: "rgb(99, 59, 99)",
+                    textDecoration: "none",
+                    fontWeight: "900",
+                  }}
+                  onClick={toggleMenu}
+                >
+                  {" "}
+                  Add your restaurant
+                </NavLink>
                 <button id="logout-button" onClick={logout}>
                   Log Out
                 </button>
@@ -97,7 +108,20 @@ function ProfileButton() {
                 />
               </div>
             )}
-            <NavLink style={{position: "absolute", marginLeft: "100px", paddingTop: "100px"}} to="/about">About WuberEats</NavLink>
+            <NavLink
+              style={{
+                color: "rgb(99, 59, 99)",
+                textDecoration: "none",
+                fontWeight: "900",
+                position: "absolute",
+                marginLeft: "90px",
+                marginTop: "30px",
+              }}
+              onClick={closeMenu}
+              to="/about"
+            >
+              About WuberEats
+            </NavLink>
 
             <div id="shameless-promotion">
               <p>Wuber&apos;s better in the app!</p>

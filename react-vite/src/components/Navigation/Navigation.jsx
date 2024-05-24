@@ -108,7 +108,7 @@ function Navigation() {
       {user && (
         <div id="address-box">
           {user?.address}
-          <RiArrowDropDownLine />
+          {/* <RiArrowDropDownLine /> */}
         </div>
       )}
       <div id="searchbox">

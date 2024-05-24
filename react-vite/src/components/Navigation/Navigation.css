@@ -120,7 +120,7 @@
 
 #shameless-promotion {
   position: fixed;
-  bottom: 20px;
+  bottom: 0px;
   font-family: Inter;
   margin-left: 25px;
   font-weight: 900;
@@ -138,7 +138,7 @@
 
 #downloadlink {
   height: 55px;
-  margin-top: 8px;
+  /* margin-top: 8px; */
   width: 200px;
   cursor: pointer;
 }
@@ -154,12 +154,13 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  margin-left: 80px;
 }
 
-#address-box:hover {
+/* #address-box:hover {
   cursor: pointer;
   text-decoration: underline;
-}
+} */
 
 #searchbox {
   width: 250px;
