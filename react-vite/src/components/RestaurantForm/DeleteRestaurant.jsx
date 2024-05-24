@@ -4,7 +4,7 @@ import { deleteRestaurantThunk } from "../../redux/restaurant";
 import { useDispatch } from "react-redux";
 
 const DeleteRestaurantModal = ({ restaurantId }) => {
-  console.log(restaurantId);
+  // console.log(restaurantId);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { closeModal } = useModal();

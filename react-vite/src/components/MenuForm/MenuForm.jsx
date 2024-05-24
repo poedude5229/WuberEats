@@ -7,22 +7,22 @@ import { postANewMenuForRestaurantThunk } from '../../redux/restaurant'
 import './menuform.css'
 
 const MenuForm = () => {
-  
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
 //   const user = useSelector(state => state.session.user)
-  
-  const {restaurantId} = useParams() 
+
+  const {restaurantId} = useParams()
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
-  const [price, setPrice] = useState('')
+  const [price, setPrice] = useState(1)
   const [category, setCategory] = useState('')
   // const [is_avaliable, setIs_avaliable] = useState(true)
   const [image_url, setImage_url] = useState('')
   const [errors, setErrors] = useState({})
-  
+
   const handleSubmit  = async (e) => {
     e.preventDefault()
 
@@ -34,8 +34,8 @@ const MenuForm = () => {
         formData.append('category', category)
         // formData.append('is_avaliable', is_avaliable)
         formData.append('image_url', image_url)
-        
-    
+
+
 
     try {
         await dispatch(postANewMenuForRestaurantThunk(restaurantId, formData))
@@ -45,7 +45,7 @@ const MenuForm = () => {
         console.error("There was an error created a menu", error)
     }
   }
-  
+
 
   useEffect(() => {
     const errorsObj = {}
@@ -53,7 +53,7 @@ const MenuForm = () => {
 
         if(!name) errorsObj.name = 'Please provide a valid name'
         if(!description) errorsObj.description = 'Please provide a valid description'
-        if(!isNaN(price) === false || price.length < 1) errorsObj.price = 'Please provide a price that is a number'
+        if(!isNaN(price) === false || price < 1) errorsObj.price = 'Please provide a price that is a number, greater than 0'
         if(!category) errorsObj.category = 'Please provide a valid category'
         // if(!is_avaliable) errorsObj.is_avaliable = 'Please provide a valid avaliabliliy'
         // if(!image_url) errorsObj.image_url = 'Please provide a valid image with .png .jpg or .webp'
@@ -61,8 +61,8 @@ const MenuForm = () => {
 
         setErrors(errorsObj)
   },[name, description, price, category, image_url])
-  
-  
+
+
     return (
 
         <div className='menu-form-con'>
@@ -71,7 +71,7 @@ const MenuForm = () => {
             <h2 className='menu-item-h2'>What would you like people to be able to order from your restaurant?</h2>
             <p className='menu-item-desc'>Create a wonderful menu item that your customers can enjoy. Having a menu with more items gives you a better chance to get orders! </p>
         </div>
-        
+
         <form className='menu-form' onSubmit={handleSubmit}>
             <p className='menu-name'>Name</p>
             <input
@@ -92,10 +92,11 @@ const MenuForm = () => {
             placeholder="description"
           />
           {errors.description && <p className='form-errors'>{errors.description}</p>}
-        
+
           <p className='menu-name'>Price</p>
             <input
-            type="text"
+            type="number"
+            min={1}
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             className="price-input"
@@ -103,9 +104,9 @@ const MenuForm = () => {
           />
           {errors.price && <p className='form-errors'>{errors.price}</p>}
 
-          
 
-         
+
+
           <div className='catagories'>
             <div className='catagories-con'>
             <label>
@@ -154,10 +155,10 @@ const MenuForm = () => {
     </form>
     </div>
 
-        
-        
-        
-        
+
+
+
+
   )
 }
 

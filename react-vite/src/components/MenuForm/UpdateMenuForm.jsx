@@ -66,8 +66,8 @@ const UpdateMenuForm = () => {
     if (!name) errorsObj.name = "Please provide a valid name";
     if (!description)
       errorsObj.description = "Please provide a valid description";
-    if (!isNaN(price) === false || price < 0)
-      errorsObj.price = "Please provide a price that is a number";
+    if (!isNaN(price) === false || price < 1)
+      errorsObj.price = "Please provide a price that is a number greater than 0";
     if (!category) errorsObj.category = "Please provide a valid category";
     if (is_avaliable == "false")
       errorsObj.is_avaliable = "Please provide a valid avaliablility";
@@ -126,7 +126,8 @@ const UpdateMenuForm = () => {
 
         <p className="menu-name">Price</p>
         <input
-          type="text"
+          type="number"
+          min={1}
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           className="price-input"

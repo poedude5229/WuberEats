@@ -404,7 +404,7 @@ function restaurantReducer(state = {}, action) {
     }
     case CREATE_RESTAURANT: {
       const newState = { ...state };
-      console.log(newState);
+      // console.log(newState);
       newState[action.payload.id] = action.payload;
       return newState;
     }
