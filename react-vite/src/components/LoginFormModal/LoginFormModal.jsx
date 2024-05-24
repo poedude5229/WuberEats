@@ -30,10 +30,10 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
+      <h1 style={{marginLeft: "12px"}}>Log In</h1>
+      <form style={{display: "flex", flexDirection: "column", gap: "12px"}} onSubmit={handleSubmit}>
+        <label style={{marginLeft: "12px"}}>
+          Email:{" "}
           <input
             type="text"
             value={email}
@@ -42,8 +42,8 @@ function LoginFormModal() {
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
+        <label style={{marginLeft: "12px"}}>
+          Password:{" "}
           <input
             type="password"
             value={password}
@@ -52,10 +52,10 @@ function LoginFormModal() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+        <button style={{cursor: "pointer", height: "50px", width: "100px", backgroundColor: "black", color: "white", border: "none", marginLeft: "auto", marginRight: "auto"}} type="submit">Log In</button>
         <button
           type="submit"
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", marginBottom: "8px", height: "50px", width: "100px", backgroundColor: "black", color: "white", border: "none", marginLeft: "auto", marginRight: "auto" }}
           onClick={() => {
             setEmail("bot@gmail.com"), setPassword("password1");
           }}

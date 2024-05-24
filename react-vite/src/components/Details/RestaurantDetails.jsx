@@ -64,7 +64,20 @@ function Details() {
             currentUser?.id !== selected?.owner_id &&
             !reviewIdLog.includes(currentUser?.id) && (
               <OpenModalMenuItem
-                itemText={<button>Leave a review!</button>}
+                itemText={
+                  <button
+                    style={{
+                      width: "100px",
+                      height: "40px",
+                      backgroundColor: "black",
+                      color: "white",
+                      border: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Leave a review!
+                  </button>
+                }
                 modalComponent={<CreateReview />}
               ></OpenModalMenuItem>
             )}
@@ -129,38 +142,58 @@ function Details() {
           )}
         </div>
       </div>
-      <section>
+      <section id="details-section">
         {menu?.map((item) => (
-          <div key={item.id} className="menu-item-container">
+          <div
+            key={item.id}
+            className="menu-item-container"
+            style={{ width: "400px" }}
+          >
             <div
               style={{
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-between",
+                width: "400px",
               }}
             >
               <img className="menu-item-image" src={item.image_url} alt="" />{" "}
-              <span
-                className="dot"
-                style={{ cursor: "pointer" }}
-                onClick={() => dispatch(addToCartThunk(item.id))}
-              >
-                <p
-                  style={{
-                    fontSize: "40px",
-                    position: "relative",
-                    bottom: "47px",
-                  }}
+              {currentUser && currentUser?.id !== selected?.owner_id && (
+                <span
+                  className="dot"
+                  style={{ cursor: "pointer", position: "absolute" }}
+                  onClick={() => dispatch(addToCartThunk(item.id))}
                 >
-                  +
-                </p>
-              </span>
+                  <p
+                    style={{
+                      fontSize: "40px",
+                      position: "relative",
+                      bottom: "47px",
+                    }}
+                  >
+                    +
+                  </p>
+                </span>
+              )}
             </div>
             <p className="menu-item-name">{item.name}</p>
             <p className="menu-item-price">${item.price}</p>
 
             {currentUser?.id === selected?.owner_id && (
               <NavLink
+                style={{
+                  display: "flex",
+                  alignContent: "center",
+                  justifyContent: "center",
+                  border: "1 px solid black",
+                  width: "100px",
+                  height: "45px",
+                  backgroundColor: "black",
+                  color: "white",
+                  textDecoration: "none",
+                  paddingTop: "5px",
+                  textAlign: "center",
+                }}
                 to={`/restaurants/${selected?.id}/menus/${item.id}/update`}
               >
                 Update Menu Item
@@ -168,7 +201,20 @@ function Details() {
             )}
             {currentUser?.id === selected?.owner_id && (
               <OpenModalMenuItem
-                itemText={<button>Delete</button>}
+                itemText={
+                  <button
+                    style={{
+                      width: "100px",
+                      height: "50px",
+                      backgroundColor: "black",
+                      color: "white",
+                      cursor: "pointer",
+                      border: "none",
+                    }}
+                  >
+                    Delete Menu Item
+                  </button>
+                }
                 className="delete-btn-getall"
                 modalComponent={
                   <DeleteAMenu restaurantId={+selected?.id} menuId={item.id} />
@@ -179,8 +225,18 @@ function Details() {
         ))}
         <div className="buttons-con">
           {currentUser?.id === selected?.owner_id && (
-            <button>
-              <NavLink to={`/restaurants/${selected?.id}/update`}>
+            <button
+              style={{
+                width: "100px",
+                height: "40px",
+                backgroundColor: "black",
+                border: "none",
+              }}
+            >
+              <NavLink
+                style={{ color: "white", textDecoration: "none" }}
+                to={`/restaurants/${selected?.id}/update`}
+              >
                 Update Your Restaurant
               </NavLink>
             </button>
@@ -188,7 +244,20 @@ function Details() {
           <div className="delete-button-container">
             {currentUser?.id === selected?.owner_id && (
               <OpenModalMenuItem
-                itemText={<button>Delete</button>}
+                itemText={
+                  <button
+                    style={{
+                      backgroundColor: "black",
+                      color: "white",
+                      width: "100px",
+                      height: "70px",
+                      cursor: "pointer",
+                      border: "none",
+                    }}
+                  >
+                    Delete this restaurant?
+                  </button>
+                }
                 className="delete-btn-getall"
                 modalComponent={
                   <DeleteRestaurantModal restaurantId={+selected?.id} />
@@ -196,7 +265,7 @@ function Details() {
               />
             )}
             {currentUser?.id === selected?.owner_id && (
-              <NavLink to={`/restaurants/${selected?.id}/menu/new`}>
+              <NavLink style={{}} to={`/restaurants/${selected?.id}/menu/new`}>
                 Create a menu item
               </NavLink>
             )}
