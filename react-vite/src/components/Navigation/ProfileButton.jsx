@@ -70,7 +70,7 @@ function ProfileButton() {
               <div id="user-deets">
                 <p>{user.username}</p>
                 <p>{user.email}</p>
-                <NavLink to="/restaurants/new"> Add your restaurant</NavLink>
+                <NavLink to="/restaurants/new" onClick={toggleMenu}> Add your restaurant</NavLink>
                 <button id="logout-button" onClick={logout}>
                   Log Out
                 </button>

@@ -27,7 +27,7 @@ function Details() {
   const currentUser = useSelector((state) => state.session.user);
 
   let cartState = useSelector((state) => state.cart);
-  console.log(Object.keys(cartState));
+  // console.log(Object.keys(cartState));
   let selected = all[restaurantId];
   let reviewIdLog = [];
   selected?.reviews?.forEach((review) => {

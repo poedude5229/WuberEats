@@ -25,6 +25,7 @@ function Navigation() {
   restaurants = [...Object.values(restaurants)];
   let menuItems = [];
   let dispatch = useDispatch();
+  const [sumP, setSumP] = useState(0);
 
   restaurants.forEach((restaurant) => {
     const items = restaurant.menu_items ?? [];
@@ -42,6 +43,13 @@ function Navigation() {
       dispatch(setCartState(JSON.parse(storedCartState)));
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    let cartSum = 0;
+    cartItems.forEach((cart) => (cartSum += cart.count));
+    setSumP(cartSum);
+  }, [cartItems]);
+  console.log(sumP);
 
   useEffect(() => {
     if (cartItems.length > 0) {
@@ -99,7 +107,7 @@ function Navigation() {
       </div>
       {user && (
         <div id="address-box">
-          {user?.address} • Now
+          {user?.address}
           <RiArrowDropDownLine />
         </div>
       )}
@@ -130,13 +138,19 @@ function Navigation() {
         <div
           id="shopping-cart-container"
           onClick={() => setCartOpen(cartOpen === true ? false : true)}
-          style={{ cursor: "pointer" }}
+          style={{
+            cursor: "pointer",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
           <img
             src={cart}
             alt="You don't need an alt tag"
-            style={{ width: "35px", height: "35px", marginTop: "20px" }}
+            style={{ width: "40px", height: "40px", marginTop: "20px" }}
           />
+          <p style={{position: "absolute", marginTop: "22px", marginLeft: "4px", color: "white", zIndex: "1"}}>{sumP}</p>
         </div>
       )}
       {user && cartOpen && (
