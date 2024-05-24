@@ -27,6 +27,11 @@ function Details() {
   let cartState = useSelector((state) => state.cart);
 
   let selected = all[restaurantId];
+  let reviewIdLog = [];
+  selected?.reviews?.forEach((review) => {
+    reviewIdLog.push(review.user_id);
+  });
+  console.log(reviewIdLog);
   let menu = selected?.menu_items;
 
   return (
@@ -43,15 +48,25 @@ function Details() {
         <div className="description">{selected?.description}</div>
         <div>
           <p className="starRating">
-            {selected?.reviews?.length > 0 ? `${selected?.avgrating}` : `New!`}{" "}
+            {selected?.reviews?.length > 0
+              ? `${(selected?.avgrating).toFixed(2)}`
+              : `New!`}{" "}
             {selected?.reviews?.length > 0 && <MdStarBorder />}{" "}
             {selected?.reviews?.length > 0
               ? selected?.reviews?.length > 1
-                ? `${selected?.reviews?.length} reviews`
+                ? ` • ${selected?.reviews?.length} reviews`
                 : "1 review"
-              : "Be the first to leave a review!"}
+              : " • Be the first to leave a review!"}
           </p>
-          <OpenModalMenuItem itemText={<button>Create your review</button>} modalComponent={<CreateReview/>}></OpenModalMenuItem>
+          {currentUser &&
+            currentUser?.id !== selected?.owner_id &&
+            !reviewIdLog.includes(currentUser?.id) && (
+              <OpenModalMenuItem
+                itemText={<button>Leave a review!</button>}
+                modalComponent={<CreateReview />}
+              ></OpenModalMenuItem>
+            )}
+
           <br />
           {selected?.reviews?.length > 0 && (
             <div
