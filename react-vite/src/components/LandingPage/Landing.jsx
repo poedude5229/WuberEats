@@ -5,16 +5,27 @@ import { MdOutlineStar } from "react-icons/md";
 import { RiArrowRightLine } from "react-icons/ri";
 import hamberderLightLogo from "../../../public/hamberderLightLogo.png";
 import "./Landing.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Carousel } from "../Carousel/Carousel";
+import RickModal from "../rick/RickModal";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 function Landing() {
   let restaurants = useSelector((state) => state.restaurantReducer);
   restaurants = Object.values(restaurants);
+  let navigate = useNavigate();
   // console.log(restaurants);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadRestaurantsThunk());
   }, [dispatch]);
+
+  const getRandomId = () => {
+    var cringe = Math.floor(Math.random() * restaurants?.length);
+    if (cringe == 0) {
+      cringe += 1;
+    }
+    return cringe;
+  };
   return (
     <>
       <section className="bigFlex" style={{ gap: "100px" }}>
@@ -46,9 +57,11 @@ function Landing() {
                 borderRadius: "12px",
                 fontWeight: "900",
                 cursor: "pointer",
+                border: "none",
               }}
+              onClick={() => navigate(`/restaurants/${getRandomId()}`)}
             >
-              Getchu some food!
+              Try something new!
             </button>
           </span>
           <img
@@ -72,34 +85,45 @@ function Landing() {
             alt="willem dapose"
             style={{ marginRight: "42px", right: "22px", position: "inherit" }}
           />
-          <button
-            style={{
-              position: "absolute",
-              marginLeft: "104px",
-              marginTop: "200px",
-              width: "170px",
-              height: "50px",
-              color: "black",
-              backgroundColor: "white",
-              border: "none",
-              borderRadius: "12px",
-              cursor: "pointer",
-              textAlign: "left",
-              display: "flex",
-              flexDirection: "row",
-              fontWeight: "900",
-            }}
-          >
-            <span style={{ marginTop: "8px" }}>
-              Wube it now, Wube it real good
-            </span>{" "}
-            <RiArrowRightLine style={{ marginTop: "10px", fontSize: "24px" }} />
-          </button>
+          <OpenModalMenuItem style={{}}
+            itemText={
+              <button
+                style={{
+                  position: "absolute",
+                  // marginLeft: "104px",
+                  // marginTop: "200px",
+                  right: "180px",
+                  top: "340px",
+                  width: "170px",
+                  height: "50px",
+                  color: "black",
+                  backgroundColor: "white",
+                  border: "none",
+                  borderRadius: "12px",
+                  cursor: "pointer",
+                  textAlign: "left",
+                  display: "flex",
+                  flexDirection: "row",
+                  fontWeight: "900",
+                  // zIndex: "1"
+                }}
+              >
+                <span style={{ marginTop: "8px" }}>
+                  Wube it now, Wube it real good
+                </span>{" "}
+                <RiArrowRightLine
+                  style={{ marginTop: "10px", fontSize: "24px" }}
+                />
+              </button>
+            }
+            // onItemClick={closeMenu}
+            modalComponent={RickModal}
+          />
         </div>
       </section>
-      <h2 style={{marginLeft: "30px", paddingTop: "20px"}}>New Arrivals</h2>
-      <Carousel />
-      <h2 style={{marginLeft: "30px"}}>Our Restaurants</h2>
+      <h2 style={{ marginLeft: "30px", paddingTop: "20px" }}>New Arrivals</h2>
+      <Carousel id="new" />
+      <h2 style={{ marginLeft: "30px" }}>Our Restaurants</h2>
       <section className="bigFlex">
         {restaurants?.map((restaurant) => (
           <NavLink
