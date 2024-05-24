@@ -13,6 +13,7 @@ import CreateReview from "../CreateReview/CreateReview";
 
 import "./Details.css";
 import { DeleteReview } from "../DeleteReview/DeleteReview";
+import { UpdateAReview } from "../UpdateReview/UpdateReview";
 
 function Details() {
   let { restaurantId } = useParams();
@@ -106,6 +107,18 @@ function Details() {
                         <DeleteReview
                           restaurantId={selected?.id}
                           reviewId={review.id}
+                        />
+                      }
+                    />
+                  )}
+                  {currentUser && currentUser?.id === review?.user_id && (
+                    <OpenModalMenuItem
+                      itemText={<button>Update this review</button>}
+                      modalComponent={
+                        <UpdateAReview
+                          reviewId={review?.id}
+                          restaurantId={selected?.id}
+                          review={review?.review}
                         />
                       }
                     />
