@@ -1,61 +1,72 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useModal } from "../../context/Modal";
 import {
   updateAReviewForARestaurantThunk,
   getReviewsByRestaurantIdThunk,
+  loadRestaurantsThunk,
 } from "../../redux/restaurant";
 import { MdStar, MdStarBorder } from "react-icons/md";
 import "./UpdateReview.css";
 
-export const UpdateAReview = () => {
-  const { restaurantId } = useParams();
-  const { reviewId } = useParams();
+export const UpdateAReview = ({ reviewId, restaurantId, review }) => {
+ 
+
+  const indvReview = useSelector((state) => 
+    state.restaurantReducer[restaurantId].reviews?.find(review => review.id === parseInt(reviewId))
+  ); 
+  console.log(indvReview);
+
+ 
+  
+
+ 
   const { closeModal } = useModal();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   dispatch(getReviewsByRestaurantIdThunk(restaurantId));
-  // }, [dispatch, restaurantId]);
-
-  const indvReview = useSelector((state) => state.restaurantReducer[reviewId]);
-  console.log("INDV REVIEW ====>>>>", indvReview);
-  const [review, setReview] = useState(indvReview?.review);
-  const [rating, setRating] = useState(indvReview?.rating);
+  // Ensure review object is defined before accessing its properties
+  const [reviewText, setReviewText] = useState(review?.review || "");
+  const [rating, setRating] = useState(review?.rating || 0);
   const [validationErrors, setValidationErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
   useEffect(() => {
-    const errors = {};
+    if(review) {
+      setReviewText(indvReview.review || '')
+      setRating(indvReview.rating || '')
+    }
+  },[indvReview, review])
 
-    if (review.length === 0) {
+  useEffect(() => {
+    const errors = {};
+    if (reviewText.length === 0) {
       errors.review = "Review is required.";
     }
     if (rating === 0) {
       errors.rating = "Rating needs at least 1 star.";
     }
     setValidationErrors(errors);
-  }, [review, rating]);
+  }, [reviewText, rating]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setHasSubmitted(true);
-    const formData = new FormData();
-    formData.append("review", review);
-    formData.append("rating", rating);
+    const formData = new FormData()
+    formData.append('review', reviewText)
+    formData.append('rating', rating)
 
-    const submitted = await dispatch(
+    dispatch(
       updateAReviewForARestaurantThunk(restaurantId, formData, reviewId)
     );
-
-    if (submitted) {
-      dispatch(getReviewsByRestaurantIdThunk(restaurantId));
-      closeModal();
-    }
+    dispatch(loadRestaurantsThunk());
+    navigate(`/restaurants/${restaurantId}`);
+    // dispatch(getReviewsByRestaurantIdThunk(restaurantId));
+    closeModal();
   };
 
-  const disabledButton = review.length === 0;
+  const disabledButton = reviewText.length === 0;
 
   return (
     <div className="review-modal">
@@ -63,10 +74,10 @@ export const UpdateAReview = () => {
         <label>
           <textarea
             className="review-text-area"
-            value={review}
+            value={reviewText}
             type="text"
             placeholder="Describe your WuberEats experience here..."
-            onChange={(e) => setReview(e.target.value)}
+            onChange={(e) => setReviewText(e.target.value)}
           ></textarea>
         </label>
         <div style={{ color: "red" }}>
@@ -93,7 +104,6 @@ export const UpdateAReview = () => {
               className="created-review"
               disabled={disabledButton}
             >
-              {" "}
               Submit Review
             </button>
           </div>

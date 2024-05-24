@@ -1,17 +1,19 @@
 import { useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useModal } from "../../context/Modal";
 import {
   postANewReviewForRestaurantThunk,
-  restaurantByIdThunk,
+  loadRestaurantsThunk,
   getReviewsByRestaurantIdThunk,
 } from "../../redux/restaurant";
 import { MdStar, MdStarBorder } from "react-icons/md";
 import "./CreateReview.css";
 
-export const CreateAReview = () => {
+export const CreateReview = () => {
   const { restaurantId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { closeModal } = useModal();
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
@@ -38,15 +40,11 @@ export const CreateAReview = () => {
     formData.append("review", review);
     formData.append("rating", rating);
 
-    const submitted = await dispatch(
-      postANewReviewForRestaurantThunk(restaurantId, formData)
-    );
-
-    if (submitted) {
-      dispatch(restaurantByIdThunk(restaurantId));
-      dispatch(getReviewsByRestaurantIdThunk(restaurantId));
-      closeModal();
-    }
+   await dispatch(postANewReviewForRestaurantThunk(restaurantId, formData))
+   await dispatch(getReviewsByRestaurantIdThunk(restaurantId));
+   await dispatch(loadRestaurantsThunk(restaurantId))
+   navigate(`/restaurants/${restaurantId}`)
+   closeModal()
   };
 
   const disabledButton = review.length === 0;
@@ -96,3 +94,6 @@ export const CreateAReview = () => {
     </div>
   );
 };
+
+
+export default CreateReview

@@ -1,28 +1,31 @@
 import {
   deleteAReviewBasedOffARestaurantThunk,
   getReviewsByRestaurantIdThunk,
+  loadRestaurantsThunk,
 } from "../../redux/restaurant";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./DeleteReview.css";
 
-export const DeleteReview = ({ reviewId }) => {
+export const DeleteReview = ({ restaurantId, reviewId }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { closeModal } = useModal();
-  const restaurantId = useParams();
+  // const restaurantId = useParams();
 
-  const deleteReviewEvent = async (e) => {
+  const deleteReviewEvent = (e) => {
     e.preventDefault();
 
-    const deletedReview = await dispatch(
-      deleteAReviewBasedOffARestaurantThunk(restaurantId, reviewId)
-    );
+    // const deletedReview = await dispatch(
+    dispatch(deleteAReviewBasedOffARestaurantThunk(restaurantId, reviewId));
+    // );
 
-    if (deletedReview) {
-      dispatch(getReviewsByRestaurantIdThunk(restaurantId));
-      closeModal();
-    }
+    // dispatch(getReviewsByRestaurantIdThunk(restaurantId));
+    dispatch(loadRestaurantsThunk());
+    navigate(`/restaurants/${restaurantId}`);
+    closeModal();
+    // closeModal();
   };
 
   return (
