@@ -27,7 +27,7 @@ function Details() {
   const currentUser = useSelector((state) => state.session.user);
 
   let cartState = useSelector((state) => state.cart);
-
+  console.log(Object.keys(cartState));
   let selected = all[restaurantId];
   let reviewIdLog = [];
   selected?.reviews?.forEach((review) => {
@@ -175,6 +175,10 @@ function Details() {
                   </p>
                 </span>
               )}
+              {Object.values(cartState).length > 0 &&
+                Object.keys(cartState).includes(String(item.id)) && (
+                  <span className="dot">{cartState[item.id].count}</span>
+                )}
             </div>
             <p className="menu-item-name">{item.name}</p>
             <p className="menu-item-price">${item.price}</p>
