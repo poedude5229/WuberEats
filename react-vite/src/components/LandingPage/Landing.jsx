@@ -113,7 +113,7 @@ function Landing() {
                 <p className="restaurant-title">{restaurant.name}</p>
                 <span className="dot">
                   {restaurant?.reviews?.length !== 0
-                    ? restaurant?.avgrating
+                    ? (restaurant?.avgrating).toFixed(2)
                     : "New"}
                   {restaurant?.reviews?.length !== 0 && <MdOutlineStar />}
                 </span>
