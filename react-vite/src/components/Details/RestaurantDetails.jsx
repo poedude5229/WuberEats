@@ -33,7 +33,7 @@ function Details() {
   selected?.reviews?.forEach((review) => {
     reviewIdLog.push(review.user_id);
   });
-  console.log(reviewIdLog);
+  // console.log(reviewIdLog);
   let menu = selected?.menu_items;
 
   return (
