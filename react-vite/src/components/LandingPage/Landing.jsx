@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadRestaurantsThunk } from "../../redux/restaurant";
 import { MdOutlineStar } from "react-icons/md";
@@ -9,10 +9,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Carousel } from "../Carousel/Carousel";
 import RickModal from "../rick/RickModal";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import wumbo from "../../../public/wumboburger.png";
 function Landing() {
   let restaurants = useSelector((state) => state.restaurantReducer);
   restaurants = Object.values(restaurants);
   let navigate = useNavigate();
+  let [wumboHide, setWumboHide] = useState(true);
   // console.log(restaurants);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -85,41 +87,54 @@ function Landing() {
             alt="willem dapose"
             style={{ marginRight: "42px", right: "22px", position: "inherit" }}
           />
-          <OpenModalMenuItem style={{}}
-            itemText={
-              <button
-                style={{
-                  position: "absolute",
-                  // marginLeft: "104px",
-                  // marginTop: "200px",
-                  right: "180px",
-                  top: "340px",
-                  width: "170px",
-                  height: "50px",
-                  color: "black",
-                  backgroundColor: "white",
-                  border: "none",
-                  borderRadius: "12px",
-                  cursor: "pointer",
-                  textAlign: "left",
-                  display: "flex",
-                  flexDirection: "row",
-                  fontWeight: "900",
-                  // zIndex: "1"
-                }}
-              >
-                <span style={{ marginTop: "8px" }}>
-                  Wube it now, Wube it real good
-                </span>{" "}
-                <RiArrowRightLine
-                  style={{ marginTop: "10px", fontSize: "24px" }}
-                />
-              </button>
-            }
-            // onItemClick={closeMenu}
-            modalComponent={RickModal}
-          />
+          {/* <OpenModalMenuItem style={{}} */}
+          {/* // itemText={ */}
+          <button
+            style={{
+              position: "absolute",
+              marginLeft: "280px",
+              marginTop: "200px",
+              // right: "180px",
+              // top: "340px",
+              width: "170px",
+              height: "50px",
+              color: "black",
+              backgroundColor: "white",
+              border: "none",
+              borderRadius: "12px",
+              cursor: "pointer",
+              textAlign: "left",
+              display: "flex",
+              flexDirection: "row",
+              fontWeight: "900",
+              zIndex: "1"
+            }}
+            onClick={() => setWumboHide(!wumboHide)}
+          >
+            <span style={{ marginTop: "8px" }}>
+              Wube it now, Wube it real good
+            </span>{" "}
+            <RiArrowRightLine style={{ marginTop: "10px", fontSize: "24px" }} />
+          </button>
+          {/* // } */}
+          {/* // onItemClick={closeMenu} */}
+          {/* // modalComponent={RickModal} */}
+          {/* // /> */}
         </div>
+        <img
+          src={wumbo}
+          hidden={wumboHide}
+          alt="hidden borger"
+          style={{
+            width: "55px",
+            height: "55px",
+            position: "absolute",
+            marginLeft: "1150px",
+            top: "340px",
+            cursor: "pointer",
+          }}
+          onClick={() => setWumboHide(!wumboHide)}
+        />
       </section>
       <h2 style={{ marginLeft: "30px", paddingTop: "20px" }}>New Arrivals</h2>
       <Carousel id="new" />
