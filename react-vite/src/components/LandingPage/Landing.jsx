@@ -97,7 +97,9 @@ function Landing() {
           </button>
         </div>
       </section>
+      <h2 style={{marginLeft: "30px", paddingTop: "20px"}}>New Arrivals</h2>
       <Carousel />
+      <h2 style={{marginLeft: "30px"}}>Our Restaurants</h2>
       <section className="bigFlex">
         {restaurants?.map((restaurant) => (
           <NavLink

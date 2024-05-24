@@ -22,6 +22,7 @@
   flex: 0 0 auto;
   text-align: center;
   position: relative;
+  cursor: pointer;
 }
 
 .carousel-pic-container {
@@ -64,4 +65,30 @@
 
 .carousel-button.right {
   right: 10px;
+}
+
+.carousel-title {
+  position: absolute;
+  /* bottom: 100px; */
+  top: 40px;
+  left: 20px;
+  width: 100px;
+  height: 50px;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  margin: 0;
+  padding: 5px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 12px;
+  visibility: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-item:hover .carousel-title {
+  visibility: visible;
+  background-color: none;
 }
