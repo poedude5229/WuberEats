@@ -63,27 +63,11 @@ const UpdateMenuForm = () => {
   useEffect(() => {
     const errorsObj = {};
 
-    if (!name) errorsObj.name = "Please provide a valid name";
-    if (!description)
-      errorsObj.description = "Please provide a valid description";
-    if (!isNaN(price) === false || price < 1)
-      errorsObj.price = "Please provide a price that is a number greater than 0";
-    if (!category) errorsObj.category = "Please provide a valid category";
-    if (is_avaliable == "false")
-      errorsObj.is_avaliable = "Please provide a valid avaliablility";
-    if (!image_url)
-      errorsObj.image_url =
-        "Please provide a valid image with .png .jpg or .webp";
-    if (
-      image_url.length &&
-      !(
-        image_url.endsWith(".png") ||
-        image_url.endsWith(".jpg") ||
-        image_url.endsWith(".jpeg") ||
-        image_url.endsWith(".webp")
-      )
-    )
-      errorsObj.image_url = "Image URL needs to end in png or jpg (or jpeg)";
+    if(name.length < 3 || name.length > 55) errorsObj.name = 'Please provide a valid name between 3 and 55 characters'
+    if(description.length < 10 || description.length > 255) errorsObj.description = 'Please provide a valid description between 10 and 255 characters'
+    if(!isNaN(price) === false || price < 1) errorsObj.price = 'Please provide a price that is a number, greater than 0'
+    if(!category) errorsObj.category = 'Please provide a valid category'
+    if(image_url.length && !(image_url.endsWith('.png') || image_url.endsWith('.jpg') || image_url.endsWith('.jpeg') || image_url.endsWith('.webp'))) errorsObj.image_url = 'Image URL needs to end in png or jpg (or jpeg) and greater than 5 characters';
 
     setErrors(errorsObj);
   }, [name, description, price, category, is_avaliable, image_url]);
