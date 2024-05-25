@@ -207,7 +207,7 @@
   width: 300px;
   top: 80px;
   right: 130px;
-  z-index: 1;
+  z-index: 2;
   border-radius: 12px;
   box-shadow: 1px 1px 5px grey;
 }
