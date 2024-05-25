@@ -20,17 +20,17 @@ function SignupFormModal() {
 
   useEffect(() => {
     const errorsObj = {}
-    
+
     if (!email.includes('@') || (email.length < 10 || email.length > 25)) errorsObj.email = 'Please have your email include an @ symbol and be between 10 and 25 characters'
     if (firstname.length < 2 || firstname.length > 25) errorsObj.firstname = 'Please have your firstname be between 2 and 25 characters'
     if (lastname.length < 2 || lastname.length > 25) errorsObj.lastname = 'Please have your lastname be between 2 and 25 characters'
-    if (password.length < 8 || password.length > 25 ) errorsObj.password = 'Please have your password be between 2 and 25 characters'
+    if (password.length < 8 || password.length > 25 ) errorsObj.password = 'Please have your password be between 8 and 25 characters'
     if (username.length < 2 || username.length > 25) errorsObj.username = 'Please have your username be between 2 and 25 characters'
     if (address.length < 2 || address.length > 25) errorsObj.address = 'Please have your address be between 2 and 25 characters'
 
     setErrors(errorsObj)
 
-    
+
   },[email, firstname, lastname, password, username, address])
 
   const handleSubmit = async (e) => {
@@ -43,7 +43,7 @@ function SignupFormModal() {
       });
     }
 
-    
+
 
     const serverResponse = await dispatch(
       thunkSignup({

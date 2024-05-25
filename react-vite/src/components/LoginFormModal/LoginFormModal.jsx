@@ -29,10 +29,10 @@ function LoginFormModal() {
   };
 
   return (
-    <>
+    <div style={{width: "400px", zIndex: "2"}}>
       <h1 style={{marginLeft: "12px"}}>Log In</h1>
       <form style={{display: "flex", flexDirection: "column", gap: "12px"}} onSubmit={handleSubmit}>
-        <label style={{marginLeft: "12px"}}>
+        <label style={{marginLeft: "12px", marginRight: "16px"}}>
           Email:{" "}
           <input
             type="text"
@@ -42,7 +42,7 @@ function LoginFormModal() {
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
-        <label style={{marginLeft: "12px"}}>
+        <label style={{marginLeft: "12px", marginRight: "16px"}}>
           Password:{" "}
           <input
             type="password"
@@ -63,7 +63,7 @@ function LoginFormModal() {
           Login as Demo User
         </button>
       </form>
-    </>
+    </div>
   );
 }
 
