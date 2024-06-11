@@ -5,16 +5,25 @@
   color: white;
   border: 1px solid white;
   width: 120px;
+  align-items: center; 
 }
 
 .tipLabel {
   text-align: center;
   border-bottom: 1px solid white;
-  padding-bottom: 14px;
+  padding-bottom: 10px; 
+  margin-bottom: 5px; 
+}
+
+.tipValue {
+  text-align: center;
+  margin-bottom: 10px; 
 }
 
 #tipInput {
-  width: 70px;
+  width: 50px; /* Adjust the width as needed */
   border-radius: 12px;
   text-align: center;
+  padding: 5px; /* Adjust the padding to make the input box smaller */
+  font-size: 14px; /* Adjust the font size if necessary */
 }

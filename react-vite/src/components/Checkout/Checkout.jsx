@@ -135,57 +135,57 @@ export function Checkout() {
               }}
             >
               <div className="tipBox">
-                <p className="tipLabel">13%</p>
+              <p className="tipLabel">13%</p>
+              <input
+                type="radio"
+                name="tip"
+                onClick={handleTipChange}
+                value={(subtotal * 0.13).toFixed(2)}
+                readOnly
+              />
+              <p className="tipValue">${(subtotal * 0.13).toFixed(2)}</p> 
+            </div>
+            <div className="tipBox">
+              <p className="tipLabel">56%</p>
+              <input
+                type="radio"
+                name="tip"
+                onClick={handleTipChange}
+                value={(subtotal * 0.56).toFixed(2)}
+                readOnly
+              />
+              <p className="tipValue">${(subtotal * 0.56).toFixed(2)}</p> 
+            </div>
+            <div className="tipBox">
+              <p className="tipLabel">100%</p>
+              <input
+                type="radio"
+                name="tip"
+                onClick={handleTipChange}
+                value={subtotal}
+                readOnly
+              />
+              <p className="tipValue">${subtotal}</p> 
+            </div>
+            <div className="tipBox">
+              <p className="tipLabel">Custom</p>
+              <label
+                style={{ marginLeft: "10px", paddingBottom: "4px" }}
+                htmlFor="tipInput"
+              >
+                Tip Amount:{" "}
                 <input
-                  type="radio"
-                  name="tip"
-                  onClick={handleTipChange}
-                  value={(subtotal * 0.13).toFixed(2)}
-                  readOnly
+                  style={{ marginLeft: "10px" }}
+                  id="tipInput"
+                  type="number"
+                  value={tip}
+                  min={0}
+                  onFocus={handleInputFocus}
+                  onChange={handleTipChange}
                 />
-                <p>${(subtotal * 0.13).toFixed(2)}</p>
-              </div>
-              <div className="tipBox">
-                <p className="tipLabel">56%</p>
-                <input
-                  type="radio"
-                  name="tip"
-                  onClick={handleTipChange}
-                  value={(subtotal * 0.56).toFixed(2)}
-                  readOnly
-                />
-                <p>${(subtotal * 0.56).toFixed(2)}</p>
-              </div>
-              <div className="tipBox">
-                <p className="tipLabel">100%</p>
-                <input
-                  type="radio"
-                  name="tip"
-                  onClick={handleTipChange}
-                  value={subtotal}
-                  readOnly
-                />
-                <p>${subtotal}</p>
-              </div>
-              <div className="tipBox">
-                <p className="tipLabel">Custom</p>
-                <label
-                  style={{ marginLeft: "10px", paddingBottom: "4px" }}
-                  htmlFor="tipInput"
-                >
-                  Tip Amount:{" "}
-                  <input
-                    style={{ marginLeft: "10px" }}
-                    id="tipInput"
-                    type="number"
-                    value={tip}
-                    min={0}
-                    onFocus={handleInputFocus}
-                    onChange={handleTipChange}
-                  />
-                  {error.tip && <p className="error-message">{error.tip}</p>}
-                </label>
-              </div>
+                {error && <p className="error-message">{error}</p>}
+              </label>
+            </div>
             </div>
           </div>
           <button
