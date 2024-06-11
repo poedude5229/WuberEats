@@ -86,3 +86,64 @@
   text-decoration: none;
   color: black;
 }
+#hiddenborger {
+  width: 55px;
+  height: 55px;
+  position: absolute;
+  margin-left: 1150px;
+  top: 340px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1117px) {
+  #hiddenborger {
+    position: absolute;
+    top: 742px;
+    margin-left: 540px;
+  }
+}
+
+@media screen and (max-width: 692px) {
+  .bigFlex {
+    margin-top: 180px !important;
+  }
+  #hiddenborger {
+    visibility: hidden;
+    margin: none;
+    display: none;
+  }
+  #wube-it-btn {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+@media screen and (max-width: 466px) {
+  .orangeboxtext {
+    font-size: 24px;
+    width: 80%;
+    height: 100px;
+    margin-top: -50px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin-left: 96%;
+  }
+  #trynewbtn {
+    height: 100px !;
+  }
+  #orangeboximg {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .wube-cards {
+    display: none;
+  }
+
+ .landing-res-container {
+  margin-top: -10px !important;
+ }
+}

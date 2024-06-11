@@ -279,7 +279,7 @@
   #sitenav {
     position: absolute;
     width: 95%;
-    left: 3%;
+    left: 2.5%;
     margin-bottom: 24px;
     top: 5px;
     height: 100px;
@@ -299,8 +299,8 @@
 @media screen and (max-width: 692px) {
   #sitenav {
     position: absolute;
-    width: 100% !important;
-    left: 3%;
+    width: 95% !important;
+    left: 2.5%;
     margin-bottom: 24px;
     top: 5px;
     height: 150px;
