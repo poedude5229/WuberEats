@@ -220,6 +220,24 @@
   box-shadow: 1px 1px 5px grey;
 }
 
+#checkout-cart-button {
+  width: 160px;
+  height: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  align-items: center;
+  padding-left: 40px;
+  margin-top: 24px;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   /* background-color: grey; */

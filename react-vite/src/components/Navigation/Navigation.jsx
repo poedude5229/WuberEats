@@ -294,22 +294,8 @@ function Navigation() {
               <>
                 <span>Total Price: </span>
                 <span>${calculateTotalPrice()}</span>
-                <button
-                  style={{
-                    width: "160px",
-                    height: "40px",
-                    marginLeft: "65px",
-                    marginBottom: "24px",
-                    marginTop: "26px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "black",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "12px",
-                    cursor: "pointer",
-                  }}
+                <button id="checkout-cart-button"
+                  
                   onClick={() => {
                     localStorage.setItem("totalPrice", calculateTotalPrice());
                     dispatch(getThisOffMyScreen());
