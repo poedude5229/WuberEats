@@ -111,6 +111,8 @@
   text-align: right;
   justify-content: flex-end;
   gap: 8px;
+  background-color: white;
+  z-index: 2;
 }
 
 #user-deets p {
@@ -144,17 +146,17 @@
 }
 
 #address-box {
-  width: 300px;
+  width: 250px;
   height: 50px;
   font-family: Inter;
-  font-size: 20px;
+  font-size: 18px;
   right: 100px;
   top: 15px;
   position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-left: 80px;
+  margin-left: 100px;
 }
 
 /* #address-box:hover {
@@ -221,4 +223,11 @@
   background-color: rgb(99, 59, 99);
   width: 50px;
   border-radius: 9px;
+}
+
+#sitenav-logo-link {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 }

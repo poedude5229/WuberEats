@@ -86,13 +86,8 @@ function Navigation() {
   };
   return (
     <nav id="sitenav">
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "center",
-        }}
+      <div id="sitenav-logo-link"
+        
       >
         <img
           onClick={() => navigate("/")}
