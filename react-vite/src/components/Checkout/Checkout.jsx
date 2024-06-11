@@ -216,7 +216,7 @@ export function Checkout() {
             fontWeight: "600",
             color: "red",
           }}
-        >8
+        >
           {navigationMessage} {countdown}
         </div>
       )}
