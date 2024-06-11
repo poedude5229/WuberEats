@@ -202,6 +202,12 @@
   background-color: grey;
 }
 
+#cart-close-button {
+  cursor: pointer;
+  margin-left: 264px;
+  font-size: 20px;
+}
+
 .cartMenu {
   background-color: rgb(255, 255, 255);
   position: absolute;
@@ -230,4 +236,95 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+}
+
+@media screen and (max-width: 1023px) {
+  #sitenav-logo-link {
+    display: flex;
+    justify-content: center;
+  }
+  #address-box {
+    position: absolute;
+    margin-top: 35px;
+    left: 34%;
+  }
+  #searchbox {
+    position: absolute;
+    z-index: 2;
+    left: 40%;
+  }
+  #shopping-cart-container {
+    position: absolute;
+    right: 100px;
+  }
+
+  #sitenav {
+    position: absolute;
+    width: 95%;
+    left: 3%;
+    margin-bottom: 24px;
+    top: 5px;
+    height: 100px;
+  }
+  .bigFlex {
+    margin-top: 120px !important;
+  }
+  .details-container {
+    width: 95%;
+    margin-top: 120px !important;
+    overflow: clip;
+    margin-left: 3% !important;
+    border-radius: 12px;
+  }
+}
+
+@media screen and (max-width: 692px) {
+  #sitenav {
+    position: absolute;
+    width: 100% !important;
+    left: 3%;
+    margin-bottom: 24px;
+    top: 5px;
+    height: 150px;
+    background-color: white;
+  }
+  #sitenav-logo-link {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: -80px;
+  }
+  #home-navlink {
+    margin-left: -12px;
+  }
+  #searchbox {
+    position: absolute;
+    top: 100px;
+    left: 15%;
+  }
+  #address-box {
+    margin-left: -10%;
+  }
+  #shopping-cart-container {
+    position: absolute;
+    top: -3px;
+    right: 20%;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .cartMenu {
+    width: 90%;
+    margin-top: 20px;
+    position: absolute;
+    left: 5%;
+    right: 5%;
+  }
+  .cartMenu img {
+    visibility: hidden;
+  }
+  #cart-close-button {
+    margin-left: 93%;
+    font-size: 30px;
+  }
 }

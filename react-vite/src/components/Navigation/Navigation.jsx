@@ -86,9 +86,7 @@ function Navigation() {
   };
   return (
     <nav id="sitenav">
-      <div id="sitenav-logo-link"
-        
-      >
+      <div id="sitenav-logo-link">
         <img
           onClick={() => navigate("/")}
           src={DarkSiteLogo}
@@ -166,14 +164,7 @@ function Navigation() {
             style={{ overflowY: "scroll" }}
           >
             {/* <span style={{width: "200px"}}>Ye Olde Cart</span> */}
-            <span
-              style={{
-                cursor: "pointer",
-                marginLeft: "264px",
-                fontSize: "20px",
-              }}
-              onClick={() => setCartOpen(false)}
-            >
+            <span id="cart-close-button" onClick={() => setCartOpen(false)}>
               X
             </span>
 
