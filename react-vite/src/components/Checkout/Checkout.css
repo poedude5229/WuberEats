@@ -5,19 +5,28 @@
   color: white;
   border: 1px solid white;
   width: 120px;
-  align-items: center; 
+  align-items: center;
+}
+
+#tipbox-holder {
+  display: flex;
+  flex-direction: row;
+  padding-top: 12px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto
 }
 
 .tipLabel {
   text-align: center;
   border-bottom: 1px solid white;
-  padding-bottom: 10px; 
-  margin-bottom: 5px; 
+  padding-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .tipValue {
   text-align: center;
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
 
 #tipInput {
@@ -26,4 +35,44 @@
   text-align: center;
   padding: 5px; /* Adjust the padding to make the input box smaller */
   font-size: 14px; /* Adjust the font size if necessary */
+}
+
+#mapIMG {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 23px;
+  border-radius: 12px;
+}
+
+#est-time {
+  margin-left: 50px;
+}
+#final-cost {
+  margin-left: 50px;
+}
+#plstip {
+  font-weight: 600;
+  margin-left: 25%;
+  margin-right: auto;
+  text-align: center;
+}
+
+@media screen and (max-width: 692px) {
+  #est-time {
+    margin-left: 2.5%;
+    text-align: center;
+  }
+  #final-cost {
+    margin-left: auto !important;
+    margin-right: auto;
+  }
+  #tipbox-holder {
+    width: 315px;
+  }
+  #plstip {
+    text-align: left;
+    font-size: 12px;
+    margin-left: 15%;
+  }
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import map from "../../../public/map.png";
 import "./Checkout.css";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 export function Checkout() {
   const [showTip, setShowTip] = useState(true);
@@ -11,11 +11,8 @@ export function Checkout() {
   const [navigationMessage, setNavigationMessage] = useState("");
   const [countdown, setCountdown] = useState(5);
 
-  const [error, setError] = useState('')
-  const navigate = useNavigate()
-
-
-  
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     setShowTip(true);
@@ -38,7 +35,6 @@ export function Checkout() {
     }
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const tipValue = parseFloat(tip);
@@ -46,7 +42,9 @@ export function Checkout() {
       const newTotal = subtotal + tipValue;
       setFinal(newTotal.toFixed(2));
       setShowTip(false);
-      setNavigationMessage(`You will be navigated back to the home page in ${countdown} seconds...`);
+      setNavigationMessage(
+        `You will be navigated back to the home page in ${countdown} seconds...`
+      );
       const interval = setInterval(() => {
         setCountdown((prevCountdown) => {
           if (prevCountdown === 1) {
@@ -60,7 +58,6 @@ export function Checkout() {
       setError("Please leave a valid tip amount");
     }
   };
-
 
   useEffect(() => {
     if (tip === "" || parseFloat(tip) < 0 || isNaN(parseFloat(tip))) {
@@ -80,8 +77,8 @@ export function Checkout() {
       <h1 style={{ marginLeft: "auto", marginRight: "auto" }}>
         Thanks for your order!
       </h1>
-      <h3 style={{ marginLeft: "50px" }}>Your order cost was ${final}</h3>
-      <p style={{ marginLeft: "50px" }}>
+      <h3 id="final-cost" style={{ marginLeft: "50px" }}>Your order cost was ${final}</h3>
+      <p id="est-time">
         Your estimated delivery time will be after you fall asleep, leave the
         house, or have something else to do. You may want to try ordering from
         your kitchen next time.
@@ -94,21 +91,11 @@ export function Checkout() {
             fontWeight: "900",
           }}
         >
-          Thanks for your tip! We don&apost pay our drivers, so 25% of your tips go
-          directly to them
+          Thanks for your tip! We don&apos;t pay our drivers, so 25% of your tips
+          go directly to them
         </div>
       )}
-      <img
-        src={map}
-        alt="deliverymap"
-        style={{
-          width: "800px",
-          marginLeft: "auto",
-          marginRight: "auto",
-          marginTop: "23px",
-          borderRadius: "12px",
-        }}
-      />
+      <img src={map} alt="deliverymap" id="mapIMG" />
 
       {showTip && (
         <>
@@ -120,72 +107,66 @@ export function Checkout() {
             }}
           >
             <span
-              style={{
-                fontWeight: "600",
-                marginLeft: "100px",
-              }}
+              
+              id="plstip"
             >
               Make sure to tip your WuberDriver
             </span>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                paddingTop: "12px",
-              }}
+            <div id="tipbox-holder"
+
             >
               <div className="tipBox">
-              <p className="tipLabel">13%</p>
-              <input
-                type="radio"
-                name="tip"
-                onClick={handleTipChange}
-                value={(subtotal * 0.13).toFixed(2)}
-                readOnly
-              />
-              <p className="tipValue">${(subtotal * 0.13).toFixed(2)}</p> 
-            </div>
-            <div className="tipBox">
-              <p className="tipLabel">56%</p>
-              <input
-                type="radio"
-                name="tip"
-                onClick={handleTipChange}
-                value={(subtotal * 0.56).toFixed(2)}
-                readOnly
-              />
-              <p className="tipValue">${(subtotal * 0.56).toFixed(2)}</p> 
-            </div>
-            <div className="tipBox">
-              <p className="tipLabel">100%</p>
-              <input
-                type="radio"
-                name="tip"
-                onClick={handleTipChange}
-                value={subtotal}
-                readOnly
-              />
-              <p className="tipValue">${subtotal}</p> 
-            </div>
-            <div className="tipBox">
-              <p className="tipLabel">Custom</p>
-              <label
-                style={{ marginLeft: "10px", paddingBottom: "4px" }}
-                htmlFor="tipInput"
-              >
-                Tip Amount:{" "}
+                <p className="tipLabel">13%</p>
                 <input
-                  style={{ marginLeft: "10px" }}
-                  id="tipInput"
-                  type="number"
-                  value={tip}
-                  min={0}
-                  onFocus={handleInputFocus}
-                  onChange={handleTipChange}
+                  type="radio"
+                  name="tip"
+                  onClick={handleTipChange}
+                  value={(subtotal * 0.13).toFixed(2)}
+                  readOnly
                 />
-                {error && <p className="error-message">{error}</p>}
-              </label>
-            </div>
+                <p className="tipValue">${(subtotal * 0.13).toFixed(2)}</p>
+              </div>
+              <div className="tipBox">
+                <p className="tipLabel">56%</p>
+                <input
+                  type="radio"
+                  name="tip"
+                  onClick={handleTipChange}
+                  value={(subtotal * 0.56).toFixed(2)}
+                  readOnly
+                />
+                <p className="tipValue">${(subtotal * 0.56).toFixed(2)}</p>
+              </div>
+              <div className="tipBox">
+                <p className="tipLabel">100%</p>
+                <input
+                  type="radio"
+                  name="tip"
+                  onClick={handleTipChange}
+                  value={subtotal}
+                  readOnly
+                />
+                <p className="tipValue">${subtotal}</p>
+              </div>
+              <div className="tipBox">
+                <p className="tipLabel">Custom</p>
+                <label
+                  style={{ marginLeft: "10px", paddingBottom: "4px" }}
+                  htmlFor="tipInput"
+                >
+                  Tip Amount:{" "}
+                  <input
+                    style={{ marginLeft: "10px" }}
+                    id="tipInput"
+                    type="number"
+                    value={tip}
+                    min={0}
+                    onFocus={handleInputFocus}
+                    onChange={handleTipChange}
+                  />
+                  {error && <p className="error-message">{error}</p>}
+                </label>
+              </div>
             </div>
           </div>
           <button
@@ -220,7 +201,6 @@ export function Checkout() {
           {navigationMessage} {countdown}
         </div>
       )}
-
     </div>
   );
 }
