@@ -1,7 +1,7 @@
 .devPFP {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
 }
 
 /* #devContainer {
@@ -9,7 +9,35 @@
 }*/
 
 .githubLink {
-    text-decoration: none;
-    color: black;
-    /* display: flex; */
+  text-decoration: none;
+  color: black;
+  font-size: 24px;
+  /* display: flex; */
+}
+
+.github-icon {
+  position: absolute;
+  margin-top: 30px;
+  left: 24px;
+}
+#devContainer {
+  margin-left: 12px;
+}
+
+h1 {
+  margin-top: 204px;
+  margin-left: 12px;
+}
+
+h2 {
+  margin-left: 12px;
+}
+
+.linkedin-icon {
+  position: absolute;
+  margin-top: 63px;
+  font-size: 20px;
+  color: black;
+  margin-left: 26px;
+  cursor: pointer;
 }
