@@ -27,21 +27,16 @@ function SignupFormModal() {
     if (password.length < 8 || password.length > 25 ) errorsObj.password = 'Please have your password be between 8 and 25 characters'
     if (username.length < 2 || username.length > 25) errorsObj.username = 'Please have your username be between 2 and 25 characters'
     if (address.length < 2 || address.length > 25) errorsObj.address = 'Please have your address be between 2 and 25 characters'
+    if (password != confirmPassword) errorsObj.confirmPassword = 'Passwords MUST be the same'
 
     setErrors(errorsObj)
 
 
-  },[email, firstname, lastname, password, username, address])
+  },[email, firstname, lastname, password, username, address, confirmPassword])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(email, username, firstname, lastname, address, role, password);
-    if (password !== confirmPassword) {
-      return setErrors({
-        confirmPassword:
-          "Confirm Password field must be the same as the Password field",
-      });
-    }
 
 
 
@@ -153,7 +148,7 @@ function SignupFormModal() {
             // required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && <p className='errors'>{errors.confirmPassword}</p>}
         <button
           type="submit"
           disabled={Object.values(errors).length > 0}
