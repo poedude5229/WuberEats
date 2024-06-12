@@ -194,12 +194,22 @@
   .detailspage-main-img {
     width: 100%;
     overflow: hidden;
+    margin-top: 18px;
   }
   #details-section {
     display: flex;
     flex-direction: column;
     width: 95%;
     align-content: space-around;
+  }
+  .description {
+    text-align: center;
+    margin-right: 10%;
+  }
+  .title-address {
+    text-align: center;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
   .menu-item-container {
     width: 70%;
