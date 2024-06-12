@@ -33,11 +33,12 @@ function Landing() {
       <section className="bigFlex" style={{ gap: "100px" }}>
         <div style={{ backgroundColor: "Orange" }} className="wube-cards">
           <span
-            className="wubeAdText"
+            className="wubeAdText orangeboxtext"
             style={{ marginTop: "95px", marginBottom: "0" }}
           >
             Wube that? Order that!
             <img
+              id="orangeboximg"
               style={{
                 width: "105px",
                 height: "105px",
@@ -49,6 +50,7 @@ function Landing() {
               alt="yea"
             />
             <button
+              id="trynewbtn"
               style={{
                 width: "150px",
                 height: "50px",
@@ -90,6 +92,7 @@ function Landing() {
           {/* <OpenModalMenuItem style={{}} */}
           {/* // itemText={ */}
           <button
+            id="wube-it-btn"
             style={{
               position: "absolute",
               marginLeft: "280px",
@@ -107,7 +110,7 @@ function Landing() {
               display: "flex",
               flexDirection: "row",
               fontWeight: "900",
-              zIndex: "1"
+              zIndex: "1",
             }}
             onClick={() => setWumboHide(!wumboHide)}
           >
@@ -124,22 +127,15 @@ function Landing() {
         <img
           src={wumbo}
           hidden={wumboHide}
+          id="hiddenborger"
           alt="hidden borger"
-          style={{
-            width: "55px",
-            height: "55px",
-            position: "absolute",
-            marginLeft: "1150px",
-            top: "340px",
-            cursor: "pointer",
-          }}
           onClick={() => setWumboHide(!wumboHide)}
         />
       </section>
       <h2 style={{ marginLeft: "30px", paddingTop: "20px" }}>New Arrivals</h2>
       <Carousel id="new" />
       <h2 style={{ marginLeft: "30px" }}>Our Restaurants</h2>
-      <section className="bigFlex">
+      <section className="bigFlex landing-res-container">
         {restaurants?.map((restaurant) => (
           <NavLink
             className="restaurant-card-container"

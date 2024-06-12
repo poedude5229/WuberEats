@@ -86,14 +86,7 @@ function Navigation() {
   };
   return (
     <nav id="sitenav">
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "center",
-        }}
-      >
+      <div id="sitenav-logo-link">
         <img
           onClick={() => navigate("/")}
           src={DarkSiteLogo}
@@ -171,14 +164,7 @@ function Navigation() {
             style={{ overflowY: "scroll" }}
           >
             {/* <span style={{width: "200px"}}>Ye Olde Cart</span> */}
-            <span
-              style={{
-                cursor: "pointer",
-                marginLeft: "264px",
-                fontSize: "20px",
-              }}
-              onClick={() => setCartOpen(false)}
-            >
+            <span id="cart-close-button" onClick={() => setCartOpen(false)}>
               X
             </span>
 
@@ -308,22 +294,8 @@ function Navigation() {
               <>
                 <span>Total Price: </span>
                 <span>${calculateTotalPrice()}</span>
-                <button
-                  style={{
-                    width: "160px",
-                    height: "40px",
-                    marginLeft: "65px",
-                    marginBottom: "24px",
-                    marginTop: "26px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "black",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "12px",
-                    cursor: "pointer",
-                  }}
+                <button id="checkout-cart-button"
+                  
                   onClick={() => {
                     localStorage.setItem("totalPrice", calculateTotalPrice());
                     dispatch(getThisOffMyScreen());

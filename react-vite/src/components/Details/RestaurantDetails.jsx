@@ -66,20 +66,19 @@ function Details() {
               <OpenModalMenuItem
                 itemText={
                   <div className="review-btn-con-for-details">
-                  <button
-                    style={{
-                      width: "200px",
-                      height: "50px",
-                      backgroundColor: "black",
-                      color: "white",
-                      border: "none",
-                      cursor: "pointer",
-                      borderRadius: "8px",
-                      
-                    }}
-                  >
-                    Leave a review!
-                  </button>
+                    <button
+                      style={{
+                        width: "200px",
+                        height: "50px",
+                        backgroundColor: "black",
+                        color: "white",
+                        border: "none",
+                        cursor: "pointer",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      Leave a review!
+                    </button>
                   </div>
                 }
                 modalComponent={<CreateReview />}
@@ -88,14 +87,7 @@ function Details() {
 
           <br />
           {selected?.reviews?.length > 0 && (
-            <div
-              style={{
-                border: "1px solid black",
-                width: "800px",
-                borderRadius: "12px",
-                paddingLeft: "8px",
-              }}
-            >
+            <div id="large-details-container">
               <h3 style={{ cursor: "pointer" }}>Reviews and Ratings</h3>
               {selected?.reviews?.map((review) => (
                 <>
@@ -118,32 +110,30 @@ function Details() {
                   </span>
                   <p>{review.review}</p>
                   <div className="review-btn-con">
-
-                  {currentUser && currentUser?.id === review?.user_id && (
-                    <OpenModalMenuItem
-                      itemText={<button>Update this review</button>}
-                      modalComponent={
-                        <UpdateAReview
-                          reviewId={review?.id}
-                          restaurantId={selected?.id}
-                          review={review?.review}
-                        />
-                      }
-                    />
-                  )}
-                  {currentUser && currentUser?.id === review?.user_id && (
-                    <OpenModalMenuItem
-                      itemText={<button>Delete this review</button>}
-                      modalComponent={
-                        <DeleteReview
-                          restaurantId={selected?.id}
-                          reviewId={review.id}
-                        />
-                      }
-                    />
-                  )}
-                  
-                </div>
+                    {currentUser && currentUser?.id === review?.user_id && (
+                      <OpenModalMenuItem
+                        itemText={<button>Update this review</button>}
+                        modalComponent={
+                          <UpdateAReview
+                            reviewId={review?.id}
+                            restaurantId={selected?.id}
+                            review={review?.review}
+                          />
+                        }
+                      />
+                    )}
+                    {currentUser && currentUser?.id === review?.user_id && (
+                      <OpenModalMenuItem
+                        itemText={<button>Delete this review</button>}
+                        modalComponent={
+                          <DeleteReview
+                            restaurantId={selected?.id}
+                            reviewId={review.id}
+                          />
+                        }
+                      />
+                    )}
+                  </div>
                 </>
               ))}
             </div>
@@ -152,24 +142,17 @@ function Details() {
       </div>
       <section id="details-section">
         {menu?.map((item) => (
-          <div
-            key={item.id}
-            className="menu-item-container"
-            style={{ width: "400px" }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: "400px",
-              }}
-            >
+          <div key={item.id} className="menu-item-container">
+            <div className="menu-item-details">
               <img className="menu-item-image" src={item.image_url} alt="" />{" "}
               {currentUser && currentUser?.id !== selected?.owner_id && (
                 <span
-                  className="dot"
-                  style={{ cursor: "pointer", position: "absolute" }}
+                  className="dot cart-add-button"
+                  style={{
+                    cursor: "pointer",
+                    position: "absolute",
+                    width: "40px",
+                  }}
                   onClick={() => dispatch(addToCartThunk(item.id))}
                 >
                   <p
@@ -185,39 +168,16 @@ function Details() {
               )}
               {Object.values(cartState).length > 0 &&
                 Object.keys(cartState).includes(String(item.id)) && (
-                  <span className="dot">{cartState[item.id].count}</span>
+                  <span className="dot cart-count-span">
+                    {cartState[item.id].count}
+                  </span>
                 )}
             </div>
             <p className="menu-item-name">{item.name}</p>
             <p className="menu-item-price">${item.price}</p>
             <div className="menu-items-con-l">
-            {currentUser?.id === selected?.owner_id && (
-              <NavLink
-                style={{
-                  display: "flex",
-                  alignContent: "center",
-                  justifyContent: "center",
-                  border: "1 px solid black",
-                  width: "150px",
-                  height: "45px",
-                  backgroundColor: "black",
-                  color: "white",
-                  textDecoration: "none",
-                  textAlign: "center",
-                  borderRadius: "12px",
-                  alignItems: "center",
-                  fontSize: "14px"
-
-                }}
-                to={`/restaurants/${selected?.id}/menus/${item.id}/update`}
-              >
-                Update Menu Item
-              </NavLink>
-            )}
-            {currentUser?.id === selected?.owner_id && (
-              <OpenModalMenuItem
-                itemText={
-                  <button
+              {currentUser?.id === selected?.owner_id && (
+                <NavLink
                   style={{
                     display: "flex",
                     alignContent: "center",
@@ -232,34 +192,59 @@ function Details() {
                     borderRadius: "12px",
                     alignItems: "center",
                     fontSize: "14px",
-                    cursor: 'pointer'
                   }}
-                  >
-                    Delete Menu Item
-                  </button>
-                }
-                className="delete-btn-getall"
-                modalComponent={
-                  <DeleteAMenu restaurantId={+selected?.id} menuId={item.id} />
-                }
-              />
-            )}
+                  to={`/restaurants/${selected?.id}/menus/${item.id}/update`}
+                >
+                  Update Menu Item
+                </NavLink>
+              )}
+              {currentUser?.id === selected?.owner_id && (
+                <OpenModalMenuItem
+                  itemText={
+                    <button
+                      style={{
+                        display: "flex",
+                        alignContent: "center",
+                        justifyContent: "center",
+                        border: "1 px solid black",
+                        width: "150px",
+                        height: "45px",
+                        backgroundColor: "black",
+                        color: "white",
+                        textDecoration: "none",
+                        textAlign: "center",
+                        borderRadius: "12px",
+                        alignItems: "center",
+                        fontSize: "14px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Delete Menu Item
+                    </button>
+                  }
+                  className="delete-btn-getall"
+                  modalComponent={
+                    <DeleteAMenu
+                      restaurantId={+selected?.id}
+                      menuId={item.id}
+                    />
+                  }
+                />
+              )}
             </div>
           </div>
         ))}
-        </section>
-        <div className="buttons-con">
-          <div className="owned-restaurant-edit">
+      </section>
+      <div className="buttons-con">
+        <div className="owned-restaurant-edit">
           {currentUser?.id === selected?.owner_id && (
-           
-              <NavLink
-                style={{ color: "white", textDecoration: "none" }}
-                to={`/restaurants/${selected?.id}/update`}
-                className={'update-restaurant-link'}
-              >
-                Update Your Restaurant
-              </NavLink>
-           
+            <NavLink
+              style={{ color: "white", textDecoration: "none" }}
+              to={`/restaurants/${selected?.id}/update`}
+              className={"update-restaurant-link"}
+            >
+              Update Your Restaurant
+            </NavLink>
           )}
           <div className="delete-button-container">
             {currentUser?.id === selected?.owner_id && (
@@ -284,13 +269,17 @@ function Details() {
               />
             )}
             {currentUser?.id === selected?.owner_id && (
-              <NavLink className={'lol-class'} style={{}} to={`/restaurants/${selected?.id}/menu/new`}>
+              <NavLink
+                className={"lol-class"}
+                style={{}}
+                to={`/restaurants/${selected?.id}/menu/new`}
+              >
                 Create a menu item
               </NavLink>
             )}
-            </div>
           </div>
         </div>
+      </div>
     </>
   );
 }
