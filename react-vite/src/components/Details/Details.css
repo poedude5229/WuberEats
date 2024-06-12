@@ -46,6 +46,7 @@
 
 .dot {
   background-color: grey;
+  transition-duration: 2000ms;
 }
 
 .review-btn-con {
@@ -122,6 +123,13 @@
   padding-right: 65px;
 }
 
+.cart-count-span {
+  width: 40px !important;
+  position: absolute !important;
+  margin-top: 8px;
+  margin-left: 17%;
+}
+
 .create-menu-restaurant {
   text-decoration: none;
   padding: 15px;
@@ -156,8 +164,53 @@
   justify-content: space-between;
   width: 100%;
 }
-@media screen and (max-width: 1437px) {
+@media screen and (max-width: 1023px) {
+  .details-container {
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+  }
+  .detailspage-main-img {
+    width: 100%;
+    height: 50%;
+  }
 }
 
-@media screen and (min-width: 1438px) {
+@media screen and (max-width: 800px) {
+  .details-container {
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    right: 5%;
+    margin-top: 160px !important;
+    border-radius: 20px !important;
+  }
+  .details-container h1 {
+    font-size: 30px;
+    margin-left: 48px;
+  }
+  .detailspage-main-img {
+    width: 100%;
+    overflow: hidden;
+  }
+  #details-section {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    align-content: space-around;
+  }
+  .menu-item-container {
+    width: 70%;
+  }
+  #large-details-container {
+    width: 95%;
+  }
+}
+
+@media screen and (max-width: 973px) {
+  #large-details-container {
+    border: 1px solid black;
+    width: 95%;
+  }
 }

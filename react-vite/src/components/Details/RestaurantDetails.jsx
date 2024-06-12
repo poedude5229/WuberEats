@@ -148,7 +148,11 @@ function Details() {
               {currentUser && currentUser?.id !== selected?.owner_id && (
                 <span
                   className="dot cart-add-button"
-                  style={{ cursor: "pointer", position: "absolute" }}
+                  style={{
+                    cursor: "pointer",
+                    position: "absolute",
+                    width: "40px",
+                  }}
                   onClick={() => dispatch(addToCartThunk(item.id))}
                 >
                   <p
@@ -164,7 +168,9 @@ function Details() {
               )}
               {Object.values(cartState).length > 0 &&
                 Object.keys(cartState).includes(String(item.id)) && (
-                  <span className="dot">{cartState[item.id].count}</span>
+                  <span className="dot cart-count-span">
+                    {cartState[item.id].count}
+                  </span>
                 )}
             </div>
             <p className="menu-item-name">{item.name}</p>

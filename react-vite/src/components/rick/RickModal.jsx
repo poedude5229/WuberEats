@@ -3,7 +3,7 @@ function RickModal() {
   return (
     <>
       <video
-        style={{ pointerEvents: "none",  }}
+        style={{ pointerEvents: "none", }}
         src={rr}
         controls={false}
         autoPlay
