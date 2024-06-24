@@ -104,7 +104,7 @@ function Navigation() {
           {/* <RiArrowDropDownLine /> */}
         </div>
       )}
-      <div id="searchbox">
+      {/* <div id="searchbox">
         <input
           id="wubesearch"
           style={{
@@ -126,7 +126,7 @@ function Navigation() {
           src={magnifyingglasssolid}
           alt="The search icon"
         />
-      </div>
+      </div> */}
       {user && (
         <div
           id="shopping-cart-container"
@@ -295,7 +295,7 @@ function Navigation() {
                 <span>Total Price: </span>
                 <span>${calculateTotalPrice()}</span>
                 <button id="checkout-cart-button"
-                  
+
                   onClick={() => {
                     localStorage.setItem("totalPrice", calculateTotalPrice());
                     dispatch(getThisOffMyScreen());
